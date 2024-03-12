@@ -1,0 +1,689 @@
+fileFormatVersion: 2
+guid: 2fd52cc658a78b84aad3b2ba1f9e1e38
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:AnimationClip
+      assembly: UnityEngine.AnimationModule
+      name: barrelshoot_Clip
+    second: {fileID: 7400000, guid: d0d0b0f7932fb2844b8b67fa6914bbfe, type: 2}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
+    isReadable: 0
+    streamingMipmaps: 0
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    ignoreMipmapLimit: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 1
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    cookieMode: 0
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  previousAsepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  asepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  importFileNodeState: 1
+  platformSettingsDirtyTick: 638424676334125859
+  textureAssetName: 
+  singleSpriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  animatedSpriteImportData:
+  - name: barrelshoot_Frame_0
+    originalName: 
+    pivot: {x: 0.5, y: -0.33333334}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 84
+      y: 125
+      width: 32
+      height: 30
+    spriteID: b0ea37ed27b4a1944866ec94799ed1f3
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 84, y: 125}
+  - name: barrelshoot_Frame_1
+    originalName: 
+    pivot: {x: 0.5, y: -0.33333334}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 84
+      y: 163
+      width: 32
+      height: 30
+    spriteID: f9b1e7732d681b74e94bebb27509e3ed
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 84, y: 163}
+  - name: barrelshoot_Frame_2
+    originalName: 
+    pivot: {x: 0.5, y: -0.29032257}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 84
+      y: 86
+      width: 32
+      height: 31
+    spriteID: 21f323470ce49bb429099e3e40342859
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 84, y: 86}
+  - name: barrelshoot_Frame_3
+    originalName: 
+    pivot: {x: 0.5, y: -0.21212122}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 32
+      height: 33
+    spriteID: 2493c59577e2c2246bd29857e86d8156
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 4}
+  - name: barrelshoot_Frame_4
+    originalName: 
+    pivot: {x: 0.5, y: -0.21212122}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 45
+      width: 32
+      height: 33
+    spriteID: f7f9bc8d19ebcc24a8afaffc19e2deef
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 45}
+  - name: barrelshoot_Frame_5
+    originalName: 
+    pivot: {x: 0.5, y: -0.21212122}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 86
+      width: 32
+      height: 33
+    spriteID: f5db718722ecce54b855a91e9b8c9619
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 86}
+  - name: barrelshoot_Frame_6
+    originalName: 
+    pivot: {x: 0.5, y: -0.21212122}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 127
+      width: 32
+      height: 33
+    spriteID: 20a9fef2b9b7a244c82473fc9003789f
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 127}
+  - name: barrelshoot_Frame_7
+    originalName: 
+    pivot: {x: 0.5, y: -0.21212122}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 168
+      width: 32
+      height: 33
+    spriteID: 099ba27df86a97647bc7f390e1f0a7a8
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 168}
+  - name: barrelshoot_Frame_8
+    originalName: 
+    pivot: {x: 0.5, y: -0.21212122}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 209
+      width: 32
+      height: 33
+    spriteID: 6687d43d600404043ba671da2f5a48ee
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 209}
+  - name: barrelshoot_Frame_9
+    originalName: 
+    pivot: {x: 0.5, y: -0.21212122}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 44
+      y: 4
+      width: 32
+      height: 33
+    spriteID: 7fead6df3d367f64085a4727eee29ada
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 44, y: 4}
+  - name: barrelshoot_Frame_10
+    originalName: 
+    pivot: {x: 0.5, y: -0.21212122}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 44
+      y: 45
+      width: 32
+      height: 33
+    spriteID: a44400df9302d9c4eb27e1e177aba17a
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 44, y: 45}
+  - name: barrelshoot_Frame_11
+    originalName: 
+    pivot: {x: 0.5, y: -0.21212122}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 44
+      y: 86
+      width: 32
+      height: 33
+    spriteID: 5c986609257f3374fa37b8f33ed8597a
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 44, y: 86}
+  - name: barrelshoot_Frame_12
+    originalName: 
+    pivot: {x: 0.5, y: -0.21212122}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 44
+      y: 127
+      width: 32
+      height: 33
+    spriteID: 2dd803fed97341d4496463942296ca56
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 44, y: 127}
+  - name: barrelshoot_Frame_13
+    originalName: 
+    pivot: {x: 0.5, y: -0.21212122}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 44
+      y: 168
+      width: 32
+      height: 33
+    spriteID: cfdd66f072074a9459b2033f8606fa04
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 44, y: 168}
+  - name: barrelshoot_Frame_14
+    originalName: 
+    pivot: {x: 0.5, y: -0.21212122}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 44
+      y: 209
+      width: 32
+      height: 33
+    spriteID: aa141bdc22a2ccd479466172c8e32cd1
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 44, y: 209}
+  - name: barrelshoot_Frame_15
+    originalName: 
+    pivot: {x: 0.5, y: -0.21212122}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 84
+      y: 4
+      width: 32
+      height: 33
+    spriteID: c43abdcd39736824d911173abb420ece
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 84, y: 4}
+  - name: barrelshoot_Frame_16
+    originalName: 
+    pivot: {x: 0.5, y: -0.21212122}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 84
+      y: 45
+      width: 32
+      height: 33
+    spriteID: 5208e8af5f20894488f24b487ee41b22
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 84, y: 45}
+  spriteSheetImportData: []
+  asepriteLayers:
+  - layerIndex: 0
+    guid: 157093941
+    name: barrelshoot
+    layerFlags: 0
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: barrelshoot_Frame_0
+      frameIndex: 0
+      cellRect:
+        x: 0
+        y: 10
+        width: 32
+        height: 30
+      spriteId: b0ea37ed27b4a1944866ec94799ed1f3
+    - name: barrelshoot_Frame_1
+      frameIndex: 1
+      cellRect:
+        x: 0
+        y: 10
+        width: 32
+        height: 30
+      spriteId: f9b1e7732d681b74e94bebb27509e3ed
+    - name: barrelshoot_Frame_2
+      frameIndex: 2
+      cellRect:
+        x: 0
+        y: 9
+        width: 32
+        height: 31
+      spriteId: 21f323470ce49bb429099e3e40342859
+    - name: barrelshoot_Frame_3
+      frameIndex: 3
+      cellRect:
+        x: 0
+        y: 7
+        width: 32
+        height: 33
+      spriteId: 2493c59577e2c2246bd29857e86d8156
+    - name: barrelshoot_Frame_4
+      frameIndex: 4
+      cellRect:
+        x: 0
+        y: 7
+        width: 32
+        height: 33
+      spriteId: f7f9bc8d19ebcc24a8afaffc19e2deef
+    - name: barrelshoot_Frame_5
+      frameIndex: 5
+      cellRect:
+        x: 0
+        y: 7
+        width: 32
+        height: 33
+      spriteId: f5db718722ecce54b855a91e9b8c9619
+    - name: barrelshoot_Frame_6
+      frameIndex: 6
+      cellRect:
+        x: 0
+        y: 7
+        width: 32
+        height: 33
+      spriteId: 20a9fef2b9b7a244c82473fc9003789f
+    - name: barrelshoot_Frame_7
+      frameIndex: 7
+      cellRect:
+        x: 0
+        y: 7
+        width: 32
+        height: 33
+      spriteId: 099ba27df86a97647bc7f390e1f0a7a8
+    - name: barrelshoot_Frame_8
+      frameIndex: 8
+      cellRect:
+        x: 0
+        y: 7
+        width: 32
+        height: 33
+      spriteId: 6687d43d600404043ba671da2f5a48ee
+    - name: barrelshoot_Frame_9
+      frameIndex: 9
+      cellRect:
+        x: 0
+        y: 7
+        width: 32
+        height: 33
+      spriteId: 7fead6df3d367f64085a4727eee29ada
+    - name: barrelshoot_Frame_10
+      frameIndex: 10
+      cellRect:
+        x: 0
+        y: 7
+        width: 32
+        height: 33
+      spriteId: a44400df9302d9c4eb27e1e177aba17a
+    - name: barrelshoot_Frame_11
+      frameIndex: 11
+      cellRect:
+        x: 0
+        y: 7
+        width: 32
+        height: 33
+      spriteId: 5c986609257f3374fa37b8f33ed8597a
+    - name: barrelshoot_Frame_12
+      frameIndex: 12
+      cellRect:
+        x: 0
+        y: 7
+        width: 32
+        height: 33
+      spriteId: 2dd803fed97341d4496463942296ca56
+    - name: barrelshoot_Frame_13
+      frameIndex: 13
+      cellRect:
+        x: 0
+        y: 7
+        width: 32
+        height: 33
+      spriteId: cfdd66f072074a9459b2033f8606fa04
+    - name: barrelshoot_Frame_14
+      frameIndex: 14
+      cellRect:
+        x: 0
+        y: 7
+        width: 32
+        height: 33
+      spriteId: aa141bdc22a2ccd479466172c8e32cd1
+    - name: barrelshoot_Frame_15
+      frameIndex: 15
+      cellRect:
+        x: 0
+        y: 7
+        width: 32
+        height: 33
+      spriteId: c43abdcd39736824d911173abb420ece
+    - name: barrelshoot_Frame_16
+      frameIndex: 16
+      cellRect:
+        x: 0
+        y: 7
+        width: 32
+        height: 33
+      spriteId: 5208e8af5f20894488f24b487ee41b22
+    linkedCells: []
+    parentIndex: -1
+  platformSettings:
+  - name: DefaultTexturePlatform
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: Standalone
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: Server
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: Android
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: WebGL
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: Windows Store Apps
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  secondarySpriteTextures: []
+  spritePackingTag: 
+  canvasSize: {x: 32, y: 40}

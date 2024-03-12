@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: b9d4d29e56e8296449d9f6b333bc1943
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - Player: {instanceID: 0}
+  - default_player: {fileID: 985147293967283205, guid: d79a53577c16e4e40b250fcf57b9dc39, type: 3}
+  - mainMenuSpawnPoint: {instanceID: 0}
+  - gameSceneSpawnPoint: {instanceID: 0}
+  - rewardSceneSpawnPoint: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
