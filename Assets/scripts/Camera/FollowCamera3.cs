@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class FollowCamera3 : MonoBehaviour
@@ -11,9 +8,9 @@ public class FollowCamera3 : MonoBehaviour
     private Transform offsetPoint;
     [SerializeField]
     bool start = false;
-    float offset =0;
+    float offset = 0;
     [SerializeField]
-    float speed=5;
+    float speed = 5;
     private bool followObject;
     public bool GetFollowObject()
     {
@@ -36,7 +33,7 @@ public class FollowCamera3 : MonoBehaviour
     {
         return !boolean;
     }
-    
+
     private void Start()
     {
         Target = GameObject.FindGameObjectWithTag("Player").transform;
@@ -46,7 +43,7 @@ public class FollowCamera3 : MonoBehaviour
 
     private void Update()
     {
-        
+
     }
     // Update is called once per frame
     void LateUpdate()
@@ -89,10 +86,10 @@ public class FollowCamera3 : MonoBehaviour
 
 
         }
-         
-            
-             
-             
+
+
+
+
 
 
 
@@ -107,5 +104,5 @@ public class FollowCamera3 : MonoBehaviour
 
 
     }
-    
+
 }

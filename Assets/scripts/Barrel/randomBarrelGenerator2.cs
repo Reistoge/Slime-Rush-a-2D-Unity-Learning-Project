@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class randomBarrelGenerator2 : MonoBehaviour
@@ -12,7 +9,7 @@ public class randomBarrelGenerator2 : MonoBehaviour
     [SerializeField]
     private int amount;
     [SerializeField]
-    int min_force,max_force=50;
+    int min_force, max_force = 50;
 
     [SerializeField]
     Transform spawn_point;
@@ -26,7 +23,7 @@ public class randomBarrelGenerator2 : MonoBehaviour
 
 
         barrel_spawner();
-        
+
     }
     void barrel_spawner()
     {

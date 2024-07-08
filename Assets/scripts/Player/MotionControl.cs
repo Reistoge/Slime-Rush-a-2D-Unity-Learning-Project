@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MotionControl : MonoBehaviour
@@ -9,10 +7,10 @@ public class MotionControl : MonoBehaviour
     [SerializeField]
     Vector2 movX;
     [SerializeField]
-    int speedMov=1;
+    int speedMov = 1;
     void Start()
     {
-          
+
     }
 
     // Update is called once per frame
@@ -21,6 +19,6 @@ public class MotionControl : MonoBehaviour
         movX = Input.acceleration;
         movX.y = 0;
 
-        transform.Translate(movX*speedMov);
+        transform.Translate(movX * speedMov);
     }
 }

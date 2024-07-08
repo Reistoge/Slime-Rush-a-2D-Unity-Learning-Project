@@ -1,12 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
- 
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class BarrelDiagonal : MonoBehaviour
 {
-  
+
     // Adjust this to change speed
     private float _speed = 2f;
 
@@ -15,10 +11,10 @@ public class BarrelDiagonal : MonoBehaviour
 
     // The initial offset of the object
     private float _offsetY;
-    private float _offsetX; 
+    private float _offsetX;
 
     [SerializeField]
-    int _direction=1;
+    int _direction = 1;
 
     public int Direction
     {
@@ -28,7 +24,7 @@ public class BarrelDiagonal : MonoBehaviour
 
     void Start()
     {
-       
+
         _offsetY = transform.position.y;
         _offsetX = transform.position.x;
     }
@@ -43,10 +39,10 @@ public class BarrelDiagonal : MonoBehaviour
 
         // Calculate the new y position using a sine function
         float newY = _offsetY + _heigth * Mathf.Sin(Time.time * _speed);
-        float newX= _offsetX + _heigth * Mathf.Sin(Time.time * _speed);
+        float newX = _offsetX + _heigth * Mathf.Sin(Time.time * _speed);
 
         // Set the new position of the object
-        transform.position = new Vector3(_direction*newX, newY, pos.z) ;
+        transform.position = new Vector3(_direction * newX, newY, pos.z);
     }
 
 }

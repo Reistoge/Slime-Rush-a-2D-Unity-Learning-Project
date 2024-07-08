@@ -1,9 +1,4 @@
-using Microsoft.Unity.VisualStudio.Editor;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
 using Image = UnityEngine.UI.Image;
 
 public class ArrowSelector : MonoBehaviour
@@ -40,8 +35,8 @@ public class ArrowSelector : MonoBehaviour
         int selector_length = Characters_pool.GetComponent<CharacterSelector>().PlayersToSelect1.Length;
 
         // check the index to dont have errors
-        if (Characters_pool.GetComponent<CharacterSelector>().PosRight + 2 <=selector_length)
-        {   
+        if (Characters_pool.GetComponent<CharacterSelector>().PosRight + 2 <= selector_length)
+        {
             // we sum the pos of the right and left pivot
             Characters_pool.GetComponent<CharacterSelector>().PosLeft += 2;
             Characters_pool.GetComponent<CharacterSelector>().PosRight += 2;
@@ -54,17 +49,17 @@ public class ArrowSelector : MonoBehaviour
             // the ints are to reduce the line of code 
             int PosLeft = Characters_pool.GetComponent<CharacterSelector>().PosLeft;
             int PosRight = Characters_pool.GetComponent<CharacterSelector>().PosRight;
-            
+
             // we get the component with the image of the pool.
             SpriteRenderer leftImage = Characters_pool.GetComponent<CharacterSelector>().PlayersToSelect1[PosLeft].GetComponent<SpriteRenderer>();
             SpriteRenderer rightImage = Characters_pool.GetComponent<CharacterSelector>().PlayersToSelect1[PosRight].GetComponent<SpriteRenderer>();
-            
+
             // we change the sprite as well of the buttons of the same pos of the pool
             Character_left.GetComponent<Image>().sprite = leftImage.sprite;
             Character_right.GetComponent<Image>().sprite = rightImage.sprite;
 
         }
-        
+
 
 
 
@@ -74,7 +69,7 @@ public class ArrowSelector : MonoBehaviour
     public void LeftButton()
     {
 
-        int selector_length=Characters_pool.GetComponent<CharacterSelector>().PlayersToSelect1.Length;
+        int selector_length = Characters_pool.GetComponent<CharacterSelector>().PlayersToSelect1.Length;
         if (Characters_pool.GetComponent<CharacterSelector>().PosLeft - 2 >= 0)
         {
             Characters_pool.GetComponent<CharacterSelector>().PosLeft -= 2;
@@ -89,7 +84,7 @@ public class ArrowSelector : MonoBehaviour
             Character_left.GetComponent<Image>().sprite = leftImage.sprite;
             Character_right.GetComponent<Image>().sprite = rightImage.sprite;
         }
-        
+
 
         //Character_left.GetComponent<Image>().sprite = leftImage.sprite;
         //Character_right.GetComponent<Image>().sprite = rightImage.sprite;

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class gettingComponents : MonoBehaviour
@@ -11,7 +9,7 @@ public class gettingComponents : MonoBehaviour
     private Transform Transform;
     void Start()
     {
-       Transform= GetComponent<Transform>();
+        Transform = GetComponent<Transform>();
     }
 
     // Update is called once per frame

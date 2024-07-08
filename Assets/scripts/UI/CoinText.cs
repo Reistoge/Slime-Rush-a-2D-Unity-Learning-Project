@@ -1,9 +1,5 @@
-using JetBrains.Annotations;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class CoinText : MonoBehaviour
 {
@@ -25,7 +21,7 @@ public class CoinText : MonoBehaviour
         PlayerScript.OnPlayerGetCoin -= UpdateCoinText;
     }
 
-  
+
     public void UpdateCoinText(int coins)
 
     {
@@ -33,8 +29,8 @@ public class CoinText : MonoBehaviour
         // if the coins value is 1 add 1;
         // there could be a coin that value more;
         currentCoin++;
-        GameManager.instance.PlayerCoins1=currentCoin;
+        GameManager.instance.PlayerCoins1 = currentCoin;
         coinText.text = currentCoin.ToString();
-        Debug.Log("trigger coin event");
+        Debug.Log(" + 1 coin");
     }
 }

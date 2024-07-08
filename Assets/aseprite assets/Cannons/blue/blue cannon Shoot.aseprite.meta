@@ -1,0 +1,812 @@
+fileFormatVersion: 2
+guid: 7290325f50bbfb44992cd7fbd22ff4be
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
+    isReadable: 0
+    streamingMipmaps: 0
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    ignoreMipmapLimit: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 1
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    cookieMode: 0
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  previousAsepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  asepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  importFileNodeState: 1
+  platformSettingsDirtyTick: 638480939505887107
+  textureAssetName: 
+  singleSpriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  animatedSpriteImportData:
+  - name: blue cannon Shoot_Frame_0
+    originalName: 
+    pivot: {x: 0.54761904, y: -0.17021276}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 42
+      height: 47
+    spriteID: 9035be9d7c50e864491c2a8dfee891c8
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 4}
+  - name: blue cannon Shoot_Frame_1
+    originalName: 
+    pivot: {x: 0.54761904, y: -0.17021276}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 59
+      width: 42
+      height: 47
+    spriteID: e5c427b4bd124f94f983f7c66c968c25
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 59}
+  - name: blue cannon Shoot_Frame_2
+    originalName: 
+    pivot: {x: 0.54761904, y: -0.17021276}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 114
+      width: 42
+      height: 47
+    spriteID: 4e465262f14b0fa499c9de9d4f3b17cf
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 114}
+  - name: blue cannon Shoot_Frame_3
+    originalName: 
+    pivot: {x: 0.53658533, y: -0.17021276}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 224
+      width: 41
+      height: 47
+    spriteID: 5a91c82d7eae7c741bb52dedf1fd1407
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 224}
+  - name: blue cannon Shoot_Frame_4
+    originalName: 
+    pivot: {x: 0.54761904, y: -0.17021276}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 169
+      width: 42
+      height: 47
+    spriteID: fc632e5a561143e418b043cf828da45e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 169}
+  - name: blue cannon Shoot_Frame_5
+    originalName: 
+    pivot: {x: 0.5, y: -0.17021276}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 279
+      width: 38
+      height: 47
+    spriteID: 773b784cf4322e54699bccc8a88cc4f2
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 279}
+  - name: blue cannon Shoot_Frame_6
+    originalName: 
+    pivot: {x: 0.4864865, y: -0.17021276}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 102
+      y: 372
+      width: 37
+      height: 47
+    spriteID: 18dc0cbff0737a9468e1391a95f69c2b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 102, y: 372}
+  - name: blue cannon Shoot_Frame_7
+    originalName: 
+    pivot: {x: 0.4864865, y: -0.17021276}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 102
+      y: 427
+      width: 37
+      height: 47
+    spriteID: bd9c80b9376061747af73938653fdb2d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 102, y: 427}
+  - name: blue cannon Shoot_Frame_8
+    originalName: 
+    pivot: {x: 0.5, y: -0.18181819}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 54
+      y: 4
+      width: 40
+      height: 44
+    spriteID: 5247b9547350c204bb1575a95ce94db5
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 54, y: 4}
+  - name: blue cannon Shoot_Frame_9
+    originalName: 
+    pivot: {x: 0.5, y: -0.1904762}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 390
+      width: 42
+      height: 42
+    spriteID: e669925f5ffdb6a4980be578a3deb26c
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 390}
+  - name: blue cannon Shoot_Frame_10
+    originalName: 
+    pivot: {x: 0.5, y: -0.21052632}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 102
+      y: 4
+      width: 46
+      height: 38
+    spriteID: 7d76ee08e52ab51469b91015bf07c58d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 102, y: 4}
+  - name: blue cannon Shoot_Frame_11
+    originalName: 
+    pivot: {x: 0.47826087, y: -0.21052632}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 102
+      y: 50
+      width: 46
+      height: 38
+    spriteID: da7c7975530573c449f30a91da57f76d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 102, y: 50}
+  - name: blue cannon Shoot_Frame_12
+    originalName: 
+    pivot: {x: 0.5, y: -0.21052632}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 102
+      y: 96
+      width: 46
+      height: 38
+    spriteID: 54610cf836fecf048a692ae4dd0ab1f0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 102, y: 96}
+  - name: blue cannon Shoot_Frame_13
+    originalName: 
+    pivot: {x: 0.5, y: -0.23684211}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 102
+      y: 142
+      width: 46
+      height: 38
+    spriteID: 80dc4867bc63dcb4088465be05150d99
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 102, y: 142}
+  - name: blue cannon Shoot_Frame_14
+    originalName: 
+    pivot: {x: 0.5, y: -0.21052632}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 102
+      y: 188
+      width: 46
+      height: 38
+    spriteID: b7d4a7326e3fdd14692f923da30f356d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 102, y: 188}
+  - name: blue cannon Shoot_Frame_15
+    originalName: 
+    pivot: {x: 0.5, y: -0.21052632}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 102
+      y: 234
+      width: 46
+      height: 38
+    spriteID: d22b47d5804b2e64ca3f555b0de2065c
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 102, y: 234}
+  - name: blue cannon Shoot_Frame_16
+    originalName: 
+    pivot: {x: 0.5217391, y: -0.21052632}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 102
+      y: 280
+      width: 46
+      height: 38
+    spriteID: 177e4c967ec06a34b952551da2dec8ba
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 102, y: 280}
+  - name: blue cannon Shoot_Frame_17
+    originalName: 
+    pivot: {x: 0.5, y: -0.21052632}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 102
+      y: 326
+      width: 46
+      height: 38
+    spriteID: cd1c86a278d88ea4e9dd3c3f636d50d7
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 102, y: 326}
+  - name: blue cannon Shoot_Frame_18
+    originalName: 
+    pivot: {x: 0.5, y: -0.2777778}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 156
+      y: 4
+      width: 42
+      height: 36
+    spriteID: 656e33c6fda51504faf8717935bbcabf
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 156, y: 4}
+  - name: blue cannon Shoot_Frame_19
+    originalName: 
+    pivot: {x: 0.5, y: -0.2857143}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 440
+      width: 42
+      height: 42
+    spriteID: 52132498bf4b64c41a372895bdfcc859
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 440}
+  - name: blue cannon Shoot_Frame_20
+    originalName: 
+    pivot: {x: 0.5, y: -0.29545456}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 54
+      y: 56
+      width: 40
+      height: 44
+    spriteID: 0ea9a5c277eafc747b5fce86f9e35ce3
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 54, y: 56}
+  - name: blue cannon Shoot_Frame_21
+    originalName: 
+    pivot: {x: 0.4864865, y: -0.2916667}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 334
+      width: 37
+      height: 48
+    spriteID: 21ce2fa033c362a44a60d8942c3e8f68
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 334}
+  spriteSheetImportData: []
+  asepriteLayers:
+  - layerIndex: 0
+    guid: 584920008
+    name: blue cannon Shoot
+    layerFlags: 0
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: blue cannon Shoot_Frame_0
+      frameIndex: 0
+      cellRect:
+        x: 9
+        y: 8
+        width: 42
+        height: 47
+      spriteId: 9035be9d7c50e864491c2a8dfee891c8
+    - name: blue cannon Shoot_Frame_1
+      frameIndex: 1
+      cellRect:
+        x: 9
+        y: 8
+        width: 42
+        height: 47
+      spriteId: e5c427b4bd124f94f983f7c66c968c25
+    - name: blue cannon Shoot_Frame_2
+      frameIndex: 2
+      cellRect:
+        x: 9
+        y: 8
+        width: 42
+        height: 47
+      spriteId: 4e465262f14b0fa499c9de9d4f3b17cf
+    - name: blue cannon Shoot_Frame_3
+      frameIndex: 3
+      cellRect:
+        x: 10
+        y: 8
+        width: 41
+        height: 47
+      spriteId: 5a91c82d7eae7c741bb52dedf1fd1407
+    - name: blue cannon Shoot_Frame_4
+      frameIndex: 4
+      cellRect:
+        x: 9
+        y: 8
+        width: 42
+        height: 47
+      spriteId: fc632e5a561143e418b043cf828da45e
+    - name: blue cannon Shoot_Frame_5
+      frameIndex: 5
+      cellRect:
+        x: 13
+        y: 8
+        width: 38
+        height: 47
+      spriteId: 773b784cf4322e54699bccc8a88cc4f2
+    - name: blue cannon Shoot_Frame_6
+      frameIndex: 6
+      cellRect:
+        x: 14
+        y: 8
+        width: 37
+        height: 47
+      spriteId: 18dc0cbff0737a9468e1391a95f69c2b
+    - name: blue cannon Shoot_Frame_7
+      frameIndex: 7
+      cellRect:
+        x: 14
+        y: 8
+        width: 37
+        height: 47
+      spriteId: bd9c80b9376061747af73938653fdb2d
+    - name: blue cannon Shoot_Frame_8
+      frameIndex: 8
+      cellRect:
+        x: 12
+        y: 8
+        width: 40
+        height: 44
+      spriteId: 5247b9547350c204bb1575a95ce94db5
+    - name: blue cannon Shoot_Frame_9
+      frameIndex: 9
+      cellRect:
+        x: 11
+        y: 8
+        width: 42
+        height: 42
+      spriteId: e669925f5ffdb6a4980be578a3deb26c
+    - name: blue cannon Shoot_Frame_10
+      frameIndex: 10
+      cellRect:
+        x: 9
+        y: 8
+        width: 46
+        height: 38
+      spriteId: 7d76ee08e52ab51469b91015bf07c58d
+    - name: blue cannon Shoot_Frame_11
+      frameIndex: 11
+      cellRect:
+        x: 10
+        y: 8
+        width: 46
+        height: 38
+      spriteId: da7c7975530573c449f30a91da57f76d
+    - name: blue cannon Shoot_Frame_12
+      frameIndex: 12
+      cellRect:
+        x: 9
+        y: 8
+        width: 46
+        height: 38
+      spriteId: 54610cf836fecf048a692ae4dd0ab1f0
+    - name: blue cannon Shoot_Frame_13
+      frameIndex: 13
+      cellRect:
+        x: 9
+        y: 9
+        width: 46
+        height: 38
+      spriteId: 80dc4867bc63dcb4088465be05150d99
+    - name: blue cannon Shoot_Frame_14
+      frameIndex: 14
+      cellRect:
+        x: 9
+        y: 8
+        width: 46
+        height: 38
+      spriteId: b7d4a7326e3fdd14692f923da30f356d
+    - name: blue cannon Shoot_Frame_15
+      frameIndex: 15
+      cellRect:
+        x: 9
+        y: 8
+        width: 46
+        height: 38
+      spriteId: d22b47d5804b2e64ca3f555b0de2065c
+    - name: blue cannon Shoot_Frame_16
+      frameIndex: 16
+      cellRect:
+        x: 8
+        y: 8
+        width: 46
+        height: 38
+      spriteId: 177e4c967ec06a34b952551da2dec8ba
+    - name: blue cannon Shoot_Frame_17
+      frameIndex: 17
+      cellRect:
+        x: 9
+        y: 8
+        width: 46
+        height: 38
+      spriteId: cd1c86a278d88ea4e9dd3c3f636d50d7
+    - name: blue cannon Shoot_Frame_18
+      frameIndex: 18
+      cellRect:
+        x: 11
+        y: 10
+        width: 42
+        height: 36
+      spriteId: 656e33c6fda51504faf8717935bbcabf
+    - name: blue cannon Shoot_Frame_19
+      frameIndex: 19
+      cellRect:
+        x: 11
+        y: 12
+        width: 42
+        height: 42
+      spriteId: 52132498bf4b64c41a372895bdfcc859
+    - name: blue cannon Shoot_Frame_20
+      frameIndex: 20
+      cellRect:
+        x: 12
+        y: 13
+        width: 40
+        height: 44
+      spriteId: 0ea9a5c277eafc747b5fce86f9e35ce3
+    - name: blue cannon Shoot_Frame_21
+      frameIndex: 21
+      cellRect:
+        x: 14
+        y: 14
+        width: 37
+        height: 48
+      spriteId: 21ce2fa033c362a44a60d8942c3e8f68
+    linkedCells: []
+    parentIndex: -1
+  platformSettings:
+  - name: DefaultTexturePlatform
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: Standalone
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: Server
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: Android
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: WebGL
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  secondarySpriteTextures: []
+  spritePackingTag: 
+  canvasSize: {x: 64, y: 64}

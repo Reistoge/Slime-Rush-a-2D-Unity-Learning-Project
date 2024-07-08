@@ -1,17 +1,15 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public class FirstCannon : BarrelScript
+public class FirstCannon : Cannon
 {
-     IEnumerator firstBarrelRotate;
+    IEnumerator firstBarrelRotate;
     void Update()
     {
 
 
 
-        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) && inBarrel  )
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) && inBarrel)
         {
 
 
@@ -40,7 +38,7 @@ public class FirstCannon : BarrelScript
     }
     private void Start()
     {
-        createQueue(Oscilate_and_vel);
+        createQueueRotateAngle(Oscilate_and_vel);
 
     }
 
@@ -48,20 +46,20 @@ public class FirstCannon : BarrelScript
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-             
+
 
             PlayerEnterBarrel(collision);
 
-             
-            OnEnterFirstBarrel?.Invoke();
-             
 
-            firstBarrelRotate = DequeueCoroutines(coroutineQueue,rotDelay,Oscilate_and_vel);
+            OnEnterFirstBarrel?.Invoke();
+
+
+            firstBarrelRotate = DequeueCoroutines(coroutineQueue, rotDelay, Oscilate_and_vel);
 
             StartCoroutine(firstBarrelRotate);
         }
 
-        
+
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -97,7 +95,7 @@ public class FirstCannon : BarrelScript
     public void FirstShoot()
     {
 
-         
+
         StopCoroutine(firstBarrelRotate);
         PlayerBody.constraints = RigidbodyConstraints2D.None;
         inBarrel = false;
@@ -111,10 +109,7 @@ public class FirstCannon : BarrelScript
 
 
         print("barrel Shoot first" % Colorize.Magenta);
-        if (Player != null)
-        {
-            Player.GetComponent<PlayerScript>().Dashing = false;
-        }
+         
 
 
 

@@ -49,9 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayersToSelect:
-  - {fileID: 985147293967283205, guid: d79a53577c16e4e40b250fcf57b9dc39, type: 3}
-  - {fileID: 5968896361580350741, guid: 077fad8594ec35a4ba7babba33c9f109, type: 3}
-  - {fileID: 985147293967283205, guid: c9bd09c9131f70a4baf339ae90bff093, type: 3}
-  - {fileID: 985147293967283205, guid: c9bd09c9131f70a4baf339ae90bff093, type: 3}
+  - {fileID: 5838150465340594182, guid: 5ce0dbc62fb35024a88ef901ef4fdc35, type: 3}
+  - {fileID: 486331414305399792, guid: 3a4877c701c79d64d9fc7dae13de7eb9, type: 3}
   PlayerLeft: {fileID: 0}
   PlayerRight: {fileID: 0}

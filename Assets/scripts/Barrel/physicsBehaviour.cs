@@ -1,13 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Burst.CompilerServices;
-using Unity.VisualScripting;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
-using UnityEngine.UIElements;
-using static physicsBehaviour;
-using static UnityEngine.Rendering.DebugUI;
 [RequireComponent(typeof(Rigidbody2D))]
 public class physicsBehaviour : MonoBehaviour
 {
@@ -17,20 +11,21 @@ public class physicsBehaviour : MonoBehaviour
     // documentar y arreglar esta wea, funciona magicamente.
 
     [Serializable]
-    public class Values{
-        [SerializeField] public  float Angles;
-        [SerializeField] public  float Velocity;
+    public class Values
+    {
+        [SerializeField] public float Angles;
+        [SerializeField] public float Velocity;
     }
     [SerializeField] Values[] Oscilate_and_vel;
-     
-    
-     Queue<IEnumerator> coroutineQueue = new Queue<IEnumerator>();
+
+
+    Queue<IEnumerator> coroutineQueue = new Queue<IEnumerator>();
 
     void createQueue(Values[] values)
     {
 
         IEnumerator coroutine = null;
-        foreach(Values v in values)
+        foreach (Values v in values)
         {
             coroutine = RotateToAngle(v.Angles, v.Velocity);
             coroutineQueue.Enqueue(coroutine);
@@ -38,12 +33,12 @@ public class physicsBehaviour : MonoBehaviour
     }
     IEnumerator DequeueCoroutines(Queue<IEnumerator> CoroutineQueue, float delay, Values[] values)
     {
-        
+
         while (coroutineQueue.Count > 0)
         {
             yield return new WaitForSeconds(0.1f + delay);
             yield return coroutineQueue.Dequeue();
-            if(coroutineQueue.Count == 1)
+            if (coroutineQueue.Count == 1)
             {
                 createQueue(values);
             }
@@ -54,31 +49,31 @@ public class physicsBehaviour : MonoBehaviour
 
 
 
-    
 
 
 
-     
-
-     
 
 
-    
+
+
+
+
+
     [Header("Debug RotateAngles")]
     [SerializeField] float angles;
     [SerializeField] float rotateAngleSpeed;
     protected IEnumerator RotateToAngle(float finalRotation, float rotSpeed)
     {
-        if (finalRotation == 180 || finalRotation==-180)
+        if (finalRotation == 180 || finalRotation == -180)
         {
-            finalRotation *= -1;    
+            finalRotation *= -1;
         }
         yield return new WaitForSeconds(1f); // Optional delay before starting rotation
-        
+
         // Calculate the initial rotation adjustment
         float currentRotation = transform.rotation.eulerAngles.z;
         float rot = finalRotation - currentRotation;
-        
+
 
 
 
@@ -109,7 +104,7 @@ public class physicsBehaviour : MonoBehaviour
 
         // wrong
         Quaternion endRot = Quaternion.Euler(0f, 0f, rotation + transform.rotation.eulerAngles.z);
-        print("parameter: "+rotation+"  current Rotation: "+transform.rotation.eulerAngles.z +" final Rotation:"+endRot.eulerAngles.z);
+        print("parameter: " + rotation + "  current Rotation: " + transform.rotation.eulerAngles.z + " final Rotation:" + endRot.eulerAngles.z);
         // print(endRot.eulerAngles);
         // Rotate clockwise 
 
@@ -259,7 +254,7 @@ public class physicsBehaviour : MonoBehaviour
 
     [Min(0.05f), Tooltip("time that take to the object to start rotating again  (in the opposite direction) ")]
     [SerializeField] public float delay;
-    protected IEnumerator RotateToAngleBetween(GameObject Object,float OscilateDegrees1, float OscilateDegrees2, float Velocity)
+    protected IEnumerator RotateToAngleBetween(GameObject Object, float OscilateDegrees1, float OscilateDegrees2, float Velocity)
     {
         //precise.
 
@@ -283,26 +278,26 @@ public class physicsBehaviour : MonoBehaviour
         }
 
     }
- 
-   
+
+
     private void Start()
     {
-        
+
         createQueue(Oscilate_and_vel);
         StartCoroutine(DequeueCoroutines(coroutineQueue, 1, Oscilate_and_vel));
-         
 
-        
+
+
 
     }
 
-     
+
     // Update is called once per frame
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
-             
+
 
             StopAllCoroutines();
 

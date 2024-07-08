@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnPlayer : MonoBehaviour
@@ -7,6 +5,6 @@ public class SpawnPlayer : MonoBehaviour
     // Start is called before the first frame update
     public void spawn()
     {
-        GameManager.instance.spawnPlayer(Vector3.zero,"normal");
+        GameManager.instance.spawnPlayer(Vector3.zero, "normal");
     }
 }

@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class MainMenuCannon : BarrelScript
+public class MainMenuCannon : Cannon
 {
     // Start is called before the first frame update
     private void OnTriggerEnter2D(Collider2D collision)
@@ -16,7 +14,7 @@ public class MainMenuCannon : BarrelScript
             PlayerEnterBarrel(collision);
 
             BarrelShootPlayer();
- 
+
 
         }
     }

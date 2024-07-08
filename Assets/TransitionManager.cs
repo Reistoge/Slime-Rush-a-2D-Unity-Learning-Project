@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 public class TransitionManager : MonoBehaviour
 {
@@ -20,19 +19,19 @@ public class TransitionManager : MonoBehaviour
             //if already exist, destroy everytime an scene is created
             Destroy(gameObject);
         }
-         
+
     }
     public void ExecuteTransition1()
     {
         gameObject.GetComponent<Animator>().SetTrigger("trans1");
-        
+
 
 
     }
     public void ResetTriggerTrans1()
     {
         gameObject.GetComponent<Animator>().ResetTrigger("trans1");
-        
+
 
 
 

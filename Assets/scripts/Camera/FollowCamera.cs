@@ -1,24 +1,21 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FollowCamera : MonoBehaviour
 {
-    [SerializeField]    
+    [SerializeField]
     private Rigidbody2D ObjectToFollow;
     Vector3 temPos;
-    
+
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
     private void LateUpdate()
     {
@@ -32,15 +29,15 @@ public class FollowCamera : MonoBehaviour
         // why we can cange pos.x of the tempPos ?
         // because temPos is simply a variable with data is not the gameobject.
         // Tempos not only is the pos of the object, also Tempos has the methods
-        
+
         if (ObjectToFollow != null)
         {
-            
+
             // how we can acces to PlayerMovement variables ??.
-            temPos=transform.position;
-            temPos.x= ObjectToFollow.position.x;
+            temPos = transform.position;
+            temPos.x = ObjectToFollow.position.x;
             transform.position = temPos;
-            
+
 
 
             /*

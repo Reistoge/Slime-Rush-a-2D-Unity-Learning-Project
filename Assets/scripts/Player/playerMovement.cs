@@ -1,24 +1,17 @@
-
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
-
 using UnityEngine;
 
 public class playerMovement : MonoBehaviour
 {
     // barrel
-    
-      
-    
-    
+
+
+
+
 
     //
-    
+
     //all the things that use gravity, physics and other things, you use in fixed update.
-    
+
     public float SPEED_AMOUNT = 300f;
     public float speed8 = 0f;
     public float jumpSpeed;
@@ -37,17 +30,17 @@ public class playerMovement : MonoBehaviour
     public Vector2 speed2;
 
     //create a vector and a quaternion null to the set the initial position and initialrotation.
-    
-    
+
+
     public int movement;
     float movX;
-     
-     
+
+
     [SerializeField] string moveInput;
 
     // variables for jumping
 
-    private bool canJump=true;
+    private bool canJump = true;
 
     // Start is called before the first frame update
     [SerializeField]
@@ -58,14 +51,14 @@ public class playerMovement : MonoBehaviour
 
 
     void Start()
-    {   
-        
-        
-        
-         
+    {
+
+
+
+
         rb = gameObject.GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-             
+
         //the vectors will store the initial position of the object
         //initialPosition = transform.position;
         //initialRotation = transform.rotation;
@@ -76,42 +69,45 @@ public class playerMovement : MonoBehaviour
 
     {
         currentVel = rb.velocity;
-        movX=Input.GetAxisRaw("Horizontal");
-        
+        movX = Input.GetAxisRaw("Horizontal");
+
         if (Input.GetKey("1"))
         {
             jumpSpeed = 0;
-           SPEED_AMOUNT= 1;
-            
+            SPEED_AMOUNT = 1;
+
             print("movement set to 1, change position, physics independent");
             movement = 1;
 
         }
-        if(Input.GetKey("2"))
+        if (Input.GetKey("2"))
         {
             print("movement set to 2, constant velocity, set velocity");
             movement = 2;
         }
-        if(Input.GetKey("3"))
+        if (Input.GetKey("3"))
         {
             print("movement set to 3, adds velocity every seconds, accelerates.");
             movement = 3;
 
         }
-        if(Input.GetKey("4")){
+        if (Input.GetKey("4"))
+        {
             print("movement set to 4 add force");
-            movement=4;
+            movement = 4;
         }
-        if(Input.GetKey("5")){
+        if (Input.GetKey("5"))
+        {
             print("movement set to 5, adds impulse");
 
-            movement=5;
+            movement = 5;
             jumpSpeed = 30f;
-           SPEED_AMOUNT= 100f;
+            SPEED_AMOUNT = 100f;
         }
-        if(Input.GetKey("6")){
+        if (Input.GetKey("6"))
+        {
             print("movement set to 6");
-            movement=6;
+            movement = 6;
         }
         if (Input.GetKey("7"))
         {
@@ -150,33 +146,34 @@ public class playerMovement : MonoBehaviour
             }
             if (Input.GetKey(KeyCode.S))
             {
-                transform.Translate(Vector2.down* Time.deltaTime * jumpSpeed);
+                transform.Translate(Vector2.down * Time.deltaTime * jumpSpeed);
             }
         }
-        if(movement ==6){
-            
-            rb.AddForce(new Vector3( Input.GetAxis("Horizontal") * speed2.x * Time.deltaTime, 0, Input.GetAxis("Vertical") *speed2.y* Time.deltaTime));
-        
+        if (movement == 6)
+        {
+
+            rb.AddForce(new Vector3(Input.GetAxis("Horizontal") * speed2.x * Time.deltaTime, 0, Input.GetAxis("Vertical") * speed2.y * Time.deltaTime));
+
         }
         if (movement == 8)
         {
-            transform.Translate(new Vector3(movX, 0, 0)*Time.deltaTime*speed8);
+            transform.Translate(new Vector3(movX, 0, 0) * Time.deltaTime * speed8);
 
         }
-        
+
 
         //max velocities.
 
 
         if (rb.velocity.x >= MAX_X_AXIS_VELOCITY)
         {
-            rb.velocity =new Vector2(MAX_X_AXIS_VELOCITY, rb.velocity.y);
-            
+            rb.velocity = new Vector2(MAX_X_AXIS_VELOCITY, rb.velocity.y);
+
         }
         if (rb.velocity.x <= -MAX_X_AXIS_VELOCITY)
         {
             rb.velocity = new Vector2(-MAX_X_AXIS_VELOCITY, rb.velocity.y);
-            
+
         }
         if (rb.angularVelocity >= MAX_ANGULAR_VELOCITY)
         {
@@ -190,16 +187,16 @@ public class playerMovement : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        
+
         if (movement == 8)
         {
             if (Input.GetButtonDown("Jump") && canJump)
             {
-                 
+
                 canJump = false;
-                rb.AddForce(new Vector3(0, jumpspeed8, 0),ForceMode2D.Impulse);
+                rb.AddForce(new Vector3(0, jumpspeed8, 0), ForceMode2D.Impulse);
             }
-            
+
 
         }
 
@@ -208,10 +205,10 @@ public class playerMovement : MonoBehaviour
             // if in the y axis you put 0 the object in the midair when you move it it will start to float becasue in the air
             // the the velocity is setting to 2 in the x axis and 0 in the y axis instead of being negative in the y axis due gravity.
 
-            
+
             Vector2 right = new Vector2(SPEED_AMOUNT * Time.deltaTime, rb.velocity.y);
             Vector2 left = new Vector2(-SPEED_AMOUNT * Time.deltaTime, rb.velocity.y);
-            Vector2 up = new Vector2(rb.velocity.x,SPEED_AMOUNT * Time.deltaTime);
+            Vector2 up = new Vector2(rb.velocity.x, SPEED_AMOUNT * Time.deltaTime);
             Vector2 down = new Vector2(rb.velocity.x, -SPEED_AMOUNT * Time.deltaTime);
 
 
@@ -281,27 +278,27 @@ public class playerMovement : MonoBehaviour
         {
             // add force
             #region Movement 4 code "add force"
-           SPEED_AMOUNT= 500;
+            SPEED_AMOUNT = 500;
 
             if (Input.GetKey(KeyCode.D))
             {
-                rb.AddForce(Vector2.right * Time.deltaTime *SPEED_AMOUNT,ForceMode2D.Force);
+                rb.AddForce(Vector2.right * Time.deltaTime * SPEED_AMOUNT, ForceMode2D.Force);
 
             }
             if (Input.GetKey(KeyCode.A))
             {
 
-                rb.AddForce(Vector2.left * Time.deltaTime *SPEED_AMOUNT,ForceMode2D.Force);
+                rb.AddForce(Vector2.left * Time.deltaTime * SPEED_AMOUNT, ForceMode2D.Force);
 
             }
             if (Input.GetKey(KeyCode.W))
             {
-                rb.AddForce(Vector2.up * Time.deltaTime *SPEED_AMOUNT,ForceMode2D.Force);
+                rb.AddForce(Vector2.up * Time.deltaTime * SPEED_AMOUNT, ForceMode2D.Force);
 
             }
             if (Input.GetKey(KeyCode.S))
             {
-                rb.AddForce(Vector2.down * Time.deltaTime *SPEED_AMOUNT,ForceMode2D.Force);
+                rb.AddForce(Vector2.down * Time.deltaTime * SPEED_AMOUNT, ForceMode2D.Force);
 
             }
 
@@ -314,23 +311,23 @@ public class playerMovement : MonoBehaviour
             #region Movement 5 code "add impulse"
             if (Input.GetKey(KeyCode.D))
             {
-                
-                rb.AddForce(Vector2.right * Time.deltaTime *SPEED_AMOUNT,ForceMode2D.Impulse);
+
+                rb.AddForce(Vector2.right * Time.deltaTime * SPEED_AMOUNT, ForceMode2D.Impulse);
 
             }
             if (Input.GetKey(KeyCode.A))
             {
-                rb.AddForce(Vector2.left * Time.deltaTime *SPEED_AMOUNT,ForceMode2D.Impulse);
+                rb.AddForce(Vector2.left * Time.deltaTime * SPEED_AMOUNT, ForceMode2D.Impulse);
 
             }
             if (Input.GetKey(KeyCode.W))
             {
-                rb.AddForce(Vector2.up * Time.deltaTime *SPEED_AMOUNT,ForceMode2D.Impulse);
+                rb.AddForce(Vector2.up * Time.deltaTime * SPEED_AMOUNT, ForceMode2D.Impulse);
 
             }
             if (Input.GetKey(KeyCode.S))
             {
-                rb.AddForce(Vector2.down * Time.deltaTime *SPEED_AMOUNT,ForceMode2D.Impulse);
+                rb.AddForce(Vector2.down * Time.deltaTime * SPEED_AMOUNT, ForceMode2D.Impulse);
 
             }
             if (Input.GetKeyDown(KeyCode.Space))
@@ -353,8 +350,8 @@ public class playerMovement : MonoBehaviour
             //section 1: horizontal move
             // when the user hits the "A" or "B" button
             #region Horizontal move
-            
-            
+
+
 
 
 
@@ -363,54 +360,54 @@ public class playerMovement : MonoBehaviour
                 sr.flipX = false;
                 anim.SetBool(MOVE_STRING, true);
                 moveInput = "Right";
-                rb.AddForce(Vector2.right * Time.deltaTime *SPEED_AMOUNT,ForceMode2D.Force);
+                rb.AddForce(Vector2.right * Time.deltaTime * SPEED_AMOUNT, ForceMode2D.Force);
 
                 // you want to verify when the player press the buttons when is also moving.
                 // by this way when you press the space or w it always be driven.
                 if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.Space))
                 {
-                  
+
                     if (moveInput == "Right")
                     {
-                        rb.AddForce(Vector2.right * Time.deltaTime *SPEED_AMOUNT,ForceMode2D.Impulse);
+                        rb.AddForce(Vector2.right * Time.deltaTime * SPEED_AMOUNT, ForceMode2D.Impulse);
                     }
                     if (moveInput == "Left")
                     {
-                        rb.AddForce(Vector2.left * Time.deltaTime *SPEED_AMOUNT,ForceMode2D.Impulse);
+                        rb.AddForce(Vector2.left * Time.deltaTime * SPEED_AMOUNT, ForceMode2D.Impulse);
                     }
 
 
                 }
-                 
+
 
             }
-            if (movX ==0)
+            if (movX == 0)
             {
                 anim.SetBool(MOVE_STRING, false);
             }
-             
+
 
             if (Input.GetKey(KeyCode.A))
             {
                 moveInput = "Left";
                 sr.flipX = true;
-                anim.SetBool(MOVE_STRING, true) ;
-                
-                rb.AddForce(Vector2.left * Time.deltaTime *SPEED_AMOUNT,ForceMode2D.Force);
+                anim.SetBool(MOVE_STRING, true);
+
+                rb.AddForce(Vector2.left * Time.deltaTime * SPEED_AMOUNT, ForceMode2D.Force);
                 if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.Space))
                 {
                     if (moveInput == "Right")
                     {
-                        rb.AddForce(Vector2.right * Time.deltaTime *SPEED_AMOUNT,ForceMode2D.Impulse);
+                        rb.AddForce(Vector2.right * Time.deltaTime * SPEED_AMOUNT, ForceMode2D.Impulse);
                     }
                     if (moveInput == "Left")
                     {
-                        rb.AddForce(Vector2.left * Time.deltaTime *SPEED_AMOUNT,ForceMode2D.Impulse);
+                        rb.AddForce(Vector2.left * Time.deltaTime * SPEED_AMOUNT, ForceMode2D.Impulse);
                     }
 
 
                 }
-                
+
 
 
             }
@@ -420,37 +417,37 @@ public class playerMovement : MonoBehaviour
 
             if (Input.GetKey(KeyCode.S))
             {
-                rb.AddForce(Vector2.down * Time.deltaTime *SPEED_AMOUNT* 0.5f, ForceMode2D.Impulse);
+                rb.AddForce(Vector2.down * Time.deltaTime * SPEED_AMOUNT * 0.5f, ForceMode2D.Impulse);
 
             }
 
-         
+
 
 
             // añadir una funcion que cuando tu apretes una tecla este aumente su escala, para asi pasar ciertos obstaculos.
             //añadir una funcion que cuando tu apretes espacio este vaya como acelerando como si fuese un hamster en una pelota
 
         }
-        
-  
+
+
 
         // section 3: vector that always points in head direction of the gameobject player.
-        
+
         // este vector siempre estara mirando hacia arriba del objeto como la normal.
         // direccion rotacion es un vector qu siempre esta mirando encima del gameobject
-        
 
-     
+
+
 
 
 
     }
- 
 
-     
 
-     
-    
+
+
+
+
     private void RotateObject(float rotationSpeed)
     {
         transform.Rotate(Vector3.forward * rotationSpeed * Time.deltaTime);
@@ -461,18 +458,18 @@ public class playerMovement : MonoBehaviour
         rb.angularVelocity = 0;
 
     }
-    
+
 
     // dos formas de verificar las colisiones entre objetos, puede ser mediante oncollisionenter que detecta cada vez que colisionan dos objetos con sus rb
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("ground"))
-             
+
         {   // si el gameobject de la collsion tiene un tag (ground)
-             
+
             canJump = true;
         }
-        
+
     }
     //Therefore, it is recommended to cache the
     //reference to the component in a private field

@@ -1,6 +1,5 @@
-using UnityEngine;
 using TMPro; // Import the TextMesh Pro namespace
-using Unity.VisualScripting;
+using UnityEngine;
 
 public class TextAnimation : MonoBehaviour
 {
@@ -17,16 +16,16 @@ public class TextAnimation : MonoBehaviour
 
     private void OnEnable()
     {
-        BarrelScript.OnEnterFirstBarrel += activate;
+        Cannon.OnEnterFirstBarrel += activate;
     }
     private void OnDisable()
     {
-        BarrelScript.OnEnterFirstBarrel -= activate;
+        Cannon.OnEnterFirstBarrel -= activate;
     }
     void Start()
     {
 
-        
+
         index = 0; // Start with the first message
         timer = delay; // Set the timer to the delay
         text.text = messages[index]; // Display the first message
@@ -35,17 +34,18 @@ public class TextAnimation : MonoBehaviour
     void Update()
     {
 
-  
-        if(Input.GetKeyUp(KeyCode.Space)) {
+
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
 
             Destroy(gameObject);
-            
+
         }
         // if scale is lower
         if (activate_bool)
         {
 
-            
+
 
             //at the first time when it 4 it changes because the 1 changes to fast at the start so basically it works !!
             // note: if i want to start from 3 the first in the string should be a 4
@@ -59,7 +59,7 @@ public class TextAnimation : MonoBehaviour
                     // if the index surpases the length of the index (it ends the message) then rest 1 to index(prevent error)
                     // and also desactivate the object because we dont need them anymore
                     index = index - 1;
-                    
+
                     Destroy(gameObject);
 
                 }
@@ -76,19 +76,19 @@ public class TextAnimation : MonoBehaviour
                 Switch = true;
             }
         }
-        
+
 
 
 
     }
- 
+
     void activate()
     {
         gameObject.GetComponent<Animator>().enabled = true;
         gameObject.GetComponent<TextMeshPro>().enabled = true;
         activate_bool = true;
 
-        
-        
+
+
     }
 }

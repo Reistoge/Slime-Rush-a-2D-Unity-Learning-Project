@@ -1,12 +1,8 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class TapScreen : MonoBehaviour
 {
- 
+
     void Update()
     {
         if (Input.anyKey)
@@ -15,7 +11,7 @@ public class TapScreen : MonoBehaviour
             Time.timeScale = 1f;
             Destroy(gameObject);
 
-        }  
+        }
     }
-    
+
 }

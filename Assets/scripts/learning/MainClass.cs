@@ -1,30 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 // Start is called before the first frame update
 public class EnemyClass
-{   
+{
 
     int health;
     int strength;
     string name_data;
     string weapon;
-   
+
 
     public EnemyClass()
     {
         // this is the default constructor, create a object with default values, this happens when you create an object without parameters.
         health = 1;
         strength = 1;
-        name_data= string.Empty;
+        name_data = string.Empty;
     }
-    public EnemyClass(string name,int health, int strength, string weapon)
+    public EnemyClass(string name, int health, int strength, string weapon)
     {
         //"this" refers to the main variable and the variable that we assign is the parameter.
         this.health = health;
-        this.strength = strength;  
-        this.name_data= name;
+        this.strength = strength;
+        this.name_data = name;
         this.weapon = weapon;
         //Debug.Log("you create a Enemy called: "+name);
         //Debug.Log("the health is "+ health);
@@ -38,7 +34,7 @@ public class EnemyClass
 
     // you can set the private variable by two forms, one by a variable and the other by a method, both have to be the public.
     // can you create a method that adds an rigidbody a sprite renderer all that stuff ??
-        
+
     // this happens because the attributes of the class enemy and also warrior(child class) are private so we cant acces and set to something by using a dot
     // we create a public variable that will set and call the private variable
 
@@ -53,13 +49,13 @@ public class EnemyClass
     }
     public string Weapon
     {
-        get { return weapon;}
+        get { return weapon; }
         set { weapon = value; }
     }
     public string Name
     {
         get { return name_data; }
-        set { name_data= value; }
+        set { name_data = value; }
     }
     public int Strength
     {
@@ -73,8 +69,8 @@ public class EnemyClass
     }
     public void setHealth(int value)
     {
-        value= health;
-         
+        value = health;
+
     }
 
     public string getName()
@@ -93,7 +89,7 @@ public class EnemyClass
     }
     public void setStrength(int value)
     {
-        value =strength;
+        value = strength;
 
     }
 
@@ -113,7 +109,7 @@ public class EnemyClass
     {
         //Debug.Log("The Enemy " + name_data+ " is attacking with a "+Weapon+" to "+TargetName);
     }
-    
+
 
     // override functions: a function that can  be changed in a inherited class
 
@@ -124,7 +120,7 @@ public class EnemyClass
     }
 
 
-     
+
 }
 
 

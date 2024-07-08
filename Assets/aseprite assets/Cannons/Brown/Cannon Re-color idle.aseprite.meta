@@ -1,0 +1,560 @@
+fileFormatVersion: 2
+guid: a98e9a74b7ff52b4bb3309e6a395494b
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
+    isReadable: 0
+    streamingMipmaps: 0
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    ignoreMipmapLimit: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 1
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    cookieMode: 0
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  previousAsepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  asepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  importFileNodeState: 1
+  platformSettingsDirtyTick: 638480939544067496
+  textureAssetName: 
+  singleSpriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  animatedSpriteImportData:
+  - name: Cannon Re-color idle_Frame_0
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 42
+      height: 47
+    spriteID: 403c206672d4c3946bc902f67cb64f49
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 4}
+  - name: Cannon Re-color idle_Frame_1
+    originalName: 
+    pivot: {x: 0.5121951, y: -0.17021276}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 169
+      width: 41
+      height: 47
+    spriteID: 22f07c8d0e3e4ae4aa17ef9e7b87ea20
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 169}
+  - name: Cannon Re-color idle_Frame_2
+    originalName: 
+    pivot: {x: 0.5, y: -0.17021276}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 54
+      y: 114
+      width: 40
+      height: 47
+    spriteID: 374c93f84d3621a4eb0c6b99592e9cb5
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 54, y: 114}
+  - name: Cannon Re-color idle_Frame_3
+    originalName: 
+    pivot: {x: 0.5, y: -0.17021276}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 54
+      y: 169
+      width: 40
+      height: 47
+    spriteID: c7ada9387af25f34aa28ed87df1a9a2b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 54, y: 169}
+  - name: Cannon Re-color idle_Frame_4
+    originalName: 
+    pivot: {x: 0.5, y: -0.17021276}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 103
+      y: 4
+      width: 40
+      height: 47
+    spriteID: 9cf85394afe9193429849a84a76b3d38
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 103, y: 4}
+  - name: Cannon Re-color idle_Frame_5
+    originalName: 
+    pivot: {x: 0.5, y: -0.17021276}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 103
+      y: 59
+      width: 40
+      height: 47
+    spriteID: 99bacadafa8b0ef4cab1f0a0b19c425e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 103, y: 59}
+  - name: Cannon Re-color idle_Frame_6
+    originalName: 
+    pivot: {x: 0.5121951, y: -0.17021276}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 54
+      y: 4
+      width: 41
+      height: 47
+    spriteID: c28b74ad14faf1342a4d45fdd2eb9a22
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 54, y: 4}
+  - name: Cannon Re-color idle_Frame_7
+    originalName: 
+    pivot: {x: 0.52380955, y: -0.17021276}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 59
+      width: 42
+      height: 47
+    spriteID: e306311c747333248957854b8f2ef0be
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 59}
+  - name: Cannon Re-color idle_Frame_8
+    originalName: 
+    pivot: {x: 0.5121951, y: -0.17021276}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 54
+      y: 59
+      width: 41
+      height: 47
+    spriteID: aff7b78767b699141b6d9ba67ecb0bdc
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 54, y: 59}
+  - name: Cannon Re-color idle_Frame_9
+    originalName: 
+    pivot: {x: 0.5, y: -0.17021276}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 103
+      y: 114
+      width: 40
+      height: 47
+    spriteID: 9c32d52fc87c6f14ea4d233adb73c983
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 103, y: 114}
+  - name: Cannon Re-color idle_Frame_10
+    originalName: 
+    pivot: {x: 0.5, y: -0.17021276}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 103
+      y: 169
+      width: 40
+      height: 47
+    spriteID: 15c8a171f3902d14ba38a695d99f8857
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 103, y: 169}
+  - name: Cannon Re-color idle_Frame_11
+    originalName: 
+    pivot: {x: 0.5, y: -0.17021276}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 151
+      y: 4
+      width: 40
+      height: 47
+    spriteID: 64fe5d99b0a9d7c4ab049b989e69d004
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 151, y: 4}
+  - name: Cannon Re-color idle_Frame_12
+    originalName: 
+    pivot: {x: 0.52380955, y: -0.17021276}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 114
+      width: 42
+      height: 47
+    spriteID: 8098c1c7a6043f8479e66221272ceaa7
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 114}
+  spriteSheetImportData: []
+  asepriteLayers:
+  - layerIndex: 0
+    guid: 1511904076
+    name: Cannon Re-color idle
+    layerFlags: 0
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: Cannon Re-color idle_Frame_0
+      frameIndex: 0
+      cellRect:
+        x: 10
+        y: 8
+        width: 42
+        height: 47
+      spriteId: 403c206672d4c3946bc902f67cb64f49
+    - name: Cannon Re-color idle_Frame_1
+      frameIndex: 1
+      cellRect:
+        x: 11
+        y: 8
+        width: 41
+        height: 47
+      spriteId: 22f07c8d0e3e4ae4aa17ef9e7b87ea20
+    - name: Cannon Re-color idle_Frame_2
+      frameIndex: 2
+      cellRect:
+        x: 12
+        y: 8
+        width: 40
+        height: 47
+      spriteId: 374c93f84d3621a4eb0c6b99592e9cb5
+    - name: Cannon Re-color idle_Frame_3
+      frameIndex: 3
+      cellRect:
+        x: 12
+        y: 8
+        width: 40
+        height: 47
+      spriteId: c7ada9387af25f34aa28ed87df1a9a2b
+    - name: Cannon Re-color idle_Frame_4
+      frameIndex: 4
+      cellRect:
+        x: 12
+        y: 8
+        width: 40
+        height: 47
+      spriteId: 9cf85394afe9193429849a84a76b3d38
+    - name: Cannon Re-color idle_Frame_5
+      frameIndex: 5
+      cellRect:
+        x: 12
+        y: 8
+        width: 40
+        height: 47
+      spriteId: 99bacadafa8b0ef4cab1f0a0b19c425e
+    - name: Cannon Re-color idle_Frame_6
+      frameIndex: 6
+      cellRect:
+        x: 11
+        y: 8
+        width: 41
+        height: 47
+      spriteId: c28b74ad14faf1342a4d45fdd2eb9a22
+    - name: Cannon Re-color idle_Frame_7
+      frameIndex: 7
+      cellRect:
+        x: 10
+        y: 8
+        width: 42
+        height: 47
+      spriteId: e306311c747333248957854b8f2ef0be
+    - name: Cannon Re-color idle_Frame_8
+      frameIndex: 8
+      cellRect:
+        x: 11
+        y: 8
+        width: 41
+        height: 47
+      spriteId: aff7b78767b699141b6d9ba67ecb0bdc
+    - name: Cannon Re-color idle_Frame_9
+      frameIndex: 9
+      cellRect:
+        x: 12
+        y: 8
+        width: 40
+        height: 47
+      spriteId: 9c32d52fc87c6f14ea4d233adb73c983
+    - name: Cannon Re-color idle_Frame_10
+      frameIndex: 10
+      cellRect:
+        x: 12
+        y: 8
+        width: 40
+        height: 47
+      spriteId: 15c8a171f3902d14ba38a695d99f8857
+    - name: Cannon Re-color idle_Frame_11
+      frameIndex: 11
+      cellRect:
+        x: 12
+        y: 8
+        width: 40
+        height: 47
+      spriteId: 64fe5d99b0a9d7c4ab049b989e69d004
+    - name: Cannon Re-color idle_Frame_12
+      frameIndex: 12
+      cellRect:
+        x: 10
+        y: 8
+        width: 42
+        height: 47
+      spriteId: 8098c1c7a6043f8479e66221272ceaa7
+    linkedCells: []
+    parentIndex: -1
+  platformSettings:
+  - name: DefaultTexturePlatform
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: Standalone
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: Server
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: Android
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: WebGL
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  secondarySpriteTextures: []
+  spritePackingTag: 
+  canvasSize: {x: 64, y: 64}

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CoinLeftRight : MonoBehaviour
@@ -18,7 +16,7 @@ public class CoinLeftRight : MonoBehaviour
     void Start()
     {
         speed = Random.Range(1, 3);
-        width = Random.Range(1,2);
+        width = Random.Range(1, 2);
         offset = transform.position.x;
     }
 
@@ -36,5 +34,5 @@ public class CoinLeftRight : MonoBehaviour
         //if you put the x on the y axis it makes thing weirds.
         transform.position = new Vector3(newx, pos.y, pos.z);
     }
-        
+
 }

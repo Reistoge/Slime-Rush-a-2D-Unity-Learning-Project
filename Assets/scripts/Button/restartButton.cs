@@ -1,12 +1,6 @@
-using JetBrains.Annotations;
 using System;
-using System.Collections;
-using System.Xml;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static Unity.VisualScripting.Member;
-using static UnityEditor.FilePathAttribute;
 
 
 public class restartButton : MonoBehaviour
@@ -16,7 +10,7 @@ public class restartButton : MonoBehaviour
     public static Action StopCoroutines;
     public void reloadscene()
     {
-        
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         PauseButton.game_paused = false;
         StopCoroutines?.Invoke();

@@ -1,34 +1,31 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FollowCamera2 : MonoBehaviour
 {
-    [SerializeField]    
+    [SerializeField]
     private Rigidbody2D ObjectToFollow;
     Vector3 temPos;
-     
+
     // Start is called before the first frame update
     void Start()
     {
-        ObjectToFollow=GameObject.FindWithTag("Player").GetComponent<Rigidbody2D>();
+        ObjectToFollow = GameObject.FindWithTag("Player").GetComponent<Rigidbody2D>();
     }
- 
- 
+
+
     void LateUpdate()
     {
-        
+
         if (ObjectToFollow != null)
         {
-            
-             
-            temPos=transform.position;
-            temPos.y= ObjectToFollow.position.y;
-            transform.position = temPos;
-            
 
- 
+
+            temPos = transform.position;
+            temPos.y = ObjectToFollow.position.y;
+            transform.position = temPos;
+
+
+
         }
     }
 

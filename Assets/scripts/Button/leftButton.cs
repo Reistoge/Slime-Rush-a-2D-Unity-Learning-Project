@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -8,7 +6,7 @@ public class leftButton : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
 {
     bool leftButtonPress;
     // Start is called before the first frame update
-    
+
 
     // Update is called once per frame
     void Update()
@@ -18,7 +16,7 @@ public class leftButton : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
 
             GameManager.instance.MovXButtons = -1;
         }
-         
+
     }
     void IPointerDownHandler.OnPointerDown(UnityEngine.EventSystems.PointerEventData eventData)
     {
@@ -27,7 +25,7 @@ public class leftButton : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
     }
     void IPointerUpHandler.OnPointerUp(UnityEngine.EventSystems.PointerEventData eventData)
     {
-         leftButtonPress= false;
-         GameManager.instance.MovXButtons = 0;
+        leftButtonPress = false;
+        GameManager.instance.MovXButtons = 0;
     }
 }

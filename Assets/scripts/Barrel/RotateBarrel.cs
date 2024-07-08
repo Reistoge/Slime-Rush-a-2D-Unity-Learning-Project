@@ -1,11 +1,6 @@
-using System.Collections;
-using System.Net.Sockets;
-using System.Runtime.CompilerServices;
- 
 using UnityEngine;
-using UnityEngine.Jobs;
 
-[RequireComponent(typeof(BarrelScript))]
+[RequireComponent(typeof(Cannon))]
 public class RotateBarrel : MonoBehaviour
 {
 
@@ -24,14 +19,14 @@ public class RotateBarrel : MonoBehaviour
     [SerializeField] private int switchDirection = 1;
 
     private bool activateRotation = true;
-    public bool ActivateRotation { get { return activateRotation; } set { activateRotation = value; }  }
+    public bool ActivateRotation { get { return activateRotation; } set { activateRotation = value; } }
 
-    
+
     private void Start()
     {
-        if (maxNegativeRot==-180)
+        if (maxNegativeRot == -180)
         {
-            maxNegativeRot = -179; 
+            maxNegativeRot = -179;
         }
         if (maxPositiveRot == 180)
         {
@@ -58,9 +53,9 @@ public class RotateBarrel : MonoBehaviour
 
         rotationSpeed *= randomDirection;
 
-        if (transform.GetComponent<BarrelScript>().Is_First)
+        if (transform.GetComponent<Cannon>().Is_First)
         {
-            
+
             randomDirection = 1;
             rotationSpeed = 60f;
         }
@@ -107,10 +102,10 @@ public class RotateBarrel : MonoBehaviour
         {
             transform.position = transform.position;
         }
-        
-        
 
-        
+
+
+
 
 
     }
@@ -118,15 +113,15 @@ public class RotateBarrel : MonoBehaviour
     {
         activateRotation = !activateRotation;
     }
-   
+
 
 
 
 
 
 }
-    
-    
+
+
 
 
 
