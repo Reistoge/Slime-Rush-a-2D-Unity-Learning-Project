@@ -138,19 +138,19 @@ public class Cannon : MonoBehaviour
     {
 
         GameManager.instance.LastUsedBarrel = this.gameObject;
-        Player = collision.gameObject;
         inBarrel = true;
 
         GameManager.instance.InBarrel = inBarrel;
+        // make a call from player.
+        Player = collision.gameObject;
         Player.transform.position = transform.position;
 
 
 
         transform.GetChild(0).gameObject.SetActive(true);
-        collision.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        collision.gameObject.GetComponent<PlayerScript>().Sr.enabled = false;
+
         collision.gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
-
-
 
         collision.gameObject.GetComponent<Rigidbody2D>().angularVelocity = 0;
         PlayerBody = collision.gameObject.GetComponent<Rigidbody2D>();
@@ -295,7 +295,7 @@ public class Cannon : MonoBehaviour
 
         Player.GetComponent<Rigidbody2D>().drag = initD;
         Player.GetComponent<Rigidbody2D>().gravityScale = initG;
-        Player.GetComponent<PlayerScript>().GetComponent<Animator>().SetBool("dash", false);
+        Player.GetComponent<PlayerScript>().Anim.SetBool("dash", false);
         Player.GetComponent<PlayerScript>().GetComponent<PlayerScript>().Dash = false;
         //Player.GetComponent<Rigidbody2D>().velocity = dashDirection/2;
 
@@ -317,7 +317,7 @@ public class Cannon : MonoBehaviour
         if (Player != null)
         {
 
-            Player.GetComponent<PlayerScript>().GetComponent<Animator>().SetTrigger("dash");
+            Player.GetComponent<PlayerScript>().GetComponent<PlayerScript>().Anim.SetTrigger("dash");
             Player.GetComponent<PlayerScript>().GetComponent<PlayerScript>().Dash = true;
 
             
@@ -353,7 +353,7 @@ public class Cannon : MonoBehaviour
         // event.
 
 
-        PlayerBody.GetComponent<SpriteRenderer>().enabled = true;
+        PlayerBody.GetComponent<PlayerScript>().Sr.enabled = true;
 
 
 

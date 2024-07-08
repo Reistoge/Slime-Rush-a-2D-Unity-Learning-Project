@@ -21,9 +21,9 @@ public class PlayerScript : MonoBehaviour
     //object references:
     [SerializeField] GameObject Player;
     [SerializeField] Rigidbody2D rb;
-    [SerializeField] private Animator anim;
+    [SerializeField] Animator anim;
     [SerializeField] AudioSource bounceSfx;
-    private SpriteRenderer sr;
+    [SerializeField] SpriteRenderer sr;
 
 
     //int & floats:
@@ -71,8 +71,7 @@ public class PlayerScript : MonoBehaviour
         GameManager.instance.PlayerLife = hp;
         Player = GameObject.FindWithTag("Player");
         rb = gameObject.GetComponent<Rigidbody2D>();
-        sr = gameObject.GetComponent<SpriteRenderer>();
-        anim = gameObject.GetComponent<Animator>();
+        
 
         movementSpeed = GameManager.instance.PlayerSpeed;
        
@@ -252,6 +251,8 @@ public class PlayerScript : MonoBehaviour
     public int Hp { get => hp; set => hp = value; }
     public int MaxHp { get => maxHp; set => maxHp = value; }
     public bool Dash { get => dash; set => dash = value; }
+    public SpriteRenderer Sr { get => sr; set => sr = value; }
+    public Animator Anim { get => anim; set => anim = value; }
 
 
 
