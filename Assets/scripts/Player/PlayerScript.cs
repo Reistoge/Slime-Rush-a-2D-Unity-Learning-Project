@@ -1,20 +1,23 @@
 
 using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.SocialPlatforms.Impl;
 
 
-public class PlayerScript : MonoBehaviour 
+public class PlayerScript : MonoBehaviour,IDamageable 
 {
-
+    // how can i check if the player is touched ?
     public static Action<int> OnPlayerGetCoin;
     public static Action<int> OnPlayerIsDamaged;
     public static Action<int> OnEnemyIsDamaged;
     public static Action OnPlayerDied;
-    int playerDamage;
+    [SerializeField] int playerDamage;
     int hp;
     int maxHp;
     [SerializeField]bool dash;
-
+    
  
 
 
@@ -54,10 +57,7 @@ public class PlayerScript : MonoBehaviour
     //[SerializeField] private Vector3 acelerometer;
 
 
-    private float movX;
-    private float movY;
-    private float movXGyro;
-    private bool inRewardScene1;
+   
 
  
     // i create a vectorX object of the vector2 class and then i assign the properties of the 
@@ -104,6 +104,7 @@ public class PlayerScript : MonoBehaviour
 
 
         ////max velocities.
+        ////max velocities.
 
     
          
@@ -115,19 +116,23 @@ public class PlayerScript : MonoBehaviour
 
     }
     
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("coin"))
         {
-
-            OnPlayerGetCoin?.Invoke(1);
-            collision.GetComponent<Coin>().playerGetCoin();
+            // we get the value of the coin
+            int value = collision.gameObject.GetComponent<Coin>().Value;
+            // we invoke the event that holds the value of the coin
+            // this will trigger a function in some classes that holds the value of the coin.
+            OnPlayerGetCoin?.Invoke(value);
+            // we call the coin 
+            collision.GetComponent<Coin>().getCoin();
 
 
 
 
         }
+        
          
 
     }
@@ -137,6 +142,13 @@ public class PlayerScript : MonoBehaviour
         {
             collision.gameObject.GetComponent<Animator>().SetTrigger("bounce");
             bounceSfx.Play();
+        }
+        if (collision.gameObject.GetComponent<IDamageable>() != null)
+        {
+            IDamageable obj = collision.gameObject.GetComponent<IDamageable>();
+            obj.takeDamage(playerDamage);
+
+
         }
     }
     private void checkPlayerOutOfBounds()
@@ -202,6 +214,13 @@ public class PlayerScript : MonoBehaviour
             rb.angularVelocity = MovxButtons * 50 ;
 
         }
+        
+         
+
+    }
+    public void Hola()
+    {
+        print("has tocado al personaje");
     }
     public void takeDamage(int damage) // this function damages the player 
     {
@@ -224,23 +243,25 @@ public class PlayerScript : MonoBehaviour
 
 
     }
-    public void impulsePlayer(float intensity,Vector2 direction)
+     
+    public void impulseDamage()
     {
-        rb.AddForce(transform.up * intensity,ForceMode2D.Impulse);
+        Vector2 playerVel= rb.velocity;
+        Vector3 playerPos = transform.position;
+        if(playerVel.y > 0) {
+        
+        
+        }
+        else
+        {
+
+        }
+
     }
     public void die()
     {
         OnPlayerDied?.Invoke();
     }
-
-    
-
-
-
-     
-
-     
-
 
 
     //constructors:CHANGE THE PLAYER SPEED WHEN IT CHANGES THE SCENE ALSO EXPLAIN WHAT YOU DO.

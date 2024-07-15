@@ -65,10 +65,11 @@ public class DefaultCannon : Cannon
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+       
         canShoot = true;
 
         StopAllCoroutines();
-        PlayerEnterBarrel(collision);
+        enterCannon(collision);
 
         // RotateCannon = RotateBetweenAngle(rotAngle,rotSpeed);
         RotateCannon = DequeueCoroutines(coroutineQueue, rotDelay, Oscilate_and_vel);
@@ -77,6 +78,7 @@ public class DefaultCannon : Cannon
 
 
     }
+
     private void OnTriggerExit2D(Collider2D collision)
     {
         gameObject.GetComponent<Animator>().SetFloat("chargeSpeed", 1);

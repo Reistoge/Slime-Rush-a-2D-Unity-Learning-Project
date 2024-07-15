@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -15,6 +16,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] int enemyAmount;
     [SerializeField] float enemySeparation;
     [SerializeField] private int enemiesKilled;
+    [SerializeField] GameObject coinReference;
 
 
     [Header("PLAYER SETTINGS")]
@@ -26,7 +28,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float playerScore;
     [SerializeField] private int playerLife;
     [SerializeField] private int playerPurchasedHearts = 3;
-    [SerializeField] private int playerCoins1;
+    [SerializeField] private int playerCoins;
     [SerializeField] private bool isInRewardScene;
     [SerializeField] private bool inBarrel;
 
@@ -62,7 +64,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] float playerMainGameMass = 300f;
     [SerializeField] float playerMainGameDrag = 0;
     [SerializeField] float playerMainGameGravityScale = 100;
-    [SerializeField] float playerMainGameAngularDrag = 0.05f;
+    //[SerializeField] float playerMainGameAngularDrag = 0.05f;
 
     [SerializeField] float finalBarrelForce = 0;//10
     [SerializeField] float finalBarrelCooldown = 0;//5
@@ -128,8 +130,11 @@ public class GameManager : MonoBehaviour
 
         // subscribes to the event this events happens when the scene loads
         PlayerScript.OnPlayerDied += pauseGame;
+       
         SceneManager.sceneLoaded += OnLevelFinishedLoading;
     }
+ 
+
     private void OnDisable()
     {
         // when the object is disable desuscribe from the event
@@ -181,14 +186,14 @@ public class GameManager : MonoBehaviour
     public void shakeCamera(shakeType s)
     {
         // we call the camera and set the new state.
-        Camera.main.GetComponent<FollowCamera4>().ShakeBehaviour = s;
+        Camera.main.GetComponent<FollowCamera>().ShakeBehaviour = s;
         shakeCamera();
 
     }
     public void shakeCamera()
     {
         // shake camera with the current shakeState.
-        Camera.main.GetComponent<FollowCamera4>().shakeCamera();
+        Camera.main.GetComponent<FollowCamera>().shakeCamera();
     }
     public GameObject spawnPlayer(Vector3 position, string option)
     {
@@ -332,7 +337,7 @@ public class GameManager : MonoBehaviour
     public Vector3 BarrelPos { get => inBarrelPos; set => inBarrelPos = value; }
     public Vector3 PlayerPos { get => playerPos; set => playerPos = value; }
     public int EnemiesKilled1 { get => enemiesKilled; set => enemiesKilled = value; }
-    public int PlayerCoins1 { get => playerCoins1; set => playerCoins1 = value; }
+    public int PlayerCoins { get => playerCoins; set => playerCoins = value; }
     public bool IsInMainMenu { get => isInMainMenu; set => isInMainMenu = value; }
 
     public Vector3 RewardSpawnPos { get => rewardSpawnPos; set => rewardSpawnPos = value; }
@@ -397,6 +402,7 @@ public class GameManager : MonoBehaviour
     public float MainMenuBarrelForce { get => mainMenuBarrelForce; set => mainMenuBarrelForce = value; }
     public float MainMenuBarrelCooldown { get => mainMenuBarrelCooldown; set => mainMenuBarrelCooldown = value; }
     public GameObject LastUsedBarrel { get => lastUsedBarrel; set => lastUsedBarrel = value; }
+    public GameObject CoinReference { get => coinReference; set => coinReference = value; }
 }
 
 

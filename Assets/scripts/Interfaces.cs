@@ -1,25 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public interface IRotable
-{
-
-    float RotAngle { get; set; }
-    float RotSpeed { get; set; }
-    float RotDelay { get; set; }
-
-    IEnumerator RotateAngles(float angle, float rotSpeed);
-    IEnumerator RotateBetweenAngle(float angle, float rotSpeed);
-    IEnumerator RotateFor(GameObject Player, float time, float RotVel);
-
-
-
-
-
-
-
-
-}
+ 
 public interface IDamageable
 {
     int Hp { get; set; }
@@ -31,5 +13,34 @@ public interface IDamageable
     void die();
  
 
+}
+public interface IEnemy
+{
+    int Damage {  get; set; }
+    void dealDamage(GameObject o);
+
 
 }
+public interface IStickable
+{
+    GameObject Sticked { get; set; } 
+    float TimeStick {  get; set; }
+
+    public void stickObject(GameObject collision);
+    public void deStickObject();
+     
+}
+public interface IRotable
+{
+
+}
+public interface ILootable
+{
+    int LootCoins { get; set; }
+    public void throwLoot();
+    
+
+
+
+}
+

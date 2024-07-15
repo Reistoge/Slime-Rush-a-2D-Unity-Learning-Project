@@ -6,7 +6,7 @@ public class TextAnim2 : MonoBehaviour
 {
     [SerializeField] GameObject firstBarrelReference;
     [SerializeField] TextMeshProUGUI text;
-    [SerializeField] int time = 3;
+    
     // Start is called before the first frame update
 
 

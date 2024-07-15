@@ -8,17 +8,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2928502206434834919, guid: 62375c936a20b174da554734634ee399, type: 3}
+      propertyPath: m_Radius
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 2928502206434834919, guid: 62375c936a20b174da554734634ee399, type: 3}
+      propertyPath: m_Offset.y
+      value: -3
+      objectReference: {fileID: 0}
     - target: {fileID: 7104540504201161055, guid: 62375c936a20b174da554734634ee399, type: 3}
       propertyPath: m_Name
       value: Slime settings 1 Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 7974171838676049085, guid: 62375c936a20b174da554734634ee399, type: 3}
+      propertyPath: playerDamage
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7974171838676049085, guid: 62375c936a20b174da554734634ee399, type: 3}
+      propertyPath: maxRotationVelocity
+      value: 1000
+      objectReference: {fileID: 0}
     - target: {fileID: 8029907797584901060, guid: 62375c936a20b174da554734634ee399, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2
+      value: 86
       objectReference: {fileID: 0}
     - target: {fileID: 8029907797584901060, guid: 62375c936a20b174da554734634ee399, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -114
+      value: -31
       objectReference: {fileID: 0}
     - target: {fileID: 8029907797584901060, guid: 62375c936a20b174da554734634ee399, type: 3}
       propertyPath: m_LocalPosition.z
@@ -52,7 +68,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7165690703079859358, guid: 62375c936a20b174da554734634ee399, type: 3}
+    - {fileID: 4360811082209059479, guid: 62375c936a20b174da554734634ee399, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

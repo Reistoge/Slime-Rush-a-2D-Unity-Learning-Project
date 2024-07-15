@@ -11,7 +11,7 @@ public class MainMenuCannon : Cannon
 
 
             //barrelShootPlayer is the main function that shoot the thing 
-            PlayerEnterBarrel(collision);
+            enterCannon(collision);
 
             BarrelShootPlayer();
 

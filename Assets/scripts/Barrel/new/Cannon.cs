@@ -8,10 +8,14 @@ using UnityEngine;
 
 
 public class Cannon : MonoBehaviour
-{
+{ 
+    // i have to refactor this it looks to messy.
+
+    // what happens if other object tries to enter a cannon ?
+    // can you destroy a cannon ?
+
     public static Action OnEnterFirstBarrel;
     public static Action OnEnterFinalBarrel;
-
     IEnumerator resetGravity;
     IEnumerator ConstantVel;
     //refactor.
@@ -21,9 +25,6 @@ public class Cannon : MonoBehaviour
         [SerializeField] public float Angles;
         [SerializeField] public float Velocity;
     }
-
-
-
 
     [SerializeField] protected Rotations[] Oscilate_and_vel;
 
@@ -57,33 +58,10 @@ public class Cannon : MonoBehaviour
         }
     }
 
-
-
-
-
-
-
-
-    /// <summary>
-    /// 
-    /// i want to make a final barrel event so to this will make a final barrel prefab and in the barrel script i will make a 
-    /// is_final bool and i will serialized, to change in the unity editor if the barrel is the final the is_final bool is true
-    /// when the player enters to this object then he will activate the next scene.
-    /// this next scene is the player flying due to the giant force of this barrel this scene is supossed to be a give reward, think the part in the kirby
-    /// nightmare in dreamland, then the player start over a new scene
-    /// 
-    /// </summary>
-
-
-
     protected GameObject Player;
     protected private Rigidbody2D PlayerBody;
 
     protected bool shoot = false;
-
-
-
-
 
     bool isFirst;
     bool isFinal;
@@ -92,7 +70,7 @@ public class Cannon : MonoBehaviour
     private Vector3 rotateComponents = new Vector3(0, 0, 1);
     Vector2 barrelDashVector;
     protected float initRot;
-    float time = 0;
+   
     [Header("States")]
     [SerializeField] protected Animator Arrow;
     [SerializeField] protected bool canShoot = false;
@@ -115,16 +93,6 @@ public class Cannon : MonoBehaviour
     [Min(0), Tooltip("time that take to the object to start rotating again (in the opposite direction) ")]
     [SerializeField] public float rotDelay;
 
-
-
-
-
-
-
-
-
-
-
     private void OnEnable()
     {
         restartButton.StopCoroutines += StopAllCoroutines;
@@ -134,26 +102,29 @@ public class Cannon : MonoBehaviour
     {
         restartButton.StopCoroutines -= StopAllCoroutines;
     }
-    protected void PlayerEnterBarrel(Collider2D collision)
+    protected void enterCannon(Collider2D collision)
     {
+        if (collision.CompareTag("Player"))
+        {
+            GameManager.instance.LastUsedBarrel = this.gameObject;
+            inBarrel = true;
 
-        GameManager.instance.LastUsedBarrel = this.gameObject;
-        inBarrel = true;
-
-        GameManager.instance.InBarrel = inBarrel;
-        // make a call from player.
-        Player = collision.gameObject;
-        Player.transform.position = transform.position;
+            GameManager.instance.InBarrel = inBarrel;
+            // make a call from player.
+            Player = collision.gameObject;
+            Player.transform.position = transform.position;
 
 
 
-        transform.GetChild(0).gameObject.SetActive(true);
-        collision.gameObject.GetComponent<PlayerScript>().Sr.enabled = false;
+            transform.GetChild(0).gameObject.SetActive(true);
+            collision.gameObject.GetComponent<PlayerScript>().Sr.enabled = false;
 
-        collision.gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
+            collision.gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
 
-        collision.gameObject.GetComponent<Rigidbody2D>().angularVelocity = 0;
-        PlayerBody = collision.gameObject.GetComponent<Rigidbody2D>();
+            collision.gameObject.GetComponent<Rigidbody2D>().angularVelocity = 0;
+            PlayerBody = collision.gameObject.GetComponent<Rigidbody2D>();
+        }
+
 
     }
     protected IEnumerator RotateToAngle(float finalRotation, float rotSpeed)
@@ -301,14 +272,13 @@ public class Cannon : MonoBehaviour
 
 
     }
-     
     public void StopCannonDash()
     {
         StopCoroutine(this.ConstantVel);
         Player.GetComponent<Rigidbody2D>().velocity *= 1;
         Player.GetComponent<Rigidbody2D>().drag = initD;
         Player.GetComponent<Rigidbody2D>().gravityScale = initG;
-        Player.GetComponent<PlayerScript>().GetComponent<Animator>().SetBool("dash", false);
+        Player.GetComponent<PlayerScript>().Anim.SetBool("dash", false);
         Player.GetComponent<PlayerScript>().GetComponent<PlayerScript>().Dash = false;
     }
     public void PerformCannonDash()
@@ -339,18 +309,18 @@ public class Cannon : MonoBehaviour
     {
         //1
 
-        // barrel anim
+       
 
-        //transform.GetChild(0).gameObject.SetActive(false);
-        // player 
+        
+         
         PlayerBody.constraints = RigidbodyConstraints2D.None;
         inBarrel = false;
         GameManager.instance.InBarrel = false;
 
-        //StartCoroutine(BarrelDash(coolDown,forceBarrel));
+         
         GameManager.instance.shakeCamera(shakeType.lite);
         PerformCannonDash();
-        // event.
+        
 
 
         PlayerBody.GetComponent<PlayerScript>().Sr.enabled = true;

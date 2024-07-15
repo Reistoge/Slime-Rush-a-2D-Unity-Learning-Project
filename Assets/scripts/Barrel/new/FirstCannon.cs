@@ -48,7 +48,7 @@ public class FirstCannon : Cannon
         {
 
 
-            PlayerEnterBarrel(collision);
+            enterCannon(collision);
 
 
             OnEnterFirstBarrel?.Invoke();
