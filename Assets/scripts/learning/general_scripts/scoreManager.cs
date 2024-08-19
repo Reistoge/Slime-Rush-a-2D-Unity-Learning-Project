@@ -23,8 +23,8 @@ public class scoreManager : MonoBehaviour
 
 
         score = math.round(score);
-        scoreNumber.text = score.ToString();
-        highscoreNumber.text = GameManager.instance.Highscore.ToString();
+        scoreNumber.text = "Score: "+ score.ToString();
+        highscoreNumber.text = "Highscore: "+ GameManager.instance.Highscore.ToString();
         if (score >= GameManager.instance.Highscore)
         {
             // new highscore !!

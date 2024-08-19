@@ -1,0 +1,388 @@
+fileFormatVersion: 2
+guid: 6c1bdd1df4306fd4481a55bbf582098b
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
+    isReadable: 0
+    streamingMipmaps: 0
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    ignoreMipmapLimit: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 100
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    cookieMode: 0
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  previousAsepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  asepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  importFileNodeState: 1
+  platformSettingsDirtyTick: 0
+  textureAssetName: 
+  singleSpriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  animatedSpriteImportData:
+  - name: SlimeInBarrelIdleConcept_Frame_1
+    originalName: 
+    pivot: {x: 0.4736842, y: -4.75}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 40
+      y: 28
+      width: 19
+      height: 4
+    spriteID: df278ab6805c437428ac06819542939f
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 40, y: 28}
+  - name: SlimeInBarrelIdleConcept_Frame_2
+    originalName: 
+    pivot: {x: 0.4736842, y: -3.1666667}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 39
+      y: 76
+      width: 19
+      height: 6
+    spriteID: 525bb8434a099b6409bda4b1cb3ff0d4
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 39, y: 76}
+  - name: SlimeInBarrelIdleConcept_Frame_3
+    originalName: 
+    pivot: {x: 0.4736842, y: -3.1666667}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 40
+      y: 4
+      width: 19
+      height: 6
+    spriteID: 1cfc99283a236af4da76e0123305cf94
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 40, y: 4}
+  - name: SlimeInBarrelIdleConcept_Frame_4
+    originalName: 
+    pivot: {x: 0.4761905, y: -2.7142859}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 38
+      y: 96
+      width: 21
+      height: 7
+    spriteID: 789b9f98e52b506438f509d215e1a755
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 38, y: 96}
+  - name: SlimeInBarrelIdleConcept_Frame_5
+    originalName: 
+    pivot: {x: 0.46153846, y: -1.9000001}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 96
+      width: 26
+      height: 10
+    spriteID: abb1a59e2adf4b747973612cc4224444
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 96}
+  - name: SlimeInBarrelIdleConcept_Frame_6
+    originalName: 
+    pivot: {x: 0.48148146, y: -1.5833334}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 76
+      width: 27
+      height: 12
+    spriteID: 9eb060535f567e04a8d74d2a59b9a580
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 76}
+  - name: SlimeInBarrelIdleConcept_Frame_7
+    originalName: 
+    pivot: {x: 0.46428567, y: -1.1875}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 28
+      height: 16
+    spriteID: 5cf118a3c515c374f8350e8938d81411
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 4}
+  - name: SlimeInBarrelIdleConcept_Frame_8
+    originalName: 
+    pivot: {x: 0.46428567, y: -1.1875}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 28
+      width: 28
+      height: 16
+    spriteID: 13698632126cbab4c8dbeeb39c7f0069
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 28}
+  - name: SlimeInBarrelIdleConcept_Frame_9
+    originalName: 
+    pivot: {x: 0.46428567, y: -1.1875}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 52
+      width: 28
+      height: 16
+    spriteID: d5544f6e26d4d3a41bf9f4f1e14da8b6
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 52}
+  spriteSheetImportData: []
+  asepriteLayers:
+  - layerIndex: 0
+    guid: -1314268929
+    name: SlimeInBarrelIdleConcept
+    layerFlags: 0
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: SlimeInBarrelIdleConcept_Frame_1
+      frameIndex: 1
+      cellRect:
+        x: 15
+        y: 19
+        width: 19
+        height: 4
+      spriteId: df278ab6805c437428ac06819542939f
+    - name: SlimeInBarrelIdleConcept_Frame_2
+      frameIndex: 2
+      cellRect:
+        x: 15
+        y: 19
+        width: 19
+        height: 6
+      spriteId: 525bb8434a099b6409bda4b1cb3ff0d4
+    - name: SlimeInBarrelIdleConcept_Frame_3
+      frameIndex: 3
+      cellRect:
+        x: 15
+        y: 19
+        width: 19
+        height: 6
+      spriteId: 1cfc99283a236af4da76e0123305cf94
+    - name: SlimeInBarrelIdleConcept_Frame_4
+      frameIndex: 4
+      cellRect:
+        x: 14
+        y: 19
+        width: 21
+        height: 7
+      spriteId: 789b9f98e52b506438f509d215e1a755
+    - name: SlimeInBarrelIdleConcept_Frame_5
+      frameIndex: 5
+      cellRect:
+        x: 12
+        y: 19
+        width: 26
+        height: 10
+      spriteId: abb1a59e2adf4b747973612cc4224444
+    - name: SlimeInBarrelIdleConcept_Frame_6
+      frameIndex: 6
+      cellRect:
+        x: 11
+        y: 19
+        width: 27
+        height: 12
+      spriteId: 9eb060535f567e04a8d74d2a59b9a580
+    - name: SlimeInBarrelIdleConcept_Frame_7
+      frameIndex: 7
+      cellRect:
+        x: 11
+        y: 19
+        width: 28
+        height: 16
+      spriteId: 5cf118a3c515c374f8350e8938d81411
+    - name: SlimeInBarrelIdleConcept_Frame_8
+      frameIndex: 8
+      cellRect:
+        x: 11
+        y: 19
+        width: 28
+        height: 16
+      spriteId: 13698632126cbab4c8dbeeb39c7f0069
+    - name: SlimeInBarrelIdleConcept_Frame_9
+      frameIndex: 9
+      cellRect:
+        x: 11
+        y: 19
+        width: 28
+        height: 16
+      spriteId: d5544f6e26d4d3a41bf9f4f1e14da8b6
+    linkedCells: []
+    parentIndex: -1
+  platformSettings: []
+  secondarySpriteTextures: []
+  spritePackingTag: 
+  canvasSize: {x: 48, y: 48}

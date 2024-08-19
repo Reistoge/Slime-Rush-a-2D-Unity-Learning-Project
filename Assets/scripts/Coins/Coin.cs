@@ -8,6 +8,9 @@ public class Coin : MonoBehaviour
     
     [SerializeField] int value;
     Animator anim;
+    void OnEnable(){
+        Anim = transform.GetChild(0).GetComponent<Animator>();
+    }
     private void Start()
     {
         Anim = transform.GetChild(0).GetComponent<Animator>();
@@ -20,11 +23,22 @@ public class Coin : MonoBehaviour
         // we call the animation of the animation child to start the "destruction" of the coin.
 
         transform.GetChild(0).GetComponent<AnimationCoin>().getCoin();
+
+        // is core
+        
     }
     public void disableCoin()
     {
-        
-        gameObject.SetActive(false);
+        if(transform.parent!=null && transform.name=="enemyCore"){
+            
+            transform.parent.gameObject.SetActive(false);
+            
+        }
+     
+        else{
+            gameObject.SetActive(false);
+
+        }
     }
     public void enableCoin()
     {

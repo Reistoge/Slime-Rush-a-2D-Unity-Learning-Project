@@ -6,12 +6,13 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Game/MAIN_MENU.unity
+    path: Assets/Scenes/Game/Menu.unity
     guid: ea44d2cbbb3c5434cab755b679e0d68a
   - enabled: 1
-    path: Assets/Scenes/Game/GAME_SCENE.unity
-    guid: 6803ee85eba1afb4e835463b52af10a6
+    path: Assets/Scenes/Game/MainGame.unity
+    guid: d0579619eb3162b46ade47634ba968c1
   - enabled: 1
-    path: Assets/Scenes/Game/CHARACTER_SELECTOR_SCENE.unity
+    path: Assets/Scenes/Game/characterSelector.unity
     guid: 491eefd1452c17141bbac5473ee9a922
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.input.settings: {fileID: 11400000, guid: 349043e066bce5b4992c25e00469d00d, type: 2}

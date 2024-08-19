@@ -6,11 +6,11 @@ public class HomeButton : MonoBehaviour
     // Start is called before the first frame update
     public void Home()
     {
-        SceneManager.LoadScene(GameManager.instance.Main_menu_name);
-        if (PauseButton.game_paused)
+        SceneManager.LoadScene(GameManager.instance.MainMenuSceneName);
+        if (PauseController.isGamePaused)
         {
             Time.timeScale = 1.0f;
-            PauseButton.game_paused = !PauseButton.game_paused;
+            PauseController.isGamePaused = !PauseController.isGamePaused;
         }
 
     }

@@ -28,7 +28,7 @@ public class AnimationCoin : MonoBehaviour
     {
         // used in core;
 
-        this.transform.localScale = Vector3.one*3;
+        this.transform.localScale = Vector3.one*2;
         
     }
 

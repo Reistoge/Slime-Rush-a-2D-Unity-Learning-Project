@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 666404375840720440}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1}
+  m_LocalPosition: {x: 0, y: -100, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -80,7 +80,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 18, y: 25}
+  m_Size: {x: 14, y: 18}
   m_EdgeRadius: 0
 --- !u!50 &1190988428085566142
 Rigidbody2D:
@@ -136,6 +136,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clips:
   - {fileID: 8300000, guid: d5ae6f495ec98dc4981d8fb67a30ceaa, type: 3}
+  - {fileID: 8300000, guid: e8797c65502617c448e5abbfdfc38ad9, type: 3}
   - {fileID: 8300000, guid: 92a673abd9d7edd46827b588d17a54da, type: 3}
   - {fileID: 8300000, guid: 92a673abd9d7edd46827b588d17a54da, type: 3}
 --- !u!82 &2799577066846450167
@@ -150,7 +151,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -263,7 +264,7 @@ RectTransform:
   m_GameObject: {fileID: 7199653515205261175}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8605451962499086665}
@@ -366,7 +367,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: 00000000
+  m_ApplyToSortingLayers: 5ffe7e78055f3c9c000000001f881e6e
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0

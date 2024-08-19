@@ -6,11 +6,11 @@ public class SoundSystem : MonoBehaviour
     protected AudioSource AS;
     [SerializeField] protected AudioClip[] clips;
 
-
-    private void Start()
-    {
+    protected void OnEnable(){
         AS = GetComponent<AudioSource>();
+
     }
+     
     protected AudioClip findClip(string name)
     {
         // we search for the clip by his name

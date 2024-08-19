@@ -13,16 +13,16 @@ public class ArrowSelector : MonoBehaviour
 
     private void OnEnable()
     {
-        Character_left.GetComponent<Image>().sprite = Characters_pool.GetComponent<CharacterSelector>().PlayersToSelect1[0].GetComponent<SpriteRenderer>().sprite;
-        ;
-        Character_right.GetComponent<Image>().sprite = Characters_pool.GetComponent<CharacterSelector>().PlayersToSelect1[1].GetComponent<SpriteRenderer>().sprite;
+        Character_left.GetComponent<Image>().sprite = Characters_pool.GetComponent<CharacterSelector>().PlayersToSelect1[0].GetComponent<PlayerScript>().Sr.sprite;
+        
+        Character_right.GetComponent<Image>().sprite = Characters_pool.GetComponent<CharacterSelector>().PlayersToSelect1[1].GetComponent<PlayerScript>().Sr.sprite;
     }
     private void Start()
     {
 
-        //Character_left.GetComponent<Image>().sprite = Characters_pool.GetComponent<CharacterSelector>().PlayersToSelect1[0].GetComponent<SpriteRenderer>().sprite;
+        //Character_left.GetComponent<Image>().sprite = Characters_pool.GetComponent<CharacterSelector>().PlayersToSelect1[0].GetComponent<PlayerScript>().Sr.sprite.sprite;
         //;
-        //Character_right.GetComponent<Image>().sprite = Characters_pool.GetComponent<CharacterSelector>().PlayersToSelect1[1].GetComponent<SpriteRenderer>().sprite; 
+        //Character_right.GetComponent<Image>().sprite = Characters_pool.GetComponent<CharacterSelector>().PlayersToSelect1[1].GetComponent<PlayerScript>().Sr.sprite.sprite; 
     }
 
     // Start is called before the first frame update
@@ -51,8 +51,8 @@ public class ArrowSelector : MonoBehaviour
             int PosRight = Characters_pool.GetComponent<CharacterSelector>().PosRight;
 
             // we get the component with the image of the pool.
-            SpriteRenderer leftImage = Characters_pool.GetComponent<CharacterSelector>().PlayersToSelect1[PosLeft].GetComponent<SpriteRenderer>();
-            SpriteRenderer rightImage = Characters_pool.GetComponent<CharacterSelector>().PlayersToSelect1[PosRight].GetComponent<SpriteRenderer>();
+            SpriteRenderer leftImage = Characters_pool.GetComponent<CharacterSelector>().PlayersToSelect1[PosLeft].GetComponent<PlayerScript>().Sr;
+            SpriteRenderer rightImage = Characters_pool.GetComponent<CharacterSelector>().PlayersToSelect1[PosRight].GetComponent<PlayerScript>().Sr;
 
             // we change the sprite as well of the buttons of the same pos of the pool
             Character_left.GetComponent<Image>().sprite = leftImage.sprite;
@@ -78,8 +78,8 @@ public class ArrowSelector : MonoBehaviour
             Character_right.name = (Characters_pool.GetComponent<CharacterSelector>().PosRight).ToString();
             int PosLeft = Characters_pool.GetComponent<CharacterSelector>().PosLeft;
             int PosRight = Characters_pool.GetComponent<CharacterSelector>().PosRight;
-            SpriteRenderer leftImage = Characters_pool.GetComponent<CharacterSelector>().PlayersToSelect1[PosLeft].GetComponent<SpriteRenderer>();
-            SpriteRenderer rightImage = Characters_pool.GetComponent<CharacterSelector>().PlayersToSelect1[PosRight].GetComponent<SpriteRenderer>();
+            SpriteRenderer leftImage = Characters_pool.GetComponent<CharacterSelector>().PlayersToSelect1[PosLeft].GetComponent<PlayerScript>().Sr;
+            SpriteRenderer rightImage = Characters_pool.GetComponent<CharacterSelector>().PlayersToSelect1[PosRight].GetComponent<PlayerScript>().Sr;
 
             Character_left.GetComponent<Image>().sprite = leftImage.sprite;
             Character_right.GetComponent<Image>().sprite = rightImage.sprite;

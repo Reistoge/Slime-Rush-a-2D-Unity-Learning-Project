@@ -16,11 +16,11 @@ public class TextAnimation : MonoBehaviour
 
     private void OnEnable()
     {
-        Cannon.OnEnterFirstBarrel += activate;
+        // Cannon.OnEnterFirstBarrel += activate;
     }
     private void OnDisable()
     {
-        Cannon.OnEnterFirstBarrel -= activate;
+        // Cannon.OnEnterFirstBarrel -= activate;
     }
     void Start()
     {

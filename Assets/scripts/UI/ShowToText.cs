@@ -17,6 +17,6 @@ public class ShowToText : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        text.text = GameManager.instance.TransformUpVectorChars;
+        // text.text = GameManager.instance.TransformUpVectorChars;
     }
 }

@@ -11,9 +11,9 @@ public class restartButton : MonoBehaviour
     public void reloadscene()
     {
 
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        PauseButton.game_paused = false;
+        PauseController.isGamePaused = false;
         StopCoroutines?.Invoke();
         Time.timeScale = 1;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

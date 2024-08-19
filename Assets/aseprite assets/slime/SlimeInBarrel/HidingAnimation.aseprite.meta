@@ -1,0 +1,500 @@
+fileFormatVersion: 2
+guid: bb6189cd6221f0c428a21cc3564f8f40
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
+    isReadable: 0
+    streamingMipmaps: 0
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    ignoreMipmapLimit: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 100
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    cookieMode: 0
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  previousAsepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  asepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  importFileNodeState: 1
+  platformSettingsDirtyTick: 0
+  textureAssetName: 
+  singleSpriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  animatedSpriteImportData:
+  - name: HidingAnimation_Frame_0
+    originalName: 
+    pivot: {x: 0.46428567, y: -1.1875}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 28
+      height: 16
+    spriteID: 7f2dc16b422a8c14380398265e2c830e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 4}
+  - name: HidingAnimation_Frame_1
+    originalName: 
+    pivot: {x: 0.48148146, y: -1.5833334}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 28
+      width: 27
+      height: 12
+    spriteID: 477f92cfe10c3d04599cf911d7cc8b2a
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 28}
+  - name: HidingAnimation_Frame_2
+    originalName: 
+    pivot: {x: 0.46153846, y: -1.9000001}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 48
+      width: 26
+      height: 10
+    spriteID: 94d54a5d6b7e2c545bb910c74ddde2c8
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 48}
+  - name: HidingAnimation_Frame_3
+    originalName: 
+    pivot: {x: 0.4761905, y: -2.7142859}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 38
+      y: 48
+      width: 21
+      height: 7
+    spriteID: be186273b48e7e44f8f880014a07fa94
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 38, y: 48}
+  - name: HidingAnimation_Frame_4
+    originalName: 
+    pivot: {x: 0.4736842, y: -3.1666667}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 38
+      y: 84
+      width: 19
+      height: 6
+    spriteID: b5e158d8eee70554b954eadc086b04ff
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 38, y: 84}
+  - name: HidingAnimation_Frame_5
+    originalName: 
+    pivot: {x: 0.4736842, y: -3.1666667}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 39
+      y: 28
+      width: 19
+      height: 6
+    spriteID: 1c2003827d6f4ee4d9355d90a0fb4b3f
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 39, y: 28}
+  - name: HidingAnimation_Frame_6
+    originalName: 
+    pivot: {x: 0.42105258, y: -3}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 40
+      y: 4
+      width: 19
+      height: 6
+    spriteID: 9ca2e531c2d6ab448bf906d0cc6ce7d9
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 40, y: 4}
+  - name: HidingAnimation_Frame_7
+    originalName: 
+    pivot: {x: 0.5263158, y: -3}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 102
+      width: 19
+      height: 6
+    spriteID: 2b7f8d37ce242a544b9ea910a756a129
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 102}
+  - name: HidingAnimation_Frame_11
+    originalName: 
+    pivot: {x: 0.4736842, y: -3.1666667}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 31
+      y: 102
+      width: 19
+      height: 6
+    spriteID: 9bb1a08ce6fb6094b8071ca6e89f3045
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 31, y: 102}
+  - name: HidingAnimation_Frame_12
+    originalName: 
+    pivot: {x: 0.4736842, y: -4.75}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 116
+      width: 19
+      height: 4
+    spriteID: e5f0ecd6d3b84194489e2bb410b65e02
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 116}
+  - name: HidingAnimation_Frame_8
+    originalName: 
+    pivot: {x: 0.46153846, y: -1.9000001}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 66
+      width: 26
+      height: 10
+    spriteID: 58d1d4f407a47294597c0e5b589ae093
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 66}
+  - name: HidingAnimation_Frame_9
+    originalName: 
+    pivot: {x: 0.46153846, y: -1.9000001}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 84
+      width: 26
+      height: 10
+    spriteID: 62c34157a09d86642afaa72eda249939
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 84}
+  - name: HidingAnimation_Frame_10
+    originalName: 
+    pivot: {x: 0.4761905, y: -2.7142859}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 38
+      y: 66
+      width: 21
+      height: 7
+    spriteID: 83a308d56b0b2ef4d832ba723cc24c7a
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 38, y: 66}
+  spriteSheetImportData: []
+  asepriteLayers:
+  - layerIndex: 0
+    guid: -648796689
+    name: HidingAnimation
+    layerFlags: 0
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: HidingAnimation_Frame_0
+      frameIndex: 0
+      cellRect:
+        x: 11
+        y: 19
+        width: 28
+        height: 16
+      spriteId: 7f2dc16b422a8c14380398265e2c830e
+    - name: HidingAnimation_Frame_1
+      frameIndex: 1
+      cellRect:
+        x: 11
+        y: 19
+        width: 27
+        height: 12
+      spriteId: 477f92cfe10c3d04599cf911d7cc8b2a
+    - name: HidingAnimation_Frame_2
+      frameIndex: 2
+      cellRect:
+        x: 12
+        y: 19
+        width: 26
+        height: 10
+      spriteId: 94d54a5d6b7e2c545bb910c74ddde2c8
+    - name: HidingAnimation_Frame_3
+      frameIndex: 3
+      cellRect:
+        x: 14
+        y: 19
+        width: 21
+        height: 7
+      spriteId: be186273b48e7e44f8f880014a07fa94
+    - name: HidingAnimation_Frame_4
+      frameIndex: 4
+      cellRect:
+        x: 15
+        y: 19
+        width: 19
+        height: 6
+      spriteId: b5e158d8eee70554b954eadc086b04ff
+    - name: HidingAnimation_Frame_5
+      frameIndex: 5
+      cellRect:
+        x: 15
+        y: 19
+        width: 19
+        height: 6
+      spriteId: 1c2003827d6f4ee4d9355d90a0fb4b3f
+    - name: HidingAnimation_Frame_6
+      frameIndex: 6
+      cellRect:
+        x: 16
+        y: 18
+        width: 19
+        height: 6
+      spriteId: 9ca2e531c2d6ab448bf906d0cc6ce7d9
+    - name: HidingAnimation_Frame_7
+      frameIndex: 7
+      cellRect:
+        x: 14
+        y: 18
+        width: 19
+        height: 6
+      spriteId: 2b7f8d37ce242a544b9ea910a756a129
+    - name: HidingAnimation_Frame_11
+      frameIndex: 11
+      cellRect:
+        x: 15
+        y: 19
+        width: 19
+        height: 6
+      spriteId: 9bb1a08ce6fb6094b8071ca6e89f3045
+    - name: HidingAnimation_Frame_12
+      frameIndex: 12
+      cellRect:
+        x: 15
+        y: 19
+        width: 19
+        height: 4
+      spriteId: e5f0ecd6d3b84194489e2bb410b65e02
+    - name: HidingAnimation_Frame_8
+      frameIndex: 8
+      cellRect:
+        x: 12
+        y: 19
+        width: 26
+        height: 10
+      spriteId: 58d1d4f407a47294597c0e5b589ae093
+    - name: HidingAnimation_Frame_9
+      frameIndex: 9
+      cellRect:
+        x: 12
+        y: 19
+        width: 26
+        height: 10
+      spriteId: 62c34157a09d86642afaa72eda249939
+    - name: HidingAnimation_Frame_10
+      frameIndex: 10
+      cellRect:
+        x: 14
+        y: 19
+        width: 21
+        height: 7
+      spriteId: 83a308d56b0b2ef4d832ba723cc24c7a
+    linkedCells: []
+    parentIndex: -1
+  platformSettings: []
+  secondarySpriteTextures: []
+  spritePackingTag: 
+  canvasSize: {x: 48, y: 48}

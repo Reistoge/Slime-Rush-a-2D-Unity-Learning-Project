@@ -11,12 +11,14 @@ public class HeartCointainer : MonoBehaviour
     int brokenHearts;
     int healthHearts;
     int fixHearts;
+    [SerializeField] float separationBetweenHearts; // 32 is fine
+    
 
     // Start is called before the first frame update
     void Start()
     {
         // CHARGE THE HEARTS THAT THE PLAYER HAS
-        LoadHearts(redHeart);
+        LoadHeartsVertical(redHeart);
         // ADD THE FUNCTION TO THE EVENt
         PlayerScript.OnPlayerIsDamaged += BrokeHearts;
     }
@@ -26,11 +28,7 @@ public class HeartCointainer : MonoBehaviour
     }
 
     // Update is called once per frame
-
-    private void FixHeart()
-    {
-
-    }
+ 
     void BrokeHearts(int damage)
     {
         //we start at child and not chld-1 because of the position child
@@ -64,7 +62,7 @@ public class HeartCointainer : MonoBehaviour
 
         }
     }
-    void LoadHearts(GameObject Heart)
+    void LoadHeartsHorizontal(GameObject Heart)
     {
         // in canvas something happens with the positions
         float x = 0;
@@ -79,6 +77,22 @@ public class HeartCointainer : MonoBehaviour
             x += 32f;
         }
     }
+        void LoadHeartsVertical(GameObject Heart)
+    {
+        // in canvas something happens with the positions
+        float deltaY = 0;
+        Childs = 0;
+        Vector3 HeartInipos = heartInitpos.position;
+        for (int i = 0; i < GameManager.instance.PlayerPurchasedHearts; i++)
+        {
+            float yPos = HeartInipos.y;
+            Vector3 newPos = new Vector3(HeartInipos.x, yPos + deltaY, 1);
+            GameObject spawnHeart = Instantiate(Heart, newPos, Quaternion.identity, transform);
+            Childs++;
+            deltaY += separationBetweenHearts;
+        }
+    }
+    
 
 }
 

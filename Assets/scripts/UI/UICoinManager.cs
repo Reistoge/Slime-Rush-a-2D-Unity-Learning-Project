@@ -1,3 +1,4 @@
+using System.Drawing;
 using TMPro;
 using UnityEngine;
 
@@ -6,10 +7,11 @@ public class UICoinManager : MonoBehaviour
  
      
     [SerializeField]
-    TextMeshProUGUI coinText;
+    TextMeshPro coinText;
+    [SerializeField] Animator coinImage;
     private void Start()
     {
-        UpdateCoinText(GameManager.instance.PlayerCoins);
+        UpdateCoinText(0);
     }
     private void OnEnable()
     {
@@ -20,14 +22,15 @@ public class UICoinManager : MonoBehaviour
         PlayerScript.OnPlayerGetCoin -= UpdateCoinText;
     }
     public void UpdateCoinText(int value)
-
     {
+        
         int currentCoin = GameManager.instance.PlayerCoins;
+        coinImage.Play("playerGetCoin",-1,0f);
         // if the coins value is 1 add 1;
         // there could be a coin that value more;
         currentCoin+=value;
         GameManager.instance.PlayerCoins = currentCoin;
-        coinText.text = currentCoin.ToString();
+        coinText.text = currentCoin.ToString()+"x";
          
     }
 }
