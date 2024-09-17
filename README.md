@@ -66,7 +66,7 @@ The player's maximum and current health.
 
 ## To-Do:
 
-* Implement additional enemy types and behaviors
 * Add more levels and platforming challenges
-* Implement a user interface for displaying score and health
 * Balance game difficulty and player abilities
+* Add Lore
+* Improve GameFeel
