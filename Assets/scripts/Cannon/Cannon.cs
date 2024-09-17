@@ -24,7 +24,7 @@ public class Cannon : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
         soundSystem = gameObject.GetComponent<CannonSoundSystem>();
         initRot = transform.rotation.eulerAngles.z;
- 
+
 
 
 
@@ -35,7 +35,7 @@ public class Cannon : MonoBehaviour
     // this array is the queue in array form you have to convert it in start with the createQueue method.
     // basically createqueue convert the class values to a Ienumerator Queue and DequeueCoroutines starts all the coroutines in order 
 
-   
+
 
 
     protected Animator arrowAnim;
@@ -116,10 +116,10 @@ public class Cannon : MonoBehaviour
         gameObject.GetComponent<Animator>().Play("shoot");
         gameObject.GetComponent<Animator>().SetFloat("chargeSpeed", 1);
         canShoot = false;
-        if (IsFinal && transform.eulerAngles.y == 0)
+        if (IsFinal && transform.up.y > 0)
         {
             GameManager.instance.nextMiniLevel();
-            
+
         }
 
     }
@@ -132,7 +132,7 @@ public class Cannon : MonoBehaviour
         gameObject.GetComponent<Animator>().Play("shoot");
         gameObject.GetComponent<Animator>().SetFloat("chargeSpeed", speed);
         canShoot = false;
-        if (IsFinal && transform.eulerAngles.y == 0)
+        if (IsFinal && transform.up.y > 0)
         {
             GameManager.instance.nextMiniLevel();
             Camera.main.GetComponent<FollowCamera>().startZoom();
@@ -145,6 +145,49 @@ public class Cannon : MonoBehaviour
 
         isRotating = true;
 
+        if (finalRotation == 180 || finalRotation == -180)
+        {
+            finalRotation *= -1;
+        }
+        float currentRotation = transform.rotation.eulerAngles.z;
+        float rot = finalRotation - currentRotation;
+        if (inBarrel)
+        {
+
+            hideArrow();
+
+            gameObject.GetComponent<CannonSoundSystem>().playRotateSfx();
+
+        }
+        while (transform.rotation != Quaternion.Euler(0f, 0f, finalRotation))
+        {
+            canShoot = false;
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0f, 0f, finalRotation), rotSpeed * Time.deltaTime);
+            gameObject.GetComponent<CannonSoundSystem>().downVolume(0.005f);
+            yield return new WaitForEndOfFrame(); // Yield to the next frame
+
+
+        }
+
+        if (inBarrel)
+        {
+            showArrow();
+            gameObject.GetComponent<CannonSoundSystem>().playReadySfx();
+
+        }
+        transform.rotation = Quaternion.Euler(0f, 0f, finalRotation);
+        canShoot = true;
+        isRotating = false;
+
+
+
+
+    }
+    protected IEnumerator rotateToAngle(float finalRotation, float rotSpeed, float dashSpeed)
+    {
+
+        isRotating = true;
+        this.dashSpeed = dashSpeed;
         if (finalRotation == 180 || finalRotation == -180)
         {
             finalRotation *= -1;
@@ -201,7 +244,7 @@ public class Cannon : MonoBehaviour
 
             rotateTime += Time.deltaTime;
             transform.rotation = Quaternion.RotateTowards(transform.rotation, endRot, speed * Time.deltaTime);
- 
+
             yield return new WaitForEndOfFrame(); // Yield to the next frame
 
 
@@ -320,9 +363,18 @@ public class Cannon : MonoBehaviour
 
         hideArrow();
         GameManager.instance.shakeCamera(shakeType.lite);
-        ConstantVel = applyConstantVelocityToRigidbody(insideObject, dashTime, dashSpeed, transform.up);
+        if (insideObject.GetComponent<PlayerScript>() != null)
+        {
+                PlayerScript playerScript = insideObject.GetComponent<PlayerScript>();
+                playerScript.dash(dashTime,dashSpeed,transform.up);
+        }
+        else
+        {
+            ConstantVel = applyConstantVelocityToRigidbody(insideObject, dashTime, dashSpeed, transform.up);
+            StartCoroutine(ConstantVel);
 
-        StartCoroutine(ConstantVel);
+        }
+
 
 
     }

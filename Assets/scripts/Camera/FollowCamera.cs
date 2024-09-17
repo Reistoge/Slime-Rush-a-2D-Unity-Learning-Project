@@ -191,19 +191,21 @@ public class FollowCamera : MonoBehaviour
     {
 
         isCenteringCamera = true; // bool to say that the coroutine is running or not
-        GameManager.instance.ScreenController.SetActive(false);
-
+        // GameManager.instance.ScreenController.SetActive(false);
+        GameManager.instance.CanMove=false;
         ZoomCamera.Target = GameManager.instance.PlayerInScene.transform;
-
+        GameManager.instance.ScreenController.SetActive(false);
         StartCoroutine(Zoom(ZoomCamera));
         yield return new WaitUntil(() => GameManager.instance.LastUsedBarrel.GetComponent<Cannon>().IsFirst == true);
         // aqui tendria que suceder el cañon autamatico ?, donde estara el cañon ?
         yield return new WaitForSeconds(0.5f);
         if (GameObject.Find("LevelObjectsManager").GetComponent<LevelObjectManager>() != null)
         {
+            
             cameraType = cameraBehaviour.centerCamera;
             ZoomCamera.Target = null;
             moving = true;
+            
             StartCoroutine(LerpCamera(this.transform.position, GameObject.Find("LevelObjectsManager").GetComponent<LevelObjectManager>().CurrentLevel.transform.position, 2, 2));
 
 
@@ -218,6 +220,8 @@ public class FollowCamera : MonoBehaviour
         yield return new WaitUntil(() => IsZoom == false);
         GetComponent<PixelPerfectCamera>().enabled = true;
 
+        // GameManager.instance.ScreenController.SetActive(true);
+        GameManager.instance.CanMove=true;
         GameManager.instance.ScreenController.SetActive(true);
         isCenteringCamera = false;
 

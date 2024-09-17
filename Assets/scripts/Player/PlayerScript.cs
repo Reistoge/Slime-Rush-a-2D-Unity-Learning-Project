@@ -63,6 +63,8 @@ public class PlayerScript : MonoBehaviour, IDamageable
     float angularDir;
     float initialDrag;
     float initialGravity;
+    Vector3 dashDirection;
+
 
     IEnumerator dashCoroutine;
 
@@ -81,6 +83,9 @@ public class PlayerScript : MonoBehaviour, IDamageable
         hp = maxHp;
         GameManager.instance.PlayerLife = hp;
         movementSpeed = GameManager.instance.PlayerSpeed;
+        GameManager.instance.CanMove = true;
+        initialGravity = GetComponent<Rigidbody2D>().gravityScale;
+        initialDrag = GetComponent<Rigidbody2D>().drag;
     }
 
     void Update()
@@ -132,6 +137,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        
         if (collision.gameObject.tag == "bounceWall") // wall behaviour
         {
             collision.gameObject.GetComponent<Animator>().SetTrigger("bounce");
@@ -211,45 +217,54 @@ public class PlayerScript : MonoBehaviour, IDamageable
 
     private void moveLogic()
     {
-        float MovxButtons = GameManager.instance.MovXButtons;
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
-        {
-            MovxButtons = -1;
-        }
-        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
-        {
-            MovxButtons = 1;
 
-        }
-        if (isGrounded == false)
+        if (GameManager.instance.CanMove)
         {
 
-
-
-            if (rb.velocity.y < 0)
+            float MovxButtons = GameManager.instance.MovXButtons;
+            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
             {
-
-                fallHandler(true, foo);
-                angularDir = 1;
+                MovxButtons = -1;
+            }
+            if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+            {
+                MovxButtons = 1;
 
             }
-            else
+            if (isGrounded == false)
             {
-                fallHandler(false, foo);
-                angularDir = -1;
-            }
-            Rb.angularVelocity = MovxButtons * angularDir * angularVelocity;
-            print(transform.up);
 
+
+
+                if (rb.velocity.y < 0)
+                {
+
+                    fallHandler(true, foo);
+                    angularDir = 1;
+
+                }
+                else
+                {
+                    fallHandler(false, foo);
+                    angularDir = -1;
+                }
+                Rb.angularVelocity = MovxButtons * angularDir * angularVelocity;
+
+
+            }
+
+            Vector2 newVel = new Vector2(
+                (MovxButtons * movementSpeed * Time.deltaTime) + Rb.velocity.x,
+                Rb.velocity.y
+            );
+            Rb.velocity = newVel;
         }
 
-        Vector2 newVel = new Vector2(
-            (MovxButtons * movementSpeed * Time.deltaTime) + Rb.velocity.x,
-            Rb.velocity.y
-        );
 
 
-        Rb.velocity = newVel;
+
+
+
 
     }
 
@@ -275,8 +290,19 @@ public class PlayerScript : MonoBehaviour, IDamageable
         {
             isDashing = true;
 
-            dashCoroutine = applyConstantVelocityToRigidbody(Player, time, velocity, direction);
-            StartCoroutine(dashCoroutine);
+            DashCoroutine = applyConstantVelocityToRigidbody(Player, time, velocity, direction);
+            StartCoroutine(DashCoroutine);
+        }
+    }
+    public void dash(float time, float velocity, Vector3 direction)
+    {
+        stopDash();
+        if (isDashing == false && GameManager.instance.InBarrel == false)
+        {
+            isDashing = true;
+
+            DashCoroutine = applyConstantVelocityToRigidbody(this.gameObject, time, velocity, direction);
+            StartCoroutine(DashCoroutine);
         }
     }
 
@@ -286,13 +312,13 @@ public class PlayerScript : MonoBehaviour, IDamageable
         if (isDashing == false && GameManager.instance.InBarrel == false)
         {
             isDashing = true;
-            dashCoroutine = applyConstantVelocityToRigidbody(
+            DashCoroutine = applyConstantVelocityToRigidbody(
                 this.gameObject,
                 dashTime,
                 dashForce,
                 transform.up
             );
-            StartCoroutine(dashCoroutine);
+            StartCoroutine(DashCoroutine);
         }
     }
 
@@ -302,13 +328,13 @@ public class PlayerScript : MonoBehaviour, IDamageable
         if (isDashing == false && GameManager.instance.InBarrel == false)
         {
             isDashing = true;
-            dashCoroutine = applyConstantVelocityToRigidbody(
+            DashCoroutine = applyConstantVelocityToRigidbody(
                 this.gameObject,
                 dashTime,
                 dashForce,
                 direction
             );
-            StartCoroutine(dashCoroutine);
+            StartCoroutine(DashCoroutine);
         }
     }
 
@@ -318,21 +344,21 @@ public class PlayerScript : MonoBehaviour, IDamageable
         if (isDashing == false && GameManager.instance.InBarrel == false)
         {
             isDashing = true;
-            dashCoroutine = applyConstantVelocityToRigidbody(
+            DashCoroutine = applyConstantVelocityToRigidbody(
                 this.gameObject,
                 dashTime,
                 speed,
                 direction
             );
-            StartCoroutine(dashCoroutine);
+            StartCoroutine(DashCoroutine);
         }
     }
 
     public void stopDash()
     {
-        if (dashCoroutine != null)
+        if (DashCoroutine != null)
         {
-            StopCoroutine(dashCoroutine);
+            StopCoroutine(DashCoroutine);
             GetComponent<Rigidbody2D>().velocity *= 1;
             GetComponent<Rigidbody2D>().drag = initialDrag;
             GetComponent<Rigidbody2D>().gravityScale = initialGravity;
@@ -360,11 +386,11 @@ public class PlayerScript : MonoBehaviour, IDamageable
     public float foo()
     {
 
-      
-         
+
+
         transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, 180);
 
-        
+
 
         return 0;
     }
@@ -388,11 +414,13 @@ public class PlayerScript : MonoBehaviour, IDamageable
             transform.position.y + (velocity * time * direction.y),
             transform.position.z
         );
-        initialGravity = Player.GetComponent<Rigidbody2D>().gravityScale;
-        initialDrag = Player.GetComponent<Rigidbody2D>().drag;
-        Vector3 dashDirection = direction * velocity;
+        // initialGravity = Player.GetComponent<Rigidbody2D>().gravityScale;
+        // initialDrag = Player.GetComponent<Rigidbody2D>().drag;
+        DashCoroutineSpeed = velocity;
+        DashDirection = direction;
+        DashCoroutineTime = time;
+        Vector3 dash = DashDirection * velocity;
         // issue with this rotation
-
         float angle = Mathf.Atan2(direction.normalized.y, direction.normalized.x);
         transform.eulerAngles = new Vector3(0, 0, (angle * Mathf.Rad2Deg) - 90);
 
@@ -400,7 +428,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
         // moving
         Player.GetComponent<Rigidbody2D>().gravityScale = 0;
         Player.GetComponent<Rigidbody2D>().drag = 0;
-        Player.GetComponent<Rigidbody2D>().velocity = dashDirection;
+        Player.GetComponent<Rigidbody2D>().velocity = dash;
         // Player.GetComponent<PlayerScript>().Anim.SetBool("dash", true);
         animatorHandler.playDash();
         // HANDLER.DASH();
@@ -473,11 +501,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
         get => rb;
         set => rb = value;
     }
-    public IEnumerator DashCoroutine
-    {
-        get => dashCoroutine;
-        set => dashCoroutine = value;
-    }
+
     public PlayerState State
     {
         get => state;
@@ -488,6 +512,16 @@ public class PlayerScript : MonoBehaviour, IDamageable
         get => animatorHandler;
         set => animatorHandler = value;
     }
+
+    private float dashCoroutineSpeed;
+    public Vector3 DashDirection { get => dashDirection; set => dashDirection = value; }
+
+    private float dashCoroutineTime;
+
+    public IEnumerator DashCoroutine { get => dashCoroutine; set => dashCoroutine = value; }
+    public float DashCoroutineSpeed { get => dashCoroutineSpeed; set => dashCoroutineSpeed = value; }
+    public float DashCoroutineTime { get => dashCoroutineTime; set => dashCoroutineTime = value; }
+
     // dos formas de verificar las colisiones entre objetos, puede ser mediante oncollisionenter que detecta cada vez que colisionan dos objetos con sus rb
     //Therefore, it is recommended to cache the
     //reference to the component in a private field

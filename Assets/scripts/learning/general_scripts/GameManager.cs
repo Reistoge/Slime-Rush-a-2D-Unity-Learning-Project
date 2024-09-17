@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] bool inBarrel;
     [SerializeField] int levelCount;
+    [SerializeField] bool canMove;
     Vector3 startPos;
 
     private void OnEnable()
@@ -66,6 +67,17 @@ public class GameManager : MonoBehaviour
             {
                 instantiatePlayer();
             }
+        }
+        
+    }
+    void Update(){
+
+        if(Input.GetKeyDown(KeyCode.LeftShift)){
+            Time.timeScale=0.5f;
+
+        }
+        if(Input.GetKeyUp(KeyCode.LeftShift)){
+            Time.timeScale=1f;
         }
     }
  
@@ -254,5 +266,6 @@ public class GameManager : MonoBehaviour
     public int LevelCount { get => levelCount; set => levelCount = value; }
    
     public GameObject LastUsedBarrel1 { get => lastUsedBarrel; set => lastUsedBarrel = value; }
+    public bool CanMove { get => canMove; set => canMove = value; }
 }
 

@@ -203,7 +203,6 @@ GameObject:
   - component: {fileID: 5484866908277453773}
   - component: {fileID: 7015496643633464388}
   - component: {fileID: 3125387087869666818}
-  - component: {fileID: 6279546145867306678}
   - component: {fileID: 2938567732115972260}
   m_Layer: 0
   m_Name: AutoCannon
@@ -291,7 +290,7 @@ Animator:
   m_GameObject: {fileID: 2194940508373413691}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: da903a938045d3140b4a016dcc632373, type: 2}
+  m_Controller: {fileID: 9100000, guid: 10f91876ec3939645ad54e049aaceb7d, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -501,40 +500,6 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
---- !u!114 &6279546145867306678
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2194940508373413691}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ShadowGroup: 0
-  m_ComponentVersion: 1
-  m_HasRenderer: 1
-  m_UseRendererSilhouette: 1
-  m_CastsShadows: 1
-  m_SelfShadows: 0
-  m_ApplyToSortingLayers: 5ffe7e78055f3c9c000000001f881e6e
-  m_ShapePath:
-  - {x: -7.7541122, y: -23.37373, z: 0}
-  - {x: -15.6834755, y: -9.064779, z: 0}
-  - {x: -12.418488, y: 6.714784, z: 0}
-  - {x: -12.269878, y: 18.727331, z: 0}
-  - {x: 13.870138, y: 19.027937, z: 0}
-  - {x: 13.901196, y: 7.884548, z: 0}
-  - {x: 18.13058, y: -9.349056, z: 0}
-  - {x: 10.743096, y: -23.82056, z: 0}
-  m_ShapePathHash: -1664053356
-  m_Mesh: {fileID: 0}
-  m_InstanceId: 125820
-  m_LocalBounds:
-    m_Center: {x: 1.2235527, y: -2.3963127, z: 0}
-    m_Extent: {x: 16.907028, y: 21.424248, z: 0}
 --- !u!114 &2938567732115972260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -547,8 +512,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b059de297ea5aeb4bbd8c0aacc19f36d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationVariables: []
-  alwaysRotate: 0
   canShoot: 0
   isRotating: 0
   inBarrel: 0

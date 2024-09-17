@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class DefaultCannon : Cannon
 {
+    bool isCharging;
     protected Queue<IEnumerator> coroutineQueue = new Queue<IEnumerator>();
     protected void createQueueRotateAngle(RotationBehaviour[] values)
     {
@@ -13,7 +14,7 @@ public class DefaultCannon : Cannon
 
         foreach (RotationBehaviour v in values)
         {
-            coroutine = rotateToAngle(v.Angles, v.Velocity);
+            coroutine = rotateToAngle(v.Angles, v.Velocity, v.dashForce);
             coroutineQueue.Enqueue(coroutine);
         }
     }
@@ -46,6 +47,7 @@ public class DefaultCannon : Cannon
     {
         [SerializeField] public float Angles;
         [SerializeField] public float Velocity;
+        [SerializeField] public float dashForce;
     }
 
 
@@ -61,6 +63,7 @@ public class DefaultCannon : Cannon
         base.Start();
         createQueueRotateAngle(RotationVariables);
         initRot = transform.rotation.eulerAngles.z;
+
     }
 
     void Update()
@@ -74,6 +77,25 @@ public class DefaultCannon : Cannon
         {
             sprite.flipX = false;
         }
+        //
+
+        // if (isCharging == true && !IsFinal)
+        // {
+
+        //     transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.rotation.y, transform.eulerAngles.z + 1 * 100 * Time.deltaTime * -GameManager.instance.MovXButtons);
+        //     insideObject.transform.rotation = transform.rotation;
+        //     insideObject.transform.position = transform.position;
+        //     if (GameManager.instance.MovXButtons != 0)
+        //     {
+        //         isRotating = true;
+        //     }
+        // }
+
+    }
+    public void switchCharging()
+    {
+        isCharging = !isCharging;
+
     }
 
     public void shootListener()
@@ -108,9 +130,10 @@ public class DefaultCannon : Cannon
         {
             StopCoroutine(rotateInit);
         }
-        enterInsideCannon(collision);
         RotateCannon = DequeueCoroutines(coroutineQueue, rotDelay, RotationVariables);
         StartCoroutine(RotateCannon);
+        enterInsideCannon(collision);
+
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -123,12 +146,13 @@ public class DefaultCannon : Cannon
 
     public void rotateToInitialRotation()
     {
-        if (isRotating == false)
-        {
-            rotateInit = rotateToAngle(initRot, 360);
 
-            StartCoroutine(rotateInit);
-        }
+
+        rotateInit = rotateToAngle(initRot, 360);
+
+        StartCoroutine(rotateInit);
+
+
     }
 
     private void OnTriggerStay2D(Collider2D collision)

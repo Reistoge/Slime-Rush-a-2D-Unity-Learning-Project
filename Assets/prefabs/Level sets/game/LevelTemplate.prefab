@@ -181,6 +181,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6268424097741662062}
     m_Modifications:
+    - target: {fileID: 381110320052343156, guid: f02bb9644964c1148876734748deb2c4, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3243332416868995662, guid: f02bb9644964c1148876734748deb2c4, type: 3}
       propertyPath: m_Intensity
       value: 1
@@ -204,6 +208,10 @@ PrefabInstance:
     - target: {fileID: 3243332416868995662, guid: f02bb9644964c1148876734748deb2c4, type: 3}
       propertyPath: m_ApplyToSortingLayers.Array.data[1]
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4728840429909055506, guid: f02bb9644964c1148876734748deb2c4, type: 3}
+      propertyPath: m_Material
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4991045534603638985, guid: f02bb9644964c1148876734748deb2c4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -275,7 +283,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7506770093527447851, guid: f02bb9644964c1148876734748deb2c4, type: 3}
       propertyPath: m_InstanceId
-      value: -599498
+      value: -223474
       objectReference: {fileID: 0}
     - target: {fileID: 7506770093527447851, guid: f02bb9644964c1148876734748deb2c4, type: 3}
       propertyPath: m_ShapePathHash

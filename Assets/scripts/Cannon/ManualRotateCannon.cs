@@ -17,16 +17,16 @@ public class ManualRotateCannon : Cannon
     // Update is called once per frame
     void Update()
     {
-        if (inBarrel)
-        {
+            if (inBarrel)
+            {
 
-            transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.rotation.y, transform.eulerAngles.z + 1 * 100 * Time.deltaTime * -GameManager.instance.MovXButtons);
-            insideObject.transform.rotation = transform.rotation;
-            insideObject.transform.position = transform.position;
-            if(GameManager.instance.MovXButtons!=0){
-                isRotating=true;
+                transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.rotation.y, transform.eulerAngles.z + 1 * 100 * Time.deltaTime * -GameManager.instance.MovXButtons);
+                insideObject.transform.rotation = transform.rotation;
+                insideObject.transform.position = transform.position;
+                if(GameManager.instance.MovXButtons!=0){
+                    isRotating=true;
+                }
             }
-        }
         shootListener();
 
     }

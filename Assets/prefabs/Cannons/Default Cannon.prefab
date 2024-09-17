@@ -197,13 +197,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4811388837366423367}
+  - component: {fileID: 2302781599101146336}
   - component: {fileID: 2145292628387311790}
   - component: {fileID: 4578631018475711874}
   - component: {fileID: 2204741154688711210}
   - component: {fileID: 511884865121881028}
   - component: {fileID: 3105267438860279706}
   - component: {fileID: 460326250739945934}
-  - component: {fileID: 2302781599101146336}
   - component: {fileID: 1313477141383770815}
   m_Layer: 0
   m_Name: Default Cannon
@@ -229,6 +229,29 @@ Transform:
   - {fileID: 3203110411993204449}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2302781599101146336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5703956435659323170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cd77bdb97606414fbf0d1155ac53f34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canShoot: 0
+  isRotating: 0
+  inBarrel: 0
+  dashSpeed: 500
+  dashTime: 0.5
+  rotDelay: 1
+  isFinal: 0
+  isFirst: 1
+  isAutoShoot: 0
+  rotationVariables: []
+  alwaysRotate: 1
 --- !u!212 &2145292628387311790
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -501,29 +524,6 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
---- !u!114 &2302781599101146336
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5703956435659323170}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3cd77bdb97606414fbf0d1155ac53f34, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotationVariables: []
-  alwaysRotate: 1
-  canShoot: 0
-  isRotating: 0
-  inBarrel: 0
-  dashSpeed: 500
-  dashTime: 0.5
-  rotDelay: 1
-  isFinal: 0
-  isFirst: 1
-  isAutoShoot: 0
 --- !u!114 &1313477141383770815
 MonoBehaviour:
   m_ObjectHideFlags: 0
