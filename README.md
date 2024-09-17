@@ -1,4 +1,4 @@
-# Project Name: [Insert project name here]
+# Project Name: SLIME RUSH
 
 ## Description:
 This is a 2D platformer game project built in Unity, featuring a player character that can move, dash, and interact with coins and enemies.
