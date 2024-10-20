@@ -104,6 +104,7 @@ public class DefaultCannon : Cannon
         {
             // needed for precise input
             ActionButton.onPressActionButton = false;
+            
             if (canShoot)
             {
                 insideCannonAction();

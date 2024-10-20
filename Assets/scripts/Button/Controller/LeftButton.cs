@@ -36,7 +36,7 @@ public class LeftButton : ControllerButton
         GameManager.instance.MovXButtons = 0;
 
         // logic 2
-        // isBeingPress = false;
+        isBeingPress = false;
 
         // logic 3
         // isBeingPress=false;

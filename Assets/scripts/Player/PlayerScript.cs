@@ -10,6 +10,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
     public static Action<int> OnEnemyIsDamaged;
     public static Action OnPlayerDied;
 
+
     //object references:
     Rigidbody2D rb;
     AudioSource bounceSfx;
@@ -24,6 +25,8 @@ public class PlayerScript : MonoBehaviour, IDamageable
     // changes the speed in reward and barrel scene
     [Header("Player Settings")]
     const float HORIZONTAL_LIMIT_VALUE = 180f;
+    [SerializeField] float coyoteTime;
+    [SerializeField] float coyoteTimeCounter;
 
     [Range(0, 1000f), SerializeField]
     private float movementSpeed;
@@ -133,11 +136,37 @@ public class PlayerScript : MonoBehaviour, IDamageable
                 }
             }
         }
+
+        if (collision.gameObject.CompareTag("ground")) // ground behaviuour
+        {
+            transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, 0);
+            rb.freezeRotation = true;
+            isGrounded = true;
+        }
     }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("ground"))
+        {
+
+            rb.freezeRotation = false;
+            isGrounded = false;
+        }
+    }
+
+
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        
+        if (collision.gameObject.GetComponent<IDamageable>() != null)
+        {
+            if (isDashing)
+            {
+                IDamageable obj = collision.gameObject.GetComponent<IDamageable>();
+                obj.takeDamage(playerDamage);
+
+            }
+        }
         if (collision.gameObject.tag == "bounceWall") // wall behaviour
         {
             collision.gameObject.GetComponent<Animator>().SetTrigger("bounce");
@@ -146,6 +175,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
 
         if (collision.gameObject.CompareTag("ground")) // ground behaviuour
         {
+
             transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, 0);
             rb.freezeRotation = true;
             isGrounded = true;
@@ -156,6 +186,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
     {
         if (collision.gameObject.CompareTag("ground")) // ground behaviuour
         {
+
             rb.freezeRotation = false;
             isGrounded = false;
         }
@@ -208,7 +239,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
             //print("reach max velocity in Y axis" % Colorize.Purple);
             Rb.velocity = new Vector2(Rb.velocity.x, maxUpVelocity);
         }
-        if (Rb.velocity.y <= maxDownVelocity)
+        if (Rb.velocity.y <= -maxDownVelocity)
         {
             //print("reach max velocity in -Y axis" % Colorize.Magenta);
             Rb.velocity = new Vector2(Rb.velocity.x, maxDownVelocity);
@@ -231,32 +262,42 @@ public class PlayerScript : MonoBehaviour, IDamageable
                 MovxButtons = 1;
 
             }
+            if (  (Input.GetKeyDown(KeyCode.Space) || ActionButton.onPressActionButton == true) &&  GameManager.instance.InBarrel==false)
+            {
+                
+                ActionButton.onPressActionButton = false;
+
+               
+                jump(1000);
+               
+
+            }
+      
+
             if (isGrounded == false)
             {
-
-
-
-                if (rb.velocity.y < 0)
+                 
+                if (rb.velocity.y < -0.5f)
                 {
 
-                    fallHandler(true, foo);
+                    fallHandler(true);
                     angularDir = 1;
 
                 }
                 else
                 {
-                    fallHandler(false, foo);
+                    fallHandler(false);
                     angularDir = -1;
                 }
                 Rb.angularVelocity = MovxButtons * angularDir * angularVelocity;
 
 
             }
+            
 
             Vector2 newVel = new Vector2(
-                (MovxButtons * movementSpeed * Time.deltaTime) + Rb.velocity.x,
-                Rb.velocity.y
-            );
+            (MovxButtons * movementSpeed * Time.deltaTime) + Rb.velocity.x,Rb.velocity.y
+        );
             Rb.velocity = newVel;
         }
 
@@ -282,6 +323,17 @@ public class PlayerScript : MonoBehaviour, IDamageable
             die();
         }
     }
+    public void jump(float force)
+    {
+         
+        if (isGrounded)
+        {
+            GetComponent<AudioSource>().Play();
+            rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);
+            isGrounded = false;
+        }
+    }
+
 
     public void dash(GameObject Player, float time, float velocity, Vector3 direction)
     {
@@ -369,7 +421,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
         // Anim.SetBool("dash", false);
         // handler.stopDash();
     }
-    public void fallHandler(bool state, Func<float> trigger)
+    public void fallHandler(bool state)
     {
         if (isFalling != state)
         {
@@ -378,22 +430,34 @@ public class PlayerScript : MonoBehaviour, IDamageable
             if (state == true)
             {
 
-                trigger();
+                StartCoroutine(LerpRotation(0.1f, 180));
 
+            }
+            else
+            {
+                StartCoroutine(LerpRotation(0.1f, 0));
             }
         }
     }
-    public float foo()
+    IEnumerator LerpRotation(float duration, float targetAngle)
     {
+        float elapsed = 0;
+        float startAngle = transform.eulerAngles.z;
+        while (elapsed < duration)
 
-
-
-        transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, 180);
-
-
-
-        return 0;
+        {
+            float t = elapsed / duration;
+            t = t * t * (3f - 2f * t); // smoothstep
+            float newAngle = Mathf.Lerp(startAngle, targetAngle, t);
+            transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, newAngle);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, targetAngle);
     }
+
+
+
 
     public IEnumerator applyConstantVelocityToRigidbody(
         GameObject Player,
@@ -449,11 +513,8 @@ public class PlayerScript : MonoBehaviour, IDamageable
         OnPlayerDied?.Invoke();
     }
 
-    //constructors:CHANGE THE PLAYER SPEED WHEN IT CHANGES THE SCENE ALSO EXPLAIN WHAT YOU DO.
-
-
-
-
+    //constructors: CHANGE THE PLAYER SPEED WHEN IT CHANGES THE SCENE ALSO EXPLAIN WHAT YOU DO.
+        
 
     public enum PlayerState
     {

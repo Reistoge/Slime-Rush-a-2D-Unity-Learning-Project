@@ -8,13 +8,17 @@ using UnityEngine.EventSystems;
 
 public class ActionButton : ControllerButton,IPointerClickHandler
 {
-    private float initG;
-    private float initD;
-
+   
     
-    new void Update() { base.Update(); }
+    new void Update() { 
+        
+        base.Update(); 
+    
+    }
     
     public static bool onPressActionButton;
+    // for some reason everytime you use this variable you have to manually  set it to false after the first use
+   
     public override void OnPointerUp(PointerEventData eventData)
     {
         onPressActionButton = true;
