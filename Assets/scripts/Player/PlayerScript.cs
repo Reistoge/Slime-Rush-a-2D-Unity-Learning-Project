@@ -5,71 +5,90 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour, IDamageable
 {
     // how can i check if the player is touched ?
+
+    #region Events
     public static Action<int> OnPlayerGetCoin;
     public static Action<int> OnPlayerIsDamaged;
     public static Action<int> OnEnemyIsDamaged;
     public static Action OnPlayerDied;
+    #endregion
 
+    #region Components
+    private Rigidbody2D rb;
+    private AudioSource bounceSfx;
+    private SpriteRenderer sr;
+    private Animator animator;
+    private PlayerAnimationHandler animatorHandler;
+    #endregion
 
-    //object references:
-    Rigidbody2D rb;
-    AudioSource bounceSfx;
-    SpriteRenderer sr;
-    Animator animator;
-    PlayerAnimationHandler animatorHandler;
-
+    #region Player State
     [SerializeField]
-    bool isGrounded;
+    private bool isGrounded;
+    [SerializeField]
+    private bool isDashing;
+    [SerializeField]
+    private bool isFalling;
+    #endregion
 
-    //int & floats:
-    // changes the speed in reward and barrel scene
+    #region Player Settings
     [Header("Player Settings")]
     const float HORIZONTAL_LIMIT_VALUE = 180f;
-    [SerializeField] float coyoteTime;
-    [SerializeField] float coyoteTimeCounter;
 
+    // Timers
+    [SerializeField]
+    private float coyoteTime;
+    [SerializeField]
+    private float coyoteTimeCounter;
+    [SerializeField]
+    private float dashTime;
+
+    // Movement Settings
     [Range(0, 1000f), SerializeField]
     private float movementSpeed;
-
     [Range(0, 1000f), SerializeField]
     private float maxHorizontalVelocity;
-
     [Range(0, 1000f), SerializeField]
     private float maxUpVelocity;
-
     [Range(0, 1000f), SerializeField]
     private float maxDownVelocity;
-
     [SerializeField]
-    float dashForce;
+    private float dashForce;
+    #endregion
 
+    #region Player Health
+    private int hp;
+    private int maxHp;
     [SerializeField]
-    float dashTime;
+    private int playerDamage;
+    #endregion
 
+    #region Physics Settings
     [SerializeField]
-    int playerDamage;
-
+    private float angularVelocity;
     [SerializeField]
-    bool isDashing;
+    private float jumpForce;
+    private float angularFallingVelocity;
+    private float angularJumpVelocity;
+    private float angularDir;
+    private float initialDrag;
+    private float initialGravity;
 
-    [SerializeField]
-    float angularVelocity;
-    int hp;
-    int maxHp;
+    #endregion
 
+    #region Current State
     [SerializeField]
     private Vector2 currentVel;
-
     [SerializeField]
-    PlayerState state;
-    bool isFalling;
-    float angularDir;
-    float initialDrag;
-    float initialGravity;
-    Vector3 dashDirection;
+    private PlayerState state;
+    #endregion
 
+    #region Dash Direction
+    private Vector3 dashDirection;
+    #endregion
 
-    IEnumerator dashCoroutine;
+    #region Coroutine
+    private IEnumerator dashCoroutine;
+    #endregion
 
     void OnEnable()
     {
@@ -77,11 +96,13 @@ public class PlayerScript : MonoBehaviour, IDamageable
         animator = transform.GetChild(0).GetComponent<Animator>();
         AnimatorHandler = transform.GetChild(0).GetComponent<PlayerAnimationHandler>();
         rb = gameObject.GetComponent<Rigidbody2D>();
-        // initiañize the playerConfig
+        // initialize playerConfig
     }
 
     void Start()
     {
+        angularFallingVelocity = angularVelocity / 2;
+        angularJumpVelocity = angularVelocity;
         maxHp = GameManager.instance.PlayerPurchasedHearts;
         hp = maxHp;
         GameManager.instance.PlayerLife = hp;
@@ -153,9 +174,6 @@ public class PlayerScript : MonoBehaviour, IDamageable
             isGrounded = false;
         }
     }
-
-
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.GetComponent<IDamageable>() != null)
@@ -262,21 +280,16 @@ public class PlayerScript : MonoBehaviour, IDamageable
                 MovxButtons = 1;
 
             }
-            if (  (Input.GetKeyDown(KeyCode.Space) || ActionButton.onPressActionButton == true) &&  GameManager.instance.InBarrel==false)
+            if ((Input.GetKeyDown(KeyCode.Space) || ActionButton.onPressActionButton == true) && GameManager.instance.InBarrel == false)
             {
-                
                 ActionButton.onPressActionButton = false;
-
-               
-                jump(1000);
-               
-
+                jump(jumpForce);
             }
-      
+
 
             if (isGrounded == false)
             {
-                 
+
                 if (rb.velocity.y < -0.5f)
                 {
 
@@ -293,10 +306,14 @@ public class PlayerScript : MonoBehaviour, IDamageable
 
 
             }
-            
+            else
+            {
+                isFalling = false;
+
+            }
 
             Vector2 newVel = new Vector2(
-            (MovxButtons * movementSpeed * Time.deltaTime) + Rb.velocity.x,Rb.velocity.y
+            (MovxButtons * movementSpeed * Time.deltaTime) + Rb.velocity.x, Rb.velocity.y
         );
             Rb.velocity = newVel;
         }
@@ -325,11 +342,12 @@ public class PlayerScript : MonoBehaviour, IDamageable
     }
     public void jump(float force)
     {
-         
+
         if (isGrounded)
         {
             GetComponent<AudioSource>().Play();
-            rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);
+            Anim.Play("Jump", 0, 1f);
+            rb.AddForce(Vector2.up * force * rb.mass * rb.gravityScale, ForceMode2D.Impulse);
             isGrounded = false;
         }
     }
@@ -431,29 +449,36 @@ public class PlayerScript : MonoBehaviour, IDamageable
             {
 
                 StartCoroutine(LerpRotation(0.1f, 180));
+                angularVelocity = angularFallingVelocity;
+
+
 
             }
             else
             {
                 StartCoroutine(LerpRotation(0.1f, 0));
+                angularVelocity = angularJumpVelocity;
             }
         }
     }
     IEnumerator LerpRotation(float duration, float targetAngle)
     {
-        float elapsed = 0;
-        float startAngle = transform.eulerAngles.z;
-        while (elapsed < duration)
+        
+            float elapsed = 0;
+            float startAngle = transform.eulerAngles.z;
+            while (elapsed < duration)
 
-        {
-            float t = elapsed / duration;
-            t = t * t * (3f - 2f * t); // smoothstep
-            float newAngle = Mathf.Lerp(startAngle, targetAngle, t);
-            transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, newAngle);
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
-        transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, targetAngle);
+            {
+                float t = elapsed / duration;
+                t = t * t * (3f - 2f * t); // smoothstep
+                float newAngle = Mathf.Lerp(startAngle, targetAngle, t);
+                transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, newAngle);
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+            transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, targetAngle);
+
+        
     }
 
 
@@ -514,7 +539,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
     }
 
     //constructors: CHANGE THE PLAYER SPEED WHEN IT CHANGES THE SCENE ALSO EXPLAIN WHAT YOU DO.
-        
+
 
     public enum PlayerState
     {
