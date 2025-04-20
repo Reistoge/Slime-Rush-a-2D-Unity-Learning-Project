@@ -12,51 +12,6 @@ This is a 2D platformer game project built in Unity, featuring a player characte
 * Animation handling for player and enemies
 * Collision detection and response for platforming and enemy interactions
 
-## Scripts:
-
-### PlayerScript.cs
-The main script controlling the player character's movement, dashing, and interactions.
-
-### Coin.cs
-Script for coin objects, handling their value and collection.
-
-### EnemyScript.cs
-Script for enemy objects, handling their behavior and interactions with the player.
-
-### GameManager.cs
-Script managing game state, score, and player life.
-
-## Components:
-
-### Rigidbody2D
-Used for player and enemy movement and collision detection.
-
-### Collider2D
-Used for collision detection and response.
-
-### Animator
-Used for player and enemy animations.
-
-### SpriteRenderer
-Used for rendering player and enemy sprites.
-
-## Variables and Settings:
-
-### movementSpeed
-The speed at which the player moves.
-
-### maxHorizontalVelocity and maxVerticalVelocity
-The maximum speeds the player can reach on the horizontal and vertical axes.
-
-### dashForce and dashTime
-The force and duration of the player's dash ability.
-
-### playerDamage
-The amount of damage the player deals to enemies.
-
-### maxHp and hp
-The player's maximum and current health.
-
 ## Notes:
 
 * The project uses Unity's 2D physics engine and animation system.
