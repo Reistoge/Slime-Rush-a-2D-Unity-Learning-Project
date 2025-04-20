@@ -11,26 +11,27 @@ public class LifeScript : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerScript.OnEnemyIsDamaged += update_life_text;
-        PlayerScript.OnEnemyIsDamaged += enemy_damage;
+        PlayerScript.OnEnemyIsDamaged += updateLifeText;
+        PlayerScript.OnEnemyIsDamaged += enemyDamage;
     }
     private void OnDisable()
     {
-        PlayerScript.OnEnemyIsDamaged -= update_life_text;
-        PlayerScript.OnEnemyIsDamaged -= enemy_damage;
+        PlayerScript.OnEnemyIsDamaged -= updateLifeText;
+        PlayerScript.OnEnemyIsDamaged -= enemyDamage;
     }
 
 
 
 
-    public void update_life_text(int damage)
+    public void updateLifeText(int damage)
     {
         // HERES THE TEXT UPDATE OR MAY BE AN ICON IDK
-        text_content = Convert.ToString(GameManager.instance.PlayerLife);
+        if(GameManager.instance.PlayerInScene.GetComponent<PlayerScript>())
+        text_content = Convert.ToString(GameManager.instance.PlayerInScene.GetComponent<PlayerScript>());
         text_object.text = text_content;
 
     }
-    public void enemy_damage(int damage)
+    public void enemyDamage(int damage)
     {
         print("Enemy damage Player, minus " + damage + " HP" % Colorize.Orange);
 

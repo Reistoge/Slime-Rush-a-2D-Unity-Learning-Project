@@ -13,12 +13,12 @@ public class RightButton : ControllerButton
     }
      public override void OnPointerDown(PointerEventData eventData)
     {
-        GameManager.instance.MovXButtons=1;    
+        //GameManager.instance.MovXButtons=1;    
     }
 
     public override void OnPointerUp(PointerEventData eventData)
     {
-        GameManager.instance.MovXButtons=0;
+        //GameManager.instance.MovXButtons=0;
     }
 
  

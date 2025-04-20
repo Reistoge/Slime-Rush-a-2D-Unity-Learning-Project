@@ -8,12 +8,18 @@ public class Coin : MonoBehaviour
     
     [SerializeField] int value;
     Animator anim;
+    coinsLevelHandler coinsLevelHandler;
     void OnEnable(){
         Anim = transform.GetChild(0).GetComponent<Animator>();
+        anim.Play("spawn",-1,0f);
+        //GameManager.instance.instantiateAppearEffect(transform,1);
     }
+
     private void Start()
     {
-        Anim = transform.GetChild(0).GetComponent<Animator>();
+         
+        if(transform.parent) coinsLevelHandler=transform.parent.GetComponent<coinsLevelHandler>();
+        
     }
     public void getCoin()
     {
@@ -29,7 +35,8 @@ public class Coin : MonoBehaviour
     }
     public void disableCoin()
     {
-        if(transform.parent!=null && transform.name=="enemyCore"){
+        if(coinsLevelHandler) coinsLevelHandler.coinCollected();
+        if(transform.parent!=null && transform.name == "enemyCore"){
             
             transform.parent.gameObject.SetActive(false);
             

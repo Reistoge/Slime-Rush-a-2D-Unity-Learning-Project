@@ -6,8 +6,7 @@ public class UICoinManager : MonoBehaviour
 {
  
      
-    [SerializeField]
-    TextMeshPro coinText;
+    [SerializeField] TextMeshProUGUI coinText;
     [SerializeField] Animator coinImage;
     private void Start()
     {
@@ -30,7 +29,7 @@ public class UICoinManager : MonoBehaviour
         // there could be a coin that value more;
         currentCoin+=value;
         GameManager.instance.PlayerCoins = currentCoin;
-        coinText.text = currentCoin.ToString()+"x";
+        coinText.text = currentCoin.ToString()+" x";
          
     }
 }

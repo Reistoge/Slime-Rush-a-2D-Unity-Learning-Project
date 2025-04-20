@@ -1,101 +1,191 @@
 using UnityEngine;
 
-public class HeartCointainer : MonoBehaviour
+public class HeartContainer : MonoBehaviour
 {
-    [SerializeField]
-    GameObject redHeart;
-    [SerializeField]
-    Transform heartInitpos;
-    [SerializeField]
-    int Childs;
-    int brokenHearts;
-    int healthHearts;
-    int fixHearts;
-    [SerializeField] float separationBetweenHearts; // 32 is fine
-    
+    [Header("Heart Settings")]
+    [SerializeField] private GameObject heartPrefab;
+    [SerializeField] private Transform heartInitialPosition;
+    [SerializeField] private float separationBetweenHearts = 32f;
 
-    // Start is called before the first frame update
-    void Start()
+    [Header("State")]
+    [SerializeField] private int totalHearts;
+    [SerializeField] private int brokenHearts;
+
+    private void OnEnable()
     {
-        // CHARGE THE HEARTS THAT THE PLAYER HAS
-        LoadHeartsVertical(redHeart);
-        // ADD THE FUNCTION TO THE EVENt
-        PlayerScript.OnPlayerIsDamaged += BrokeHearts;
+        SubscribeToEvents();
     }
+
     private void OnDisable()
     {
-        PlayerScript.OnPlayerIsDamaged -= BrokeHearts;
+        UnsubscribeFromEvents();
     }
 
-    // Update is called once per frame
- 
-    void BrokeHearts(int damage)
+    private void SubscribeToEvents()
     {
-        //we start at child and not chld-1 because of the position child
+        PlayerScript.OnPlayerInstantiated += LoadHearts;
+        PlayerScript.OnPlayerIsDamaged += BreakHearts;
+        PlayerScript.OnPlayerIsHealed += FixHearts;
+        PlayerScript.OnPlayerAddHeart += AddHeart;
+    }
 
+    private void UnsubscribeFromEvents()
+    {
+        PlayerScript.OnPlayerInstantiated -= LoadHearts;
+        PlayerScript.OnPlayerIsDamaged -= BreakHearts;
+        PlayerScript.OnPlayerIsHealed -= FixHearts;
+        PlayerScript.OnPlayerAddHeart -= AddHeart;
+    }
 
-        for (int i = Childs; i >= 0; i--)
+    private void AddHeart(int amount)
+    {
+        if (amount <= 0) return;
+
+        PlayerScript player = GameManager.instance.PlayerInScene?.GetComponent<PlayerScript>();
+        if (player == null) return;
+
+        // First, fix one broken heart if player has missing health
+        bool hasFixedHeart = false;
+        if (player.Hp < player.MaxHp)
         {
+            FixFirstBrokenHeart();
+            hasFixedHeart = true;
+        }
 
-            GameObject heart = gameObject.transform.GetChild(i).gameObject;
-            if (heart.GetComponent<Animator>())
+        // Then add new heart(s)
+        for (int i = 0; i < amount; i++)
+        {
+            bool shouldBeBroken = hasFixedHeart && i == 0; // Only the new heart should be broken if we fixed one
+            CreateHeart(shouldBeBroken);
+        }
+    }
+
+    private void FixFirstBrokenHeart()
+    {
+        foreach (Transform child in transform)
+        {
+            Animator heartAnimator = child.GetComponent<Animator>();
+            if (heartAnimator != null && heartAnimator.GetBool("brokeHeart"))
             {
-                if (!heart.GetComponent<Animator>().GetBool("brokeHeart"))
-                {
-                    heart.GetComponent<Animator>().SetBool("brokeHeart", true);
-                    damage--;
-                    brokenHearts++;
-                }
-
-
-                if (damage == 0)
-                {
-                    break;
-                }
-
+                SetHeartState(heartAnimator, false);
+                brokenHearts--;
+                return;
             }
+        }
+    }
 
-            else
+    private void CreateHeart(bool isBroken)
+    {
+        Vector3 position = CalculateHeartPosition(); // Childs * separationBetweenHearts
+        GameObject newHeart = Instantiate(heartPrefab, position, Quaternion.identity, transform);
+        
+        SetHeartState(newHeart.GetComponent<Animator>(), isBroken); // set the animator's bools to the broken state -> broke heart = true and fix heart = false 
+        
+        if (isBroken) brokenHearts++; 
+        totalHearts++;
+    }
+
+    private Vector3 CalculateHeartPosition()
+    {
+        // we calculate the next position based on the number of hearts and the separation between each one (delta y).
+        Vector3 basePosition = heartInitialPosition.position;
+        float deltaY = separationBetweenHearts * totalHearts;
+        return new Vector3(basePosition.x, basePosition.y + deltaY, 1);
+    }
+
+    private void SetHeartState(Animator heartAnimator, bool isBroken)
+    {
+        if (heartAnimator == null) return;
+        
+        heartAnimator.SetBool("brokeHeart", isBroken);
+        heartAnimator.SetBool("fixHeart", !isBroken);
+    }
+
+    private void FixHearts(int amount)
+    {
+        if (amount <= 0 || brokenHearts == 0) return;
+
+        PlayerScript player = GameManager.instance.PlayerInScene?.GetComponent<PlayerScript>();
+        if (player == null) return;
+
+        int healedCount = 0;
+        foreach (Transform child in transform)
+        {
+            if (healedCount >= amount || healedCount >= brokenHearts) break;
+
+            Animator heartAnimator = child.GetComponent<Animator>();
+            if (heartAnimator != null && heartAnimator.GetBool("brokeHeart"))
             {
-                Debug.Log("No more hearts to break, player has to die");
+                SetHeartState(heartAnimator, false);
+                healedCount++;
+                brokenHearts--;
+                 
             }
+        }
+    }
 
-        }
-    }
-    void LoadHeartsHorizontal(GameObject Heart)
+    private void BreakHearts(int damage)
     {
-        // in canvas something happens with the positions
-        float x = 0;
-        Childs = 0;
-        Vector3 HeartInipos = heartInitpos.position;
-        for (int i = 0; i < GameManager.instance.PlayerPurchasedHearts; i++)
-        {
-            float Xpos = HeartInipos.x;
-            Vector3 newPos = new Vector3(Xpos + x, HeartInipos.y, 1);
-            GameObject spawnHeart = Instantiate(Heart, newPos, Quaternion.identity, transform);
-            Childs++;
-            x += 32f;
-        }
-    }
-        void LoadHeartsVertical(GameObject Heart)
-    {
-        // in canvas something happens with the positions
-        float deltaY = 0;
-        Childs = 0;
-        Vector3 HeartInipos = heartInitpos.position;
-        for (int i = 0; i < GameManager.instance.PlayerPurchasedHearts; i++)
-        {
-            float yPos = HeartInipos.y;
-            Vector3 newPos = new Vector3(HeartInipos.x, yPos + deltaY, 1);
-            GameObject spawnHeart = Instantiate(Heart, newPos, Quaternion.identity, transform);
-            Childs++;
-            deltaY += separationBetweenHearts;
-        }
-    }
-    
+        if (damage <= 0) return;
 
+        for (int i = totalHearts - 1; i >= 0 && damage > 0; i--)
+        {
+            if (i >= transform.childCount) continue;
+
+            Animator heartAnimator = transform.GetChild(i).GetComponent<Animator>();
+            if (heartAnimator != null && !heartAnimator.GetBool("brokeHeart"))
+            {
+                SetHeartState(heartAnimator, true);
+                damage--;
+                brokenHearts++;
+            }
+        }
+
+        if (damage > 0)
+        {
+            Debug.Log("No more hearts to break, player should die");
+        }
+    }
+
+    public void LoadHearts()
+    {
+        if (heartPrefab == null)
+        {
+            Debug.LogError("Heart prefab is not assigned!");
+            return;
+        }
+
+        ClearExistingHearts();
+        LoadHeartsVertical();
+    }
+
+    private void ClearExistingHearts()
+    {
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
+        totalHearts = 0;
+        brokenHearts = 0;
+    }
+
+    private void LoadHeartsVertical()
+    {
+        PlayerScript player = GetPlayerReference();
+        if (player == null) return;
+
+        int heartCount = player.PlayerConfig.maxHp;
+        for (int i = 0; i < heartCount; i++)
+        {
+            CreateHeart(i >= player.Hp);
+        }
+    }
+
+    private PlayerScript GetPlayerReference()
+    {
+        GameObject playerObject = GameManager.instance.PlayerInScene 
+            ?? GameManager.instance.SelectedPlayer;
+        
+        return playerObject?.GetComponent<PlayerScript>();
+    }
 }
-
-
-
-

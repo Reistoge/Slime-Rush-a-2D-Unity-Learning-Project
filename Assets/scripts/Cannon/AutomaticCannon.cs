@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -13,8 +14,8 @@ public class AutomaticCannon : Cannon
     public float rotationSpeed = 5f; // Speed of rotation
 
     float offset;
-    bool isRotating;
-    void Start()
+
+    new void Start()
     {
         base.Start();
     }
@@ -36,13 +37,17 @@ public class AutomaticCannon : Cannon
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        
-      
+
+        if (col.CompareTag("Player"))
+        {
             canShoot = true;
             enterInsideCannon(col);
             StartCoroutine(seekAndShoot());
+        }
 
-       
+
+
+
 
 
 
@@ -55,14 +60,25 @@ public class AutomaticCannon : Cannon
 
     IEnumerator seekAndShoot()
     {
-        isRotating = true;
-        arrowAnim.SetBool("canShoot", false);
-        soundSystem.playRotateSfx();
-        StartCoroutine(seekTarget());
-        yield return new WaitUntil(() => isRotating == false);
-        arrowAnim.SetBool("canShoot", true);
-        soundSystem.stop();
-        insideCannonAction(2);
+        if (target)
+        {
+            isRotating = true;
+            arrowAnim.SetBool("canShoot", false);
+            soundSystem.playRotateSfx();
+            StartCoroutine(seekTarget());
+            yield return new WaitUntil(() => isRotating == false);
+            arrowAnim.SetBool("canShoot", true);
+            soundSystem.stop();
+            insideCannonAction(2);
+
+        }
+        else
+        {
+            arrowAnim.SetBool("canShoot", false);
+            arrowAnim.SetBool("canShoot", true);
+            soundSystem.stop();
+            insideCannonAction(2);
+        }
 
 
 
@@ -105,35 +121,32 @@ public class AutomaticCannon : Cannon
 
 
 
-
-    public void shootListener()
+    public void chargeAndShoot()
     {
-        if (Input.GetKeyUp(KeyCode.Space) || ActionButton.onPressActionButton && inBarrel)
+
+
+        if (canShoot && inBarrel)
         {
-            //needed for precise input
-            ActionButton.onPressActionButton = false;
 
-            if (canShoot)
-            {
-
-                insideCannonAction();
-
-
-
-
-            }
+            insideCannonAction();
             gameObject.GetComponent<Animator>().SetFloat("chargeSpeed", gameObject.GetComponent<Animator>().GetFloat("chargeSpeed") * chargeMultiplier);
-
-        }
-        if (inBarrel)
-        {
-            //    Vector3 barrel_pos = new Vector3(transform.position.x,transform.position.y+1,transform.position.z);
-
-            insideObject.transform.position = transform.position;
-
         }
     }
+    public void shootListener()
+    {
+        if (Input.GetKeyUp(KeyCode.Space) && inBarrel)
+        {
+            //needed for precise input
+            // ActionButton.onPressActionButton = false;
 
+
+            chargeAndShoot();
+
+
+
+        }
+
+    }
 
 
 }

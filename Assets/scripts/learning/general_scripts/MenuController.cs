@@ -74,6 +74,10 @@ public class MenuController : MonoBehaviour
 
 
     }
+    public void LoadSceneWithTransition(string args)
+    {
+        GameManager.instance.LoadSceneWithTransition(args);
+    }
     // void executeTransition1()
     // {
     //     GameManager.instance.executeTransition1();

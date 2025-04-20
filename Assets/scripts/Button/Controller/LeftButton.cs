@@ -8,9 +8,9 @@ public class LeftButton : ControllerButton
     // Start is called before the first frame update
 
     // Update is called once per frame
-    Vector3 mousePos;
-    bool isBeingPress;
-    void Update()
+    // Vector3 mousePos;
+    //bool isBeingPress;
+    new void Update()
     {
         base.Update();
 
@@ -33,10 +33,10 @@ public class LeftButton : ControllerButton
     public override void OnPointerUp(PointerEventData eventData)
     {
         // logic1
-        GameManager.instance.MovXButtons = 0;
+        //GameManager.instance.MovXButtons = 0;
 
         // logic 2
-        isBeingPress = false;
+        //isBeingPress = false;
 
         // logic 3
         // isBeingPress=false;
@@ -56,7 +56,7 @@ public class LeftButton : ControllerButton
 
 
         // logic 1
-        GameManager.instance.MovXButtons = -1;
+        //GameManager.instance.MovXButtons = -1;
 
     }
 

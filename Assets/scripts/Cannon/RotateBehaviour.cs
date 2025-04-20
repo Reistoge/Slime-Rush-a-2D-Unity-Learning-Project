@@ -71,7 +71,7 @@ public class RotateBehaviour : MonoBehaviour
         {
             
             transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0f, 0f, finalRotation), rotSpeed * Time.deltaTime);
-            gameObject.GetComponent<CannonSoundSystem>().downVolume(0.005f);
+            // gameObject.GetComponent<CannonSoundSystem>().downVolume(0.005f);
             yield return new WaitForEndOfFrame(); // Yield to the next frame
 
 

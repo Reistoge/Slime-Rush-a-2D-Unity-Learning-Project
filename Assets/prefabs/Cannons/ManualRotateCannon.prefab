@@ -257,7 +257,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clips:
   - {fileID: 8300000, guid: 40b40bbbece160a4587581cf942239b6, type: 3}
-  - {fileID: 8300000, guid: 569f58df8a2368f42848595ff7a53be9, type: 3}
+  - {fileID: 8300000, guid: be0746b6f0f7c1d45a8f57e0f621cefe, type: 3}
   - {fileID: 8300000, guid: bc4af7110cda197439c8b2b1336362c6, type: 3}
   - {fileID: 8300000, guid: 8509b6e9357c0fa48b2e3bed3985149e, type: 3}
   - {fileID: 8300000, guid: b467fa1a676998341ac0db6f0468f456, type: 3}
@@ -323,8 +323,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f43b603b06e48c2458253de4b603db76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationVariables: []
-  alwaysRotate: 0
   canShoot: 0
   isRotating: 0
   inBarrel: 0
@@ -334,6 +332,8 @@ MonoBehaviour:
   isFinal: 0
   isFirst: 0
   isAutoShoot: 0
+  canMoveInShoot: 0
+  horizontalThreshold: 0
 --- !u!1 &6071615024451299408
 GameObject:
   m_ObjectHideFlags: 0

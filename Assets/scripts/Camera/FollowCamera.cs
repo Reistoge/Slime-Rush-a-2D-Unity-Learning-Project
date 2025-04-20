@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Drawing;
 using System.Timers;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEditor.AnimatedValues;
@@ -26,17 +27,21 @@ public class FollowCamera : MonoBehaviour
     [SerializeField] bool moving;
     [SerializeField] bool isZoom;
     [SerializeField] bool isCenteringCamera;
+    [SerializeField] AlwaysRise rise;
+    [SerializeField] Coroutine shakeRoutine;
+    [SerializeField] Coroutine behaviourRoutine;
+
 
     float lerpTime = 0;
 
     private void Start()
     {
 
-        playerReference = GameObject.FindGameObjectWithTag("Player");
+        PlayerReference = GameObject.FindGameObjectWithTag("Player");
 
-        if (playerReference == null)
+        if (PlayerReference == null)
         {
-            playerReference = GameManager.instance.SelectedPlayer;
+            PlayerReference = GameManager.instance.SelectedPlayer;
             print("the player was not instantiated ");
         }
 
@@ -44,7 +49,7 @@ public class FollowCamera : MonoBehaviour
 
     void LateUpdate()
     {
-        onCameraBehaviour();
+        processCameraBehaviour();
     }
     private IEnumerator LerpCamera(float startPosY, float height)
     {
@@ -111,6 +116,67 @@ public class FollowCamera : MonoBehaviour
 
 
     }
+    private IEnumerator LerpUpCameraInUnscaledTime()
+    {
+
+        Vector3 startPos, endPos;
+        moving = true;
+        lerpTime = 0;
+        startPos = transform.position;
+        startPos.x = 0;
+        endPos = new Vector3(transform.position.x, transform.position.y + height, -10);
+
+        Time.timeScale = 0;
+        while (lerpTime < 1)
+        {
+            transform.position = Vector3.Lerp(startPos, endPos, lerpTime);
+            lerpTime += Time.unscaledDeltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+        transform.position = endPos;
+        Time.timeScale = 1;
+        moving = false;
+
+
+    }
+    private IEnumerator LerpDownCameraInUnscaledTime()
+    {
+
+        Vector3 startPos, endPos;
+        moving = true;
+        lerpTime = 0;
+        startPos = transform.position;
+        startPos.x = 0;
+        endPos = new Vector3(transform.position.x, transform.position.y - height, -10);
+
+        Time.timeScale = 0;
+        while (lerpTime < 1)
+        {
+            transform.position = Vector3.Lerp(startPos, endPos, lerpTime);
+            lerpTime += Time.unscaledDeltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+        transform.position = endPos;
+        Time.timeScale = 1;
+        moving = false;
+
+
+    }
+    public void changeCameraBehaviour(int args){
+        StopAllCoroutines();
+        cameraType = (cameraBehaviour)args;
+    }
+    public void stopCameraBehaviour(){
+        StopAllCoroutines();
+        cameraType = cameraBehaviour.stop;
+    }
+    public void lerp(Transform target){
+        lerp(transform.position.y, target.transform.position.y-transform.position.y);        
+    }
+
+
+
+
     private IEnumerator LerpCamera(Vector3 startPos, Vector3 endPos, float duration, float speed)
     {
 
@@ -128,8 +194,43 @@ public class FollowCamera : MonoBehaviour
 
 
     }
+    private IEnumerator LerpCamera(Vector3 startPos, Vector3 endPos, float speed)
+    {
+
+        float lerpTime = 0;
+        moving = true;
+        float duration = math.abs(startPos.magnitude - endPos.magnitude) / speed;
+        while (lerpTime < duration)
+        {
+            transform.position = Vector3.Lerp(new Vector3(startPos.x, startPos.y, -10), new Vector3(endPos.x, endPos.y, -10), lerpTime * speed);
+
+            lerpTime += Time.deltaTime * speed;
+            yield return new WaitForEndOfFrame();
+        }
+        transform.position = new Vector3(endPos.x, endPos.y, -10);
+        moving = false;
 
 
+    }
+    private IEnumerator alwaysRise(Vector3 startPos, Vector3 endPos)
+    {
+
+        float lerpTime = 0;
+        moving = true;
+        //rise.riseTotalDuration = math.abs(startPos.magnitude - endPos.magnitude) * (1 / rise.speed);
+        while ((Vector2)transform.position != (Vector2)(endPos))
+        {
+            transform.position = Vector3.MoveTowards(new Vector3(startPos.x, startPos.y, -10), new Vector3(endPos.x, endPos.y, -10), lerpTime * rise.speed);
+
+            lerpTime += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+        transform.position = new Vector3(endPos.x, endPos.y, -10);
+        moving = false;
+
+
+    }
+  
     private IEnumerator Zoom(SmoothZoom zoomCameraVariables)
     {
 
@@ -138,7 +239,7 @@ public class FollowCamera : MonoBehaviour
         cameraType = cameraBehaviour.zoomToPlayer;
         float elapsed = 0;
 
-
+        // add to follow the target.
         while (elapsed < zoomCameraVariables.Duration)
         {
 
@@ -158,93 +259,80 @@ public class FollowCamera : MonoBehaviour
     {
         StartCoroutine(Zoom(smooth));
     }
-    public void lerpToCenter()
+     
+    #region "Camera Behaviour"
+    public void processCameraBehaviour()
     {
-        cameraType = cameraBehaviour.centerCamera;
-        ZoomCamera.Target = null;
-        moving = true;
-        if (GameObject.Find("LevelObjectsManager").GetComponent<LevelObjectManager>() != null && GameObject.Find("LevelObjectsManager").GetComponent<LevelObjectManager>().isActiveAndEnabled)
-        {
-            StartCoroutine(LerpCamera(this.transform.position, GameObject.Find("LevelObjectsManager").GetComponent<LevelObjectManager>().CurrentLevel.transform.position, 2, 2));
-
-
-        }
-        else
-        {
-            cameraType = cameraBehaviour.centerCamera;
-            ZoomCamera.Target = null;
-            moving = true;
-            StartCoroutine(LerpCamera(this.transform.position, new Vector3(0,GameManager.instance.LevelCount*640,-10), 2, 2));
-        }
-    }
-
-
-
-    public void startZoom()
-    {
-
-
-        StartCoroutine(centerLogic());
-
-    }
-    private IEnumerator centerLogic()
-    {
-
-        isCenteringCamera = true; // bool to say that the coroutine is running or not
-        // GameManager.instance.ScreenController.SetActive(false);
-        GameManager.instance.CanMove=false;
-        ZoomCamera.Target = GameManager.instance.PlayerInScene.transform;
-        GameManager.instance.ScreenController.SetActive(false);
-        StartCoroutine(Zoom(ZoomCamera));
-        yield return new WaitUntil(() => GameManager.instance.LastUsedBarrel.GetComponent<Cannon>().IsFirst == true);
-        // aqui tendria que suceder el cañon autamatico ?, donde estara el cañon ?
-        yield return new WaitForSeconds(0.5f);
-        if (GameObject.Find("LevelObjectsManager").GetComponent<LevelObjectManager>() != null)
-        {
-            
-            cameraType = cameraBehaviour.centerCamera;
-            ZoomCamera.Target = null;
-            moving = true;
-            
-            StartCoroutine(LerpCamera(this.transform.position, GameObject.Find("LevelObjectsManager").GetComponent<LevelObjectManager>().CurrentLevel.transform.position, 2, 2));
-
-
-        }
-
-        yield return new WaitUntil(() => moving == false);
-        yield return new WaitForSeconds(0.5f);
-        cameraType = cameraBehaviour.centerCamera;
-
-        IsZoom = true;
-        StartCoroutine(Zoom(UnZoomCamera));
-        yield return new WaitUntil(() => IsZoom == false);
-        GetComponent<PixelPerfectCamera>().enabled = true;
-
-        // GameManager.instance.ScreenController.SetActive(true);
-        GameManager.instance.CanMove=true;
-        GameManager.instance.ScreenController.SetActive(true);
-        isCenteringCamera = false;
-
-    }
-    public void onCameraBehaviour()
-    {
-        if (playerReference != null)
+        if (PlayerReference != null)
         {
             switch (CameraType)
             {
                 case cameraBehaviour.followCharacter:
                     // this just follow the character
-                    Vector3 newpos = new Vector3(playerReference.transform.position.x, playerReference.transform.position.y, -10);
+                    Vector3 newpos = new Vector3(PlayerReference.transform.position.x, PlayerReference.transform.position.y, -10);
                     transform.position = newpos;
                     break;
                 case cameraBehaviour.riseWhenReachesHeight:
                     // if the character surpases the limit of a certain point of the camera we are going to lerp the camera up.
-                    if ((playerReference.transform.position.y) >= (UpLimit.transform.position.y) && (moving == false))
+                    if ((PlayerReference.transform.position.y) >= (UpLimit.transform.position.y) && (moving == false))
+                    {
+                        if (shakeRoutine != null)
+                        {
+                            StopCoroutine(shakeRoutine);
+                        }
+                        StartCoroutine(LerpUpCameraInUnscaledTime());
+                    }
+                    if ((PlayerReference.transform.position.y) >= (-300) && (PlayerReference.transform.position.y) <= (LowerLimit.transform.position.y) && (moving == false))
+                    {
+                        if (shakeRoutine != null)
+                        {
+                            StopCoroutine(shakeRoutine);
+                        }
+                        StartCoroutine(LerpDownCameraInUnscaledTime());
+                    }
+
+                    break;
+                case cameraBehaviour.alwaysRise:
+
+                    if (rise.alwaysRiseRoutine == null)
+                    {
+                        PlayerReference = GameObject.FindWithTag("Player");
+                        rise.alwaysRiseRoutine = StartCoroutine(alwaysRise(Camera.main.transform.position, new Vector2(Camera.main.transform.position.x, Camera.main.transform.position.y + rise.alwaysRiseEndPos)));
+
+                    }
+                    else // the coroutine is running
                     {
 
-                        StartCoroutine(LerpCamera());
+                        if (PlayerReference)
+                        {
+                            float dif = (PlayerReference.transform.position.y - transform.position.y);
+                            if (dif <= -rise.verticalDamp)
+                            {
+
+                                StopCoroutine(rise.alwaysRiseRoutine);
+                                rise.speed = rise.slowSpeed;
+                                rise.alwaysRiseRoutine = StartCoroutine(alwaysRise(Camera.main.transform.position, new Vector2(Camera.main.transform.position.x, Camera.main.transform.position.y + rise.alwaysRiseEndPos)));
+
+
+                            }
+                            else if (dif > rise.verticalDamp)
+                            {
+                                StopCoroutine(rise.alwaysRiseRoutine);
+                                rise.speed = rise.fastSpeed;
+                                rise.alwaysRiseRoutine = StartCoroutine(alwaysRise(Camera.main.transform.position, new Vector2(Camera.main.transform.position.x, Camera.main.transform.position.y + rise.alwaysRiseEndPos)));
+
+                            }
+                            else
+                            {
+                                StopCoroutine(rise.alwaysRiseRoutine);
+                                rise.speed = rise.normalSpeed;
+                                rise.alwaysRiseRoutine = StartCoroutine(alwaysRise(Camera.main.transform.position, new Vector2(Camera.main.transform.position.x, Camera.main.transform.position.y + rise.alwaysRiseEndPos)));
+                            }
+                        }
                     }
                     break;
+                
+
                 case cameraBehaviour.zoomToPlayer:
                     // if we zoom to the player we also want to follow them
                     if (ZoomCamera.Target != null)
@@ -258,10 +346,7 @@ public class FollowCamera : MonoBehaviour
 
 
                     break;
-                case cameraBehaviour.centerCamera:
-
-                    break;
-
+     
 
 
 
@@ -273,22 +358,23 @@ public class FollowCamera : MonoBehaviour
         }
 
     }
+    #endregion
     public void shakeCamera()
     {
 
         switch (ShakeBehaviour)
         {
             case shakeType.strong:
-                StartCoroutine(Shake(2, 10));
+                shakeRoutine = StartCoroutine(Shake(2, 10));
                 break;
             case shakeType.medium:
-                StartCoroutine(Shake(1, 5));
+                shakeRoutine = StartCoroutine(Shake(1, 5));
                 break;
             case shakeType.explosion:
-                StartCoroutine(Shake(5, 1));
+                shakeRoutine = StartCoroutine(Shake(5, 1));
                 break;
             case shakeType.lite:
-                StartCoroutine(Shake(0.5f, 2));
+                shakeRoutine = StartCoroutine(Shake(0.5f, 2));
                 break;
 
         }
@@ -302,8 +388,9 @@ public class FollowCamera : MonoBehaviour
 
     IEnumerator Shake(float duration, float magnitude)
     {
+
         Vector3 originalPos = transform.localPosition;
-        print(originalPos);
+        //print(originalPos);
         float elapsed = 0.0f;
         while ((elapsed < duration))
         {
@@ -317,16 +404,19 @@ public class FollowCamera : MonoBehaviour
         }
 
         transform.localPosition = originalPos;
+        shakeBehaviour = shakeType.none;
 
 
 
     }
+
+ 
     [System.Serializable]
     public class SmoothZoom
     {
         float smoothSpeed = 0.8f; // Speed of the camera's smooth transition
 
-        private Transform target; // Reference to the player's transform
+        [SerializeField] private Transform target; // Reference to the player's transform
         [SerializeField] Vector3 offset; // Offset from the player
         [SerializeField] float zoomSpeed = 2f; // Speed of the zoom effect
         [SerializeField] float finalZoom = 5f; // Minimum zoom level
@@ -342,7 +432,21 @@ public class FollowCamera : MonoBehaviour
         public float Duration { get => duration; set => duration = value; }
 
     }
+    [System.Serializable]
+    public class AlwaysRise
+    {
+        public Coroutine alwaysRiseRoutine;
+        public float alwaysRiseEndPos;
+
+        public float verticalDamp;
+        public float speed;
+        public float normalSpeed;
+        public float fastSpeed;
+        public float slowSpeed;
  
+
+    }
+
 
     public shakeType ShakeBehaviour { get => shakeBehaviour; set => shakeBehaviour = value; }
     public cameraBehaviour CameraType { get => cameraType; set => cameraType = value; }
@@ -352,6 +456,10 @@ public class FollowCamera : MonoBehaviour
     public SmoothZoom ZoomCamera { get => zoomCamera; set => zoomCamera = value; }
     public SmoothZoom UnZoomCamera { get => unZoomCamera; set => unZoomCamera = value; }
     public bool IsZoom { get => isZoom; set => isZoom = value; }
+    public GameObject PlayerReference { get => playerReference; set => playerReference = value; }
+    private AlwaysRise Rise { get => rise; set => rise = value; }
+    public bool Moving { get => moving; set => moving = value; }
+    
 }
 public enum shakeType
 {
@@ -359,14 +467,20 @@ public enum shakeType
     medium,
     explosion,
     lite,
+    none,
 
 }
+
 public enum cameraBehaviour
 {
-    followCharacter,
-    riseWhenReachesHeight,
+    followCharacter ,
+    riseWhenReachesHeight ,
+    alwaysRise,
     zoomToPlayer,
-    centerCamera,
+    stop,
+    shaking,
+
+
 
 
 
@@ -392,19 +506,19 @@ class CameraEditor : Editor
 
             if (trigger == false)
             {
-                 
+
                 trigger = true;
                 camera.ZoomCamera.Target = GameManager.instance.PlayerInScene.transform;
                 camera.triggerZoom(camera.ZoomCamera);
             }
-            else if(trigger ==true )
-            {
-                trigger = false;
-                camera.ZoomCamera.Target = null;
-                camera.triggerZoom(camera.UnZoomCamera);
-                camera.lerpToCenter();
+            // else if (trigger == true)
+            // {
+            //     trigger = false;
+            //     camera.ZoomCamera.Target = null;
+            //     camera.triggerZoom(camera.UnZoomCamera);
+            //     camera.lerpToCenter();
 
-            }
+            // }
             Repaint();
         }
     }

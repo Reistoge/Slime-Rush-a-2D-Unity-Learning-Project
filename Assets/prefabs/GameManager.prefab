@@ -1,5 +1,51 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3196171304215578280
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2785359904910634007}
+  - component: {fileID: 277362584020586841}
+  m_Layer: 0
+  m_Name: SlimeGhostPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2785359904910634007
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3196171304215578280}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4437411674170050741}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &277362584020586841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3196171304215578280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e2216a299bf83944ba8e9d874e48c32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ghostPrefab: {fileID: 8303439121020003417, guid: a60d8f3aab83ece45bfc04b2b5831c6e, type: 3}
+  poolSize: 15
 --- !u!1 &3814059994185193265
 GameObject:
   m_ObjectHideFlags: 0
@@ -29,7 +75,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2785359904910634007}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &-269472790733728335
@@ -51,13 +98,14 @@ MonoBehaviour:
   playerPos: {x: 0, y: 0, z: 0}
   playerSpeed: 1000
   playerScore: 0
-  totalCoins: 0
+  initCoins: 0
   playerLife: 3
-  playerPurchasedHearts: 3
+  playerPurchasedHearts: 5
   playerCoins: 0
   screenController: {fileID: 0}
   currentScene: 
   movXButtons: 0
+  movYButtons: 0
   charIndex: 0
   playerHighscore: 0
   mainGame: {fileID: 102900000, guid: b9f5ee876a020544fbbe6f83762fe264, type: 3}
@@ -65,3 +113,10 @@ MonoBehaviour:
   mainCharacterSelector: {fileID: 102900000, guid: 491eefd1452c17141bbac5473ee9a922, type: 3}
   lastUsedBarrel: {fileID: 0}
   inBarrel: 0
+  levelCount: 1
+  canMove: 1
+  appearEffect: {fileID: 8232058050954495901, guid: 3bcad98a4d3c31742a2f2a27bacec290, type: 3}
+  ghostPoolManager: {fileID: 277362584020586841}
+  transitions:
+  - {fileID: 1845221606967173369, guid: 8dc19ccc3db663e4bba913db5fb89a40, type: 3}
+  transitionLoaded: {fileID: 0}
