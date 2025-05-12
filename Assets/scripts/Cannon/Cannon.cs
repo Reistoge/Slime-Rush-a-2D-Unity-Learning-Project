@@ -13,7 +13,7 @@ public class Cannon : MonoBehaviour
 
         restartButton.StopCoroutines += StopAllCoroutines;
 
-        GameManager.instance.instantiateAppearEffect(transform, 0);
+        GameManager.Instance.instantiateAppearEffect(transform, 0);
 
 
     }
@@ -88,11 +88,11 @@ public class Cannon : MonoBehaviour
 
             arrowAnim.SetBool("canShoot", true);
             anim.Play("onEnterEntity", -1, 0f);
-            GameManager.instance.LastUsedBarrel = this.gameObject;
+            GameManager.Instance.LastUsedBarrel = this.gameObject;
             inBarrel = true;
 
-            GameManager.instance.InBarrel = inBarrel;
-            GameManager.instance.CanMove = false;
+            GameManager.Instance.InBarrel = inBarrel;
+            GameManager.Instance.CanMove = false;
 
             // make a call from player.
             insideObject = collision.gameObject;
@@ -133,7 +133,7 @@ public class Cannon : MonoBehaviour
         {
             insideObject.GetComponent<PlayerScript>().AnimatorHandler.playInvisible();
             yield return new WaitForSeconds(anim.GetCurrentAnimatorClipInfo(0).Length);
-            if (GameManager.instance.InBarrel && inBarrel)
+            if (GameManager.Instance.InBarrel && inBarrel)
             {
                 insideObject.GetComponent<PlayerScript>().AnimatorHandler.enterBarrel();
 
@@ -146,7 +146,7 @@ public class Cannon : MonoBehaviour
     }
     protected void playPlayerEnterBarrel()
     {
-        if (insideObject.CompareTag("Player") && GameManager.instance.InBarrel && inBarrel)
+        if (insideObject.CompareTag("Player") && GameManager.Instance.InBarrel && inBarrel)
         {
             insideObject.GetComponent<PlayerScript>().AnimatorHandler.enterBarrel();
         }
@@ -419,11 +419,11 @@ public class Cannon : MonoBehaviour
         insideRb.constraints = RigidbodyConstraints2D.None;
         inBarrel = false;
 
-        GameManager.instance.InBarrel = false;
-        GameManager.instance.CanMove = true;
+        GameManager.Instance.InBarrel = false;
+        GameManager.Instance.CanMove = true;
 
         hideArrow();
-        GameManager.instance.shakeCamera(shakeType.lite);
+        GameManager.Instance.shakeCamera(shakeType.lite);
         if (insideObject.GetComponent<PlayerScript>() != null)
         {
             PlayerScript playerScript = insideObject.GetComponent<PlayerScript>();
@@ -456,7 +456,7 @@ public class Cannon : MonoBehaviour
 
     }
     public void changeScene(string args){
-        GameManager.instance.LoadSceneWithTransition(args);
+        GameManager.Instance.LoadSceneWithTransition(args);
     }
 
     public void hideArrow()

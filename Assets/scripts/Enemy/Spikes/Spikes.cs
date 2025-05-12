@@ -9,7 +9,7 @@ using UnityEditor.EditorTools;
 using UnityEngine;
 using Vector2 = UnityEngine.Vector2;
 
-public class Spikes : MonoBehaviour
+public class Spikes : MonoBehaviour, IEnemyBehaviour
 {
     [SerializeField] Animator animator;
     [SerializeField] int spikeDamage=1;
@@ -23,59 +23,57 @@ public class Spikes : MonoBehaviour
     {
         gameObject.tag = "ground";   
     }
-
-    //ideas.
-    // enemy1. enemy always with spikes up, downs when sticks with player.
-    // enemy2. what if the enemy detects when the object is near ?? ---> spikes up !!.
-    // cannons with spikes !!!.
-
-    // things to have in mind:
-    // add core retro anim ??.
-
-    // int horizontalThreshold = 10;
+ 
     Vector2 upVector;
     void OnTriggerStay2D(Collider2D collision)
     {
-        applyDamage(collision);
+
+         
+        dealDamage(collision.gameObject);
     }
     void OnTriggerEnter2D(Collider2D collision)
     {
-        applyDamage(collision);
+        
+        dealDamage(collision.gameObject);
     }
-
-    private void applyDamage(Collider2D collision)
+    public void dealDamage(GameObject o)
     {
-        IDamageable damageable = collision.gameObject.GetComponent<IDamageable>();
-        if (damageable!=null)
+        
+        if (o.TryGetComponent<IDamageable>(out IDamageable damageable) && damageable.CanTakeDamage) 
         {
-            // Apply damage
-            if (damageable.CanTakeDamage)
-            {
-                applyFeedback(collision);
-                damageable.takeDamage(spikeDamage);
-            }
-
-
+            // only when the player is damaged, the spikes deal damages and push the object
+            damageable.takeDamage(spikeDamage);
+            pushObject(o);
+            
         }
     }
-
-    private void applyFeedback(Collider2D collision)
-    {
-        if (collision.gameObject.GetComponent<KnockbackFeedBack>())
+     
+    public void pushObject(GameObject o){
+        if(o.CompareTag("Player")){
+            pushPlayer(o);
+        }
+        else{
+            
+        }
+    }
+    public void pushPlayer(GameObject o){
+        if (o.TryGetComponent<KnockbackFeedBack>(out KnockbackFeedBack knocback)) 
         {
             // Calculate knockback direction based on spike orientation
-            Vector2 spikeDirection = transform.up;
-
+            Vector2 shootDirection = transform.up;
             // Knockback source is the spike's position
             Vector2 knockbackSource = transform.position;
 
-            // Trigger knockback feedback
-            collision.gameObject.GetComponent<KnockbackFeedBack>().PlayFeedBack(knockbackSource, spikeDirection);
+            // default object push feedback
+            knocback.triggerFeedback(knockbackSource, shootDirection);
 
-            print($"Knockback applied: Direction = {spikeDirection}, Source = {knockbackSource}");
+            print($"Knockback applied: Direction = {shootDirection}, Source = {knockbackSource}" + " Object = {knocback.name}");
         }
+
+
     }
 
+ 
 
 
 
@@ -146,6 +144,7 @@ public class Spikes : MonoBehaviour
     public float Y { get => solidYSize; set => solidYSize = value; }
     public float TriggerX { get => triggerXSize; set => triggerXSize = value; }
     public float TriggerOffset { get => triggerOffset; set => triggerOffset = value; }
+    public int Damage { get => spikeDamage; set => spikeDamage=value; }
 }
 #if UNITY_EDITOR
 [CustomEditor(typeof(Spikes)), CanEditMultipleObjects]

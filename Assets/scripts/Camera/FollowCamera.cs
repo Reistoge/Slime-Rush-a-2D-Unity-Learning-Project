@@ -41,7 +41,7 @@ public class FollowCamera : MonoBehaviour
 
         if (PlayerReference == null)
         {
-            PlayerReference = GameManager.instance.SelectedPlayer;
+            PlayerReference = GameManager.Instance.SelectedPlayer;
             print("the player was not instantiated ");
         }
 
@@ -498,7 +498,7 @@ class CameraEditor : Editor
         DrawDefaultInspector();
         if (GUILayout.Button("Shake"))
         {
-            GameManager.instance.shakeCamera(camera.TimeShake, camera.MagnitudeShake);
+            GameManager.Instance.shakeCamera(camera.TimeShake, camera.MagnitudeShake);
             Repaint();
         }
         if (GUILayout.Button("Zoom Player"))
@@ -508,7 +508,7 @@ class CameraEditor : Editor
             {
 
                 trigger = true;
-                camera.ZoomCamera.Target = GameManager.instance.PlayerInScene.transform;
+                camera.ZoomCamera.Target = GameManager.Instance.PlayerInScene.transform;
                 camera.triggerZoom(camera.ZoomCamera);
             }
             // else if (trigger == true)

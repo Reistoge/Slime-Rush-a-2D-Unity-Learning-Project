@@ -4,6 +4,7 @@ public class HeartContainer : MonoBehaviour
 {
     [Header("Heart Settings")]
     [SerializeField] private GameObject heartPrefab;
+    [SerializeField] private GameObject blueHeartPrefab;
     [SerializeField] private Transform heartInitialPosition;
     [SerializeField] private float separationBetweenHearts = 32f;
 
@@ -41,7 +42,7 @@ public class HeartContainer : MonoBehaviour
     {
         if (amount <= 0) return;
 
-        PlayerScript player = GameManager.instance.PlayerInScene?.GetComponent<PlayerScript>();
+        PlayerScript player = GameManager.Instance.PlayerInScene?.GetComponent<PlayerScript>();
         if (player == null) return;
 
         // First, fix one broken heart if player has missing health
@@ -56,7 +57,7 @@ public class HeartContainer : MonoBehaviour
         for (int i = 0; i < amount; i++)
         {
             bool shouldBeBroken = hasFixedHeart && i == 0; // Only the new heart should be broken if we fixed one
-            CreateHeart(shouldBeBroken);
+            CreateHeart(shouldBeBroken,blueHeartPrefab); // Create a new heart
         }
     }
 
@@ -84,6 +85,16 @@ public class HeartContainer : MonoBehaviour
         if (isBroken) brokenHearts++; 
         totalHearts++;
     }
+        private void CreateHeart(bool isBroken, GameObject heart)
+    {
+        Vector3 position = CalculateHeartPosition(); // Childs * separationBetweenHearts
+        GameObject newHeart = Instantiate(heart, position, Quaternion.identity, transform);
+        
+        SetHeartState(newHeart.GetComponent<Animator>(), isBroken); // set the animator's bools to the broken state -> broke heart = true and fix heart = false 
+        
+        if (isBroken) brokenHearts++; 
+        totalHearts++;
+    }
 
     private Vector3 CalculateHeartPosition()
     {
@@ -105,7 +116,7 @@ public class HeartContainer : MonoBehaviour
     {
         if (amount <= 0 || brokenHearts == 0) return;
 
-        PlayerScript player = GameManager.instance.PlayerInScene?.GetComponent<PlayerScript>();
+        PlayerScript player = GameManager.Instance.PlayerInScene?.GetComponent<PlayerScript>();
         if (player == null) return;
 
         int healedCount = 0;
@@ -174,17 +185,17 @@ public class HeartContainer : MonoBehaviour
         PlayerScript player = GetPlayerReference();
         if (player == null) return;
 
-        int heartCount = player.PlayerConfig.maxHp;
+        int heartCount = GameManager.Instance.PlayerConfig.maxHp;
         for (int i = 0; i < heartCount; i++)
         {
-            CreateHeart(i >= player.Hp);
+            CreateHeart(i >= GameManager.Instance.PlayerConfig.startHp);
         }
     }
 
     private PlayerScript GetPlayerReference()
     {
-        GameObject playerObject = GameManager.instance.PlayerInScene 
-            ?? GameManager.instance.SelectedPlayer;
+        GameObject playerObject = GameManager.Instance.PlayerInScene 
+            ?? GameManager.Instance.SelectedPlayer;
         
         return playerObject?.GetComponent<PlayerScript>();
     }

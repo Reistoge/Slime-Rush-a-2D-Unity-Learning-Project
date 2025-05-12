@@ -17,7 +17,7 @@ public class ProjectileLauncher : MonoBehaviour
     {
         // components needed when the player is instantiated (lamda function used).
         PlayerScript.OnPlayerInstantiated += () =>{
-            player = GameManager.instance.PlayerInScene.GetComponent<PlayerScript>();
+            player = GameManager.Instance.PlayerInScene.GetComponent<PlayerScript>();
             launchPoint = player.transform;
             };
     }

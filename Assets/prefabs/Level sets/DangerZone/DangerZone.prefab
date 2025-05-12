@@ -414,7 +414,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2302781599101146336, guid: 0980dc9226d72af42a2b1ba2110f6b8f, type: 3}
       propertyPath: onExitCannon.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: mainGame,2
+      value: InGameShop,2
       objectReference: {fileID: 0}
     - target: {fileID: 2302781599101146336, guid: 0980dc9226d72af42a2b1ba2110f6b8f, type: 3}
       propertyPath: onEnterCannon.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgument
@@ -751,6 +751,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1514234180421277056, guid: 608adec99e674fa4ab5fe45d3ff720d9, type: 3}
+      propertyPath: knockbackConfig
+      value: 
+      objectReference: {fileID: 11400000, guid: 6390e1d6f37a1f04da641bc599a97ea0, type: 2}
     - target: {fileID: 3892920206582631218, guid: 608adec99e674fa4ab5fe45d3ff720d9, type: 3}
       propertyPath: m_SortingOrder
       value: 10

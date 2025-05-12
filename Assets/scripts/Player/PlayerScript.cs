@@ -33,7 +33,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
     [SerializeField] Rigidbody2D rb;
     [SerializeField] SpriteRenderer sr;
     [SerializeField] PlayerAnimationHandler animatorHandler;
-    [SerializeField] PlayerSO playerConfig;
+    PlayerSO playerConfig;
     [SerializeField] KnockbackFeedBack knockbackFeedBack;
 
     #endregion
@@ -43,6 +43,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
     [SerializeField] private bool isDashing; // runtime
     [SerializeField] private bool isFalling; // runtime
     [SerializeField] public bool onJumpCut; // runtime
+    bool playerIsDead; // runtime
 
 
     #endregion
@@ -115,7 +116,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
     [SerializeField]
     private Vector2 currentVel;
     [SerializeField]
-   
+
     #endregion
 
     #region Coroutine
@@ -133,8 +134,8 @@ public class PlayerScript : MonoBehaviour, IDamageable
         SwipeDetection.OnSwipeLine += swipeDash;
         SwipeDetection.OnSwipeStart += chargeJump;
         SwipeDetection.OnSwipeEnd += releaseJumpAnimHandler;
-        initializePlayerConfig(playerConfig);
-        GameManager.instance.instantiateAppearEffect(this.transform, 0);
+        initializePlayerConfig();
+        GameManager.Instance.instantiateAppearEffect(this.transform, 0);
 
 
         // initialize playerConfig
@@ -152,7 +153,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
 
 
         // maxHp = GameManager.instance.PlayerPurchasedHearts;
-        hp = maxHp;
+
         //dashCounter = 1;
         //maxDashCounter = 1;
         // dashCounter = 0;
@@ -161,7 +162,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
         {
             Camera.main.GetComponent<FollowCamera>().PlayerReference = this.gameObject;
         }
-        GameManager.instance.CanMove = true;
+        GameManager.Instance.CanMove = true;
         initialGravity = GetComponent<Rigidbody2D>().gravityScale;
         initialLinearDrag = GetComponent<Rigidbody2D>().drag;
         OnPlayerInstantiated?.Invoke();
@@ -177,6 +178,12 @@ public class PlayerScript : MonoBehaviour, IDamageable
 
 
         // checkPlayerOutOfBounds();
+
+
+
+    }
+    void FixedUpdate()
+    {
         currentVel = Rb.velocity;
         if (canMove())
         {
@@ -191,13 +198,12 @@ public class PlayerScript : MonoBehaviour, IDamageable
 
             }
         }
-
-
     }
 
     #region CollisionDetection
     private void OnTriggerEnter2D(Collider2D collision)
     {
+
         HandleCoinCollision(collision);
         HandleDamageableCollision(collision);
         //HandleGroundCollision(collision);
@@ -229,10 +235,15 @@ public class PlayerScript : MonoBehaviour, IDamageable
         {
             Coin coin = collision.gameObject.GetComponent<Coin>();
             int value = coin.Value;
-
-            OnPlayerGetCoin?.Invoke(value); // Trigger event with coin value
             coin.getCoin(); // Call the coin's getCoin method
+            playerGetCoin(value); // Call the playerGetCoin method to update the player's coins
         }
+    }
+    public void playerGetCoin(int value)
+    {
+
+
+        OnPlayerGetCoin?.Invoke(value); // Trigger event with coin value
     }
 
     private void HandleDamageableCollision(Collider2D collision)
@@ -256,21 +267,15 @@ public class PlayerScript : MonoBehaviour, IDamageable
 
     private void HandleDashingCollision(IDamageable damageableObject, Collider2D collision)
     {
-        GameManager.instance.stopCannonDash();
+        GameManager.Instance.stopCannonDash();
         damageableObject.takeDamage(playerDamage);
-        GameObject g = collision.gameObject;
-        if (g.GetComponent<SpikeBox>() != null)
-        {
-
-
-        }
 
     }
     void HandleSquishCollision(Collider2D col)
     {
         Vector2 collisionPoint = col.ClosestPoint(transform.position);
         Vector2 dif = (collisionPoint - (Vector2)transform.position).normalized;
-        // print(dif);
+
 
         if (dif.y > 0)
         {
@@ -406,7 +411,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
     #region Movement
     public bool canMove()
     {
-        if (GameManager.instance.InBarrel == false)
+        if (GameManager.Instance.InBarrel == false)
         {
             return true;
         }
@@ -526,13 +531,11 @@ public class PlayerScript : MonoBehaviour, IDamageable
                 fallHandler(isFalling);
 
             }
-            // angularDir = isFalling ? 1 : -1;
 
-            // Rb.angularVelocity = horizontalAxis * angularDir * angularVelocity;
 
 
         }
-        if (IsGrounded && GameManager.instance.CanMove == true)
+        if (IsGrounded && GameManager.Instance.CanMove == true)
         {
             animatorHandler.playWalkAnimation(InputManager.Instance.HorizontalAxisRaw);
             speed = groundspeed;
@@ -541,9 +544,9 @@ public class PlayerScript : MonoBehaviour, IDamageable
 
         }
         // Update the player's velocity based on their movement direction and speed
-        if (GameManager.instance.CanMove == true)
+        if (GameManager.Instance.CanMove == true)
         {
-            Vector2 newVel = new Vector2(Rb.velocity.x + ((InputManager.Instance.HorizontalAxisRaw * horizontalThreshold) * speed) * Time.deltaTime, Rb.velocity.y);
+            Vector2 newVel = new Vector2(Rb.velocity.x + ((InputManager.Instance.HorizontalAxisRaw * horizontalThreshold) * speed) * Time.fixedDeltaTime, Rb.velocity.y);
             Rb.velocity = newVel;
             if (IsGrounded == false)
             {
@@ -551,7 +554,6 @@ public class PlayerScript : MonoBehaviour, IDamageable
                 if (transform.up.y <= 0)
                 {
                     rb.angularVelocity = angularVelocity * InputManager.Instance.HorizontalAxisRaw;
-
                 }
                 else
                 {
@@ -569,8 +571,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
         {
             return;
         }
-        //int HP = GameManager.instance.PlayerLife;
-        // Rb.velocity = Vector2.zero;
+
         hp -= damage;
         //this parameter is in the enemy_damagezone.cs
         OnPlayerIsDamaged(damage);
@@ -583,16 +584,16 @@ public class PlayerScript : MonoBehaviour, IDamageable
         }
         else
         {
-            GameManager.instance.shakeCamera(shakeType.lite);
+            GameManager.Instance.shakeCamera(shakeType.lite);
 
         }
     }
     public void jump(float force)
     {
 
-        if (IsGrounded && GameManager.instance.InBarrel == false)
+        if (IsGrounded && GameManager.Instance.InBarrel == false)
         {
-            //GetComponent<AudioSource>().Play();
+
             animatorHandler.playJump();
 
             rb.AddForce(new Vector2(InputManager.Instance.HorizontalAxisRaw, 1) * force * rb.mass * rb.gravityScale, ForceMode2D.Impulse);
@@ -603,7 +604,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
     public void jump(float force, float Xdirection, float Ydirection)
     {
 
-        if (IsGrounded && GameManager.instance.InBarrel == false)
+        if (IsGrounded && GameManager.Instance.InBarrel == false)
         {
             //GetComponent<AudioSource>().Play();
             animatorHandler.playJump();
@@ -616,7 +617,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
     public void swipeJump(Vector2 startPos, Vector2 endPos)
     {
 
-        if (IsGrounded && GameManager.instance.InBarrel == false && GameManager.instance.CanMove == true)
+        if (IsGrounded && GameManager.Instance.InBarrel == false && GameManager.Instance.CanMove == true)
         {
 
             transform.SetParent(null);
@@ -661,7 +662,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
     public void swipeDash(Vector2 startPos, Vector2 endPos)
     {
 
-        if (IsGrounded == false && DashCounter > 0 && GameManager.instance.InBarrel == false && GameManager.instance.CanMove == true)
+        if (IsGrounded == false && DashCounter > 0 && GameManager.Instance.InBarrel == false && GameManager.Instance.CanMove == true)
         {
 
             DashCounter--;
@@ -680,10 +681,10 @@ public class PlayerScript : MonoBehaviour, IDamageable
     }
     public void chargeJump()
     {
-        if (GameManager.instance.InBarrel == false && IsGrounded && GameManager.instance.CanMove == true)
+        if (GameManager.Instance.InBarrel == false && IsGrounded && GameManager.Instance.CanMove == true)
         {
             // Record the time when the jump button was pressed
-            GameManager.instance.CanMove = false;
+            GameManager.Instance.CanMove = false;
             animatorHandler.playChargeIn();
 
 
@@ -691,7 +692,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
     }
     public void releaseJumpAnimHandler()
     {
-        if (GameManager.instance.InBarrel == false)
+        if (GameManager.Instance.InBarrel == false)
         {
             animatorHandler.playChargeOut();
 
@@ -711,7 +712,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
 
         }
 
-        if (isDashing == false && GameManager.instance.InBarrel == false)
+        if (isDashing == false && GameManager.Instance.InBarrel == false)
         {
 
             isDashing = true;
@@ -728,7 +729,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
 
         }
 
-        if (isDashing == false && GameManager.instance.InBarrel == false)
+        if (isDashing == false && GameManager.Instance.InBarrel == false)
         {
 
             // animatorHandler.playDash();
@@ -747,7 +748,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
             stopDash();
 
         }
-        if (isDashing == false && GameManager.instance.InBarrel == false)
+        if (isDashing == false && GameManager.Instance.InBarrel == false)
         {
 
             //animatorHandler.playDash();
@@ -766,6 +767,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
             GetComponent<Rigidbody2D>().velocity *= 1;
             GetComponent<Rigidbody2D>().drag = initialLinearDrag;
             GetComponent<Rigidbody2D>().gravityScale = initialGravity;
+            GetComponent<Rigidbody2D>().sharedMaterial = null;
             horizontalThreshold = 1;
             animatorHandler.stopDash();
             IsDashing = false;
@@ -947,15 +949,35 @@ public class PlayerScript : MonoBehaviour, IDamageable
 
     public void die()
     {
+
         OnPlayerDied?.Invoke();
+        playerIsDead = true;
+        storeValuesWhenDie();
+        animatorHandler.playDie();
+
+
+    }
+    public void storeValuesWhenDie()
+    {
+        // store values in the player config
+        if(playerConfig == null)
+        {
+            playerConfig = GameManager.Instance.PlayerConfig;
+        }
+        playerConfig.startHp = maxHp;
+        playerConfig.maxHp = maxHp;
+        playerConfig.startCoins = Coins;
+        playerConfig.totalCoins = Coins;
+        playerConfig.playerDamage = playerDamage;
+        playerConfig.handleVelocities = handleVelocities;
     }
     IEnumerator dieRoutine()
     {
         rb.isKinematic = true;
 
-        GameManager.instance.CanMove = false;
-        GameManager.instance.shakeCamera(shakeType.strong);
-        yield return new WaitUntil(() => GameManager.instance.cameraState() == shakeType.none);
+        GameManager.Instance.CanMove = false;
+        GameManager.Instance.shakeCamera(shakeType.strong);
+        yield return new WaitUntil(() => GameManager.Instance.cameraState() == shakeType.none);
         yield return new WaitForSeconds(1f);
         animatorHandler.playDie();
         // play Die sound & animation
@@ -975,10 +997,10 @@ public class PlayerScript : MonoBehaviour, IDamageable
     {
         handleVelocities = !handleVelocities;
     }
-    public void initializePlayerConfig(PlayerSO scriptableObject)
+    public void initializePlayerConfig()
     {
-        coins = scriptableObject.startCoins;
-        hp = scriptableObject.startHp;
+
+        PlayerSO scriptableObject = GameManager.Instance.PlayerConfig;
 
         // Player State
         JumpThreshold = scriptableObject.jumpThreshold;
@@ -1013,7 +1035,6 @@ public class PlayerScript : MonoBehaviour, IDamageable
         rb.mass = scriptableObject.mass;
         rb.gravityScale = scriptableObject.gravity;
         rb.drag = scriptableObject.linearDrag;
-        coins = scriptableObject.totalCoins;
 
 
 
@@ -1060,7 +1081,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
     #endregion
 
     #region Modifiers and Getters
- 
+
 
     public int PlayerDamage
     {
@@ -1094,7 +1115,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
         set => rb = value;
     }
 
- 
+
     public PlayerAnimationHandler AnimatorHandler
     {
         get => animatorHandler;
@@ -1122,6 +1143,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
     public float MaxJumpForce { get => maxJumpForce; set => maxJumpForce = value; }
     public bool IsGrounded { get => isGrounded; set => isGrounded = value; }
     public PlayerSO PlayerConfig { get => playerConfig; set => playerConfig = value; }
+    public int Coins { get => coins; set => coins = value; }
     #endregion
     // dos formas de verificar las colisiones entre objetos, puede ser mediante oncollisionenter que detecta cada vez que colisionan dos objetos con sus rb
     //Therefore, it is recommended to cache the

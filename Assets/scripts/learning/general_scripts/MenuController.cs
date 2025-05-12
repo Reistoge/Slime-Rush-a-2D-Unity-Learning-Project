@@ -16,7 +16,7 @@ public class MenuController : MonoBehaviour
     public void returnHome()
     {
         // Invoke("executeTransition1", 2);
-        SceneManager.LoadScene(GameManager.instance.MainMenuSceneName);
+        SceneManager.LoadScene(GameManager.Instance.MainMenuSceneName);
         // GameManager.instance.ResetTriggerTrans1();
 
 
@@ -27,19 +27,19 @@ public class MenuController : MonoBehaviour
     public void selectCharacterScene()
     {
         //Invoke("executeTransition1", 2);
-        SceneManager.LoadScene(GameManager.instance.CharacterSelector);
+        SceneManager.LoadScene(GameManager.Instance.CharacterSelector);
 
     }
     private void Start()
     {
 
-        if (SceneManager.GetActiveScene().name == GameManager.instance.MainMenuSceneName)
+        if (SceneManager.GetActiveScene().name == GameManager.Instance.MainMenuSceneName)
         {
 
             text.text = "0";
-            if (GameManager.instance != null)
+            if (GameManager.Instance != null)
             {
-                text.text = GameManager.instance.Highscore.ToString();
+                text.text = GameManager.Instance.Highscore.ToString();
             }
 
 
@@ -69,14 +69,14 @@ public class MenuController : MonoBehaviour
         // Invoke("executeTransition1", 0);
 
 
-        StartCoroutine(GameManager.instance.LoadSceneIn(0, GameManager.instance.MainGame.name));
+        StartCoroutine(GameManager.Instance.LoadSceneIn(0, GameManager.Instance.MainGame.name));
         // when the player press the start button it pass 6 seconds and loads the new scene
 
 
     }
     public void LoadSceneWithTransition(string args)
     {
-        GameManager.instance.LoadSceneWithTransition(args);
+        GameManager.Instance.LoadSceneWithTransition(args);
     }
     // void executeTransition1()
     // {

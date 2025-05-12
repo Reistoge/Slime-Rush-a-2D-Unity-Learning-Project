@@ -11,7 +11,7 @@ using UnityEngine.Rendering;
 public class PlayerAnimationHandler : MonoBehaviour
 {
     // Start is called before the first frame update
-    Animator anim;
+    [SerializeField] Animator anim;
     [SerializeField] Animator squishAnim;
     SpriteRenderer sr;
     [SerializeField] GhostManager ghostingEffect;
@@ -20,10 +20,9 @@ public class PlayerAnimationHandler : MonoBehaviour
     [SerializeField] Material onHitMaterial;
     [SerializeField] Material basicMaterial;
     [SerializeField] GameObject slime;
+    
 
-
-
-    // 
+ 
     void Start()
     {
         
@@ -117,8 +116,26 @@ public class PlayerAnimationHandler : MonoBehaviour
 
     public void playDie()
     {
-
+        PlayerScript player = slime.GetComponent<PlayerScript>();
+        player.enabled=false;
+        
+        anim.SetBool("canTakeDamage", false);
+        anim.ResetTrigger("damaged");
+        anim.SetBool("isDashing", false);
+        anim.SetBool("walk", false);
+        anim.SetBool("inBarrel", false);
         anim.Play("die", -1, 0f);
+
+        anim.updateMode = AnimatorUpdateMode.UnscaledTime;
+       
+    
+
+    }
+    public void endPlayerDieAnimation(){
+
+        sr.enabled = false;
+        slime.SetActive(false);
+        
 
     }
 
@@ -170,12 +187,12 @@ public class PlayerAnimationHandler : MonoBehaviour
     public void playChargeIn()
     {
 
-        GameManager.instance.CanMove = false;
+        GameManager.Instance.CanMove = false;
         anim.Play("chargeIn", -1, 0f);
     }
     public void playChargeOut()
     {
-        GameManager.instance.CanMove = true;
+        GameManager.Instance.CanMove = true;
         anim.SetBool("walk", false);
         anim.Play("idle1", -1, 0f);
     }

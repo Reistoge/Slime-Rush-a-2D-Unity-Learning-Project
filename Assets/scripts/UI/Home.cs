@@ -12,7 +12,7 @@ public class HomeButton : MonoBehaviour
             Time.timeScale = 1.0f;
             PauseController.isGamePaused = false;
         }
-        GameManager.instance.LoadSceneWithTransition("Menu");
+        GameManager.Instance.LoadSceneWithTransition("Menu");
 
 
     }

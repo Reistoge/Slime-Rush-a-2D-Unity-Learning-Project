@@ -379,14 +379,14 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8184648363867371026}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: loadScene
+        m_MethodName: LoadSceneWithTransition
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: MainGame,2
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!95 &224478677
@@ -1816,6 +1816,7 @@ MonoBehaviour:
   trail: {fileID: 0}
   trailPrefab: {fileID: 8177246880077709874, guid: a101a3f0855bbef4eb10787453bb2815, type: 3}
   startPosition: {x: 0, y: 0}
+  currentPosition: {x: 0, y: 0}
   OnSwipeLeft:
     m_PersistentCalls:
       m_Calls: []
@@ -2501,6 +2502,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -269472790733728335, guid: f196710a5e5677043ae6388c5503f842, type: 3}
+      propertyPath: mainGame
+      value: 
+      objectReference: {fileID: 102900000, guid: f12d185acbafd074486a86b2014f7349, type: 3}
+    - target: {fileID: -269472790733728335, guid: f196710a5e5677043ae6388c5503f842, type: 3}
+      propertyPath: playerConfig
+      value: 
+      objectReference: {fileID: 11400000, guid: 56c520563df85ac4e9d514cfc5f23672, type: 2}
     - target: {fileID: 3814059994185193265, guid: f196710a5e5677043ae6388c5503f842, type: 3}
       propertyPath: m_Name
       value: GameManager

@@ -44,7 +44,7 @@ public class BoxStickySpikes : MonoBehaviour, IStickable
             {
 
                 // this functions stops the last cannon
-                GameManager.instance.stopCannonDash();
+                GameManager.Instance.stopCannonDash();
 
 
             }

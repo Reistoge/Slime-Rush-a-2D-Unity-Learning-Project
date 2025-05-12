@@ -10,14 +10,23 @@ public class scoreManager : MonoBehaviour
     [SerializeField] PlayerScript player;
     float score = 0;
 
- 
     
+
+
     // Update is called once per frame
     void Update()
     {
+        checkScore();
+    }
+    public void checkScore()
+    {
+        if(GameManager.Instance.PlayerInScene == null)
+        {
+            return;
+        }
         if (player == null)
         {
-            player = GameManager.instance.PlayerInScene.GetComponent<PlayerScript>();
+            player = GameManager.Instance.PlayerInScene.GetComponent<PlayerScript>();
         }
 
         else
@@ -31,11 +40,11 @@ public class scoreManager : MonoBehaviour
 
             score = math.round(score);
             scoreNumber.text = "Score: " + score.ToString();
-            highscoreNumber.text = "Highscore: " + GameManager.instance.Highscore.ToString();
-            if (score >= GameManager.instance.Highscore)
+            highscoreNumber.text = "Highscore: " + GameManager.Instance.Highscore.ToString();
+            if (score >= GameManager.Instance.Highscore)
             {
                 // new highscore !!
-                GameManager.instance.Highscore = score;
+                GameManager.Instance.Highscore = score;
             }
 
         }

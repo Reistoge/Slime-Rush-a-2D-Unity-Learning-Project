@@ -44,6 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cddcdaf3742ebe4bbcc936849140d7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  redHeart: {fileID: 5345726038803116609, guid: 150fccaf137750944b243af7f87d7023, type: 3}
-  heartInitpos: {fileID: 0}
-  Childs: 0
+  heartPrefab: {fileID: 5345726038803116609, guid: 150fccaf137750944b243af7f87d7023, type: 3}
+  blueHeartPrefab: {fileID: 5345726038803116609, guid: 409a51a7e3e6d6f488347fca180506b7, type: 3}
+  heartInitialPosition: {fileID: 0}
+  separationBetweenHearts: 32
+  totalHearts: 0
+  brokenHearts: 0

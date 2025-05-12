@@ -17,6 +17,7 @@ public interface IDamageable
 }
 public interface IEnemyBehaviour 
 {
+    
     int Damage {  get; set; }
     void dealDamage(GameObject o);
 
@@ -44,6 +45,11 @@ public interface ILootable
 {
     int LootCoins { get; set; }
     public void throwLoot();
+    
+}
+public interface IPurchasable{
+    int Price { get;  }
+    public void purchase();
     
 }
  

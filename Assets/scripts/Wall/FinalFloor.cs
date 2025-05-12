@@ -6,6 +6,6 @@ public class FinalFloor : MonoBehaviour
 {
     public void triggerDangerZone(){
         
-        GameManager.instance.getLevelObjectManager().generateRandomDangerZoneLevel(this.transform);
+        GameManager.Instance.getLevelObjectManager().generateRandomDangerZoneLevel(this.transform);
     }
 }

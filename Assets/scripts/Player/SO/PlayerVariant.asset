@@ -18,11 +18,11 @@ MonoBehaviour:
   maxHorizontalVelocity: 1000
   maxUpVelocity: 1000
   maxDownVelocity: 1000
-  maxHp: 17
-  startHp: 7
+  maxHp: 4
+  startHp: 3
   playerDamage: 0
-  totalCoins: 100
-  startCoins: 0
+  totalCoins: 1836
+  startCoins: 100
   score: 0
   angularFallingVelocity: 200
   angularJumpVelocity: 100

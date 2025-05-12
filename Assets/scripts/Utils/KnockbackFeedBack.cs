@@ -11,35 +11,38 @@ public class KnockbackFeedBack : MonoBehaviour
     Rigidbody2D rb;
 
     [Header("Feedback Settings")]
-    [SerializeField] float horizontalStrength = 10f;
-    [SerializeField] float verticalStrength = 10f;
-    [SerializeField] float delay = 0.5f;
-    float initDelay;
-    [SerializeField] float gravityMultiplier = 0.5f;
+    // [SerializeField] float horizontalStrength = 10f;
+    // [SerializeField] float verticalStrength = 10f;
+    // [SerializeField] float gravityMultiplier = 0.5f;
 
     [Header("Clamps")]
-    [SerializeField] float minHorizontalForce = 5f;
-    [SerializeField] float maxVerticalForce = 15f;
-    KnockbackFeedBack initFeedback;
-    float originalGravity;
+    // [SerializeField] float minHorizontalForce = 5f;
+    // [SerializeField] float maxVerticalForce = 15f;
+
+    KnockbackFeedBack thisFeedback;
+   
+    float initGravity;
+    
     Coroutine resetCoroutine;
 
     public UnityEvent OnBegin, OnDone;
+    [SerializeField] KnockbackFeedBackVariables knockbackConfig;
 
-    public float Delay { get => delay; set => delay = value; }
+    public float Delay { get => knockbackConfig.delay; set => knockbackConfig.delay = value; }
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         if(rb){
-            originalGravity = rb.gravityScale;
+            initGravity = rb.gravityScale;
 
         }
-        initFeedback = this;
-        initDelay = delay;
+        thisFeedback = this;
+        
     }
+   
 
-    public void PlayFeedBack(Vector2 sender, Vector2 spikeDirection)
+    public void triggerFeedback(Vector2 sender, Vector2 feedBackDirection)
     {
         if(rb==null) return; 
         StopAllCoroutines();
@@ -49,16 +52,16 @@ public class KnockbackFeedBack : MonoBehaviour
         Vector2 direction = ((Vector2)transform.position - sender).normalized;
 
         // Adjust horizontal and vertical forces
-        float horizontalForce = spikeDirection.x * horizontalStrength;
+        float horizontalForce = feedBackDirection.x * knockbackConfig.horizontalStrength;
 
-        rb.gravityScale = gravityMultiplier;
+        rb.gravityScale = knockbackConfig.gravityMultiplier;
         // Ensure a minimum horizontal force when spike is mostly vertical
-        if (Mathf.Abs(spikeDirection.y) > 0.8f && Mathf.Abs(horizontalForce) < minHorizontalForce)
+        if (Mathf.Abs(feedBackDirection.y) > 0.8f && Mathf.Abs(horizontalForce) < knockbackConfig.minHorizontalForce)
         {
-            horizontalForce = minHorizontalForce * Mathf.Sign(direction.x); // Add bias based on player position
+            horizontalForce = knockbackConfig.minHorizontalForce * Mathf.Sign(direction.x); // Add bias based on player position
         }
 
-        float verticalForce = Mathf.Clamp(spikeDirection.y * verticalStrength, -maxVerticalForce, maxVerticalForce);
+        float verticalForce = Mathf.Clamp(feedBackDirection.y * knockbackConfig.verticalStrength, -knockbackConfig.maxVerticalForce, knockbackConfig.maxVerticalForce);
 
         Vector2 forceVector = new Vector2(horizontalForce, verticalForce);
 
@@ -67,39 +70,38 @@ public class KnockbackFeedBack : MonoBehaviour
 
         resetCoroutine = StartCoroutine(ResetBody());
     }
-    public void PlayFeedBack(Vector2 sender, Vector2 spikeDirection, KnockbackFeedBack feedBack)
+    public void triggerFeedbackWithReference(Vector2 sender, Vector2 feedBackDirection, KnockbackFeedBack feedBack)
     {
         StopAllCoroutines();
         OnBegin?.Invoke();
         feedBack.OnBegin?.Invoke();
-        delay = feedBack.delay;
-
-        // Calculate direction
-        Vector2 direction = ((Vector2)transform.position - sender).normalized;
-
+        
+         
         // Adjust horizontal and vertical forces
-        float horizontalForce = feedBack.horizontalStrength;
+        float horizontalForce = feedBack.knockbackConfig.horizontalStrength;
 
         // Ensure a minimum horizontal force when spike is mostly vertical
 
-        float verticalForce = Mathf.Clamp(spikeDirection.y * feedBack.verticalStrength, -feedBack.maxVerticalForce, feedBack.maxVerticalForce);
+        float verticalForce = Mathf.Clamp(feedBackDirection.y * feedBack.knockbackConfig.verticalStrength, -feedBack.knockbackConfig.maxVerticalForce, feedBack.knockbackConfig.maxVerticalForce);
 
         Vector2 forceVector = new Vector2(horizontalForce, verticalForce);
 
         rb.velocity = Vector2.zero; // Reset velocity
-        rb.gravityScale = feedBack.gravityMultiplier;
+        rb.gravityScale = feedBack.knockbackConfig.gravityMultiplier;
         rb.AddForce(forceVector, ForceMode2D.Impulse);
-
+        print("force vector: " +forceVector );
         resetCoroutine = StartCoroutine(ResetBody(feedBack));
     }
+    
+ 
 
 
     IEnumerator ResetBody()
     {
-        yield return new WaitForSeconds(delay);
+        yield return new WaitForSeconds(knockbackConfig.delay);
 
 
-        rb.gravityScale = originalGravity;
+        rb.gravityScale = initGravity;
         rb.velocity = Vector2.zero;
         OnDone?.Invoke();
     }
@@ -107,13 +109,11 @@ public class KnockbackFeedBack : MonoBehaviour
 
     IEnumerator ResetBody(KnockbackFeedBack feedBack)
     {
-        yield return new WaitForSeconds(feedBack.delay);
+        yield return new WaitForSeconds(feedBack.knockbackConfig.delay);
 
-
-        rb.gravityScale = originalGravity;
+        rb.gravityScale = initGravity;
         rb.velocity = Vector2.zero;
-        delay = initDelay;
-
+         
         OnDone?.Invoke();
         feedBack.OnDone?.Invoke();
     }
@@ -121,7 +121,7 @@ public class KnockbackFeedBack : MonoBehaviour
     { 
         if(resetCoroutine!=null){
             StopAllCoroutines();
-            rb.gravityScale = originalGravity;
+            rb.gravityScale = initGravity;
             OnDone?.Invoke();
 
         }

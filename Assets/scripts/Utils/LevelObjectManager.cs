@@ -31,7 +31,7 @@ public class LevelObjectManager : MonoBehaviour
 
     void Start()
     {
-        if (SceneManager.GetActiveScene().name == GameManager.instance.MainGameSceneName)
+        if (SceneManager.GetActiveScene().name == GameManager.Instance.MainGameSceneName)
         {
             generateInitialLevels();
         }

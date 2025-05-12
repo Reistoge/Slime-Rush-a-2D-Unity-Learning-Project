@@ -399,6 +399,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c895a1f177e7c4a428117ea6f51cf9a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 0}
   squishAnim: {fileID: 6981608261571238421}
   ghostingEffect: {fileID: 1630221891098906757}
   particles: {fileID: 6564186004072039617}
@@ -553,7 +554,6 @@ MonoBehaviour:
   horizontalJumpDirectionThreshold: 3
   rawJumpForce: 0
   currentVel: {x: 0, y: 0}
-  state: 0
 --- !u!114 &4442645777924847814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -566,18 +566,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81307bc4dce82704f85a520b0443b49d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  horizontalStrength: 300
-  verticalStrength: 400
-  delay: 0.3
-  gravityMultiplier: 0.3
-  minHorizontalForce: 200
-  maxVerticalForce: 300
   OnBegin:
     m_PersistentCalls:
       m_Calls: []
   OnDone:
     m_PersistentCalls:
       m_Calls: []
+  knockbackConfig: {fileID: 11400000, guid: 3298d82aa82168046b24eb2be10478ce, type: 2}
 --- !u!114 &1630221891098906757
 MonoBehaviour:
   m_ObjectHideFlags: 0

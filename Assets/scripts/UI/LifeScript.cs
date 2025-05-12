@@ -26,8 +26,8 @@ public class LifeScript : MonoBehaviour
     public void updateLifeText(int damage)
     {
         // HERES THE TEXT UPDATE OR MAY BE AN ICON IDK
-        if(GameManager.instance.PlayerInScene.GetComponent<PlayerScript>())
-        text_content = Convert.ToString(GameManager.instance.PlayerInScene.GetComponent<PlayerScript>());
+        if(GameManager.Instance.PlayerInScene.GetComponent<PlayerScript>())
+        text_content = Convert.ToString(GameManager.Instance.PlayerInScene.GetComponent<PlayerScript>());
         text_object.text = text_content;
 
     }

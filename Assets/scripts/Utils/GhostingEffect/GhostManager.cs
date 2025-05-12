@@ -13,7 +13,7 @@ public class GhostManager : MonoBehaviour
     private Coroutine ghostRoutine;
     void Start(){
         if(ghostPoolManager == null){
-         ghostPoolManager= GameManager.instance.GhostPoolManager;
+         ghostPoolManager= GameManager.Instance.GhostPoolManager;
         }
     }
 

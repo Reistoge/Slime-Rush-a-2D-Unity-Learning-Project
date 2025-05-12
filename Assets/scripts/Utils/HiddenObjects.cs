@@ -9,7 +9,7 @@ public class HiddenObjects : MonoBehaviour
     { 
         foreach (Transform child in transform)
         {
-            GameManager.instance.instantiateAppearEffect(child, 1);
+            GameManager.Instance.instantiateAppearEffect(child, 1);
             child.gameObject.SetActive(true);
         }
     }

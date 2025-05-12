@@ -38,7 +38,7 @@ public class BrokeRockScript : MonoBehaviour
             }
             else if (requiereFinalCannon)
             {
-                if (col.GetComponent<PlayerScript>().IsDashing && GameManager.instance.LastUsedBarrel && GameManager.instance.LastUsedBarrel.GetComponent<Cannon>().IsFinal)
+                if (col.GetComponent<PlayerScript>().IsDashing && GameManager.Instance.LastUsedBarrel && GameManager.Instance.LastUsedBarrel.GetComponent<Cannon>().IsFinal)
                 {
 
                     // Time.timeScale = 0.4f;
@@ -47,7 +47,7 @@ public class BrokeRockScript : MonoBehaviour
                     rockEffects.playDestroyAnim();
                     ps3.Play();
 
-                    if (SceneManager.GetActiveScene().name == "Tutorial") GameManager.instance.LoadSceneWithTransition("Menu,1");
+                    if (SceneManager.GetActiveScene().name == "Tutorial") GameManager.Instance.LoadSceneWithTransition("Menu,1");
 
 
 

@@ -3,6 +3,7 @@ using System.Collections;
  
 using Unity.VisualScripting;
 using UnityEditor;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Playables;
@@ -16,7 +17,7 @@ public class GameManager : MonoBehaviour
     /// refactor initialization of variables in start, awake etc..
     /// </summary>
     //instance of an object
-    public static GameManager instance;
+    private static GameManager instance;
     GameObject managerObject;
     [SerializeField] GameObject coinReference;
     [Header("PLAYER SETTINGS")]
@@ -25,8 +26,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject defaultPlayer;
     [SerializeField] GameObject playerInScene;
     [SerializeField] private Vector3 playerPos;
-    [SerializeField] private int playerPurchasedHearts = 3;
     [SerializeField] private int playerCoins;
+    [SerializeField] private int playerInGameCoins;
 
 
     [Header("Game Manager")]
@@ -55,16 +56,17 @@ public class GameManager : MonoBehaviour
     Vector3 startPos;
     [SerializeField] GameObject[] transitions;
     [SerializeField] GameObject transitionLoaded;
+    [SerializeField] PlayerSO playerConfig;
 
-
-
-
-
+    void Awake()
+    {
+        singletonLogic();
+    }
     private void OnEnable()
     {
         PlayerScript.OnPlayerDied += pauseGame;
         SceneManager.sceneLoaded += OnLevelFinishedLoading;
-        singletonLogic();
+        
 
 
     }
@@ -150,10 +152,10 @@ public class GameManager : MonoBehaviour
     }
     void singletonLogic()
     {
-        if (instance == null)
+        if (Instance == null)
         {
             // if the object "instance does not exist", the object instance equals to gamemanager class
-            instance = this;
+            Instance = this;
             managerObject = this.gameObject;
             DontDestroyOnLoad(this.gameObject);
         }
@@ -163,6 +165,11 @@ public class GameManager : MonoBehaviour
 
             Destroy(this.gameObject);
         }
+    }
+    public GameManager getInstance()
+    {
+        singletonLogic();
+        return instance;
     }
     public void stopCannonDash()
     {
@@ -267,6 +274,7 @@ public class GameManager : MonoBehaviour
         {
             transitionLoaded.GetComponent<PlayableDirector>().Pause();
         }
+  
         SceneManager.LoadScene(scene);
 
     }
@@ -328,6 +336,18 @@ public class GameManager : MonoBehaviour
 
 
     }
+    public int getPlayerCoins(){
+        return playerConfig.totalCoins;
+    }
+    public void setPlayerCoins(int coins){
+        playerConfig.totalCoins = coins;
+
+    }
+    public void onPlayerGetCoins(int value){
+        if(playerInScene != null){
+            playerInScene.GetComponent<PlayerScript>().playerGetCoin(value);
+        }
+    }
 
 
 
@@ -337,11 +357,10 @@ public class GameManager : MonoBehaviour
 
 
     //public float PlayerScore { get => playerScore; set => playerScore = value; }
-    public int PlayerCoins { get => playerCoins; set => playerCoins = value; }
+     
     public GameObject SelectedPlayer { get => selectedPlayer; set => selectedPlayer = value; }
     //public int PlayerLife { get => playerLife; set => playerLife = value; }
     public float Highscore { get => playerHighscore; set => playerHighscore = value; }
-    public int PlayerPurchasedHearts { get => playerPurchasedHearts; set => playerPurchasedHearts = value; }
     // public string TransformUpVectorChars
     // {
     //     get { return transformUpVectorChars; }
@@ -378,6 +397,8 @@ public class GameManager : MonoBehaviour
     public float MovYButtons { get => movYButtons; set => movYButtons = value; }
     public float MovYButtons1 { get => movYButtons; set => movYButtons = value; }
     public GhostPoolManager GhostPoolManager { get => ghostPoolManager; set => ghostPoolManager = value; }
+    public PlayerSO PlayerConfig { get => playerConfig; set => playerConfig = value; }
+    public static GameManager Instance { get => instance; set => instance = value; }
     //public int InitCoins { get => initCoins; set => initCoins = value; }
 }
 

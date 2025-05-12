@@ -31,7 +31,7 @@ public class PressToStart : MonoBehaviour
     }
     public void startGame()
     {
-        GameManager.instance.instantiatePlayer();
+        GameManager.Instance.instantiatePlayer();
         anim.Play("keyPressed",-1,0f);
         
 

@@ -10,7 +10,7 @@ public class GetIndexName : MonoBehaviour
         // clickObject = int.Parse(clickObject); cant do this because clickobject is
         //
 
-        GameManager.instance.Char_Index = clickObject;
+        GameManager.Instance.Char_Index = clickObject;
 
 
 

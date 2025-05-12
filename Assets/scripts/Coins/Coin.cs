@@ -7,11 +7,14 @@ public class Coin : MonoBehaviour
     // how it would be for multiple coins ??
     
     [SerializeField] int value;
+ 
     Animator anim;
     coinsLevelHandler coinsLevelHandler;
+    
     void OnEnable(){
         Anim = transform.GetChild(0).GetComponent<Animator>();
         anim.Play("spawn",-1,0f);
+  
         //GameManager.instance.instantiateAppearEffect(transform,1);
     }
 

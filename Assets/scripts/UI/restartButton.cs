@@ -15,6 +15,6 @@ public class restartButton : MonoBehaviour
         StopCoroutines?.Invoke();
         Time.timeScale = 1;
         
-        GameManager.instance.LoadSceneWithTransition(SceneManager.GetActiveScene().name);
+        GameManager.Instance.LoadSceneWithTransition(SceneManager.GetActiveScene().name);
     }
 }
