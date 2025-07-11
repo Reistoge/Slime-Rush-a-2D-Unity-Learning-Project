@@ -12,14 +12,16 @@ public class Cannon : MonoBehaviour
     {
 
         restartButton.StopCoroutines += StopAllCoroutines;
+         
 
-        GameManager.Instance.instantiateAppearEffect(transform, 0);
+        // GameManager.Instance.instantiateAppearEffect(transform, 0);
 
 
     }
     protected void OnDisable()
     {
         restartButton.StopCoroutines -= StopAllCoroutines;
+       
     }
     protected void Start()
     {
@@ -72,12 +74,15 @@ public class Cannon : MonoBehaviour
     [SerializeField] protected bool isFirst;
     [SerializeField] protected bool isAutoShoot;
     [SerializeField] protected bool canMoveInShoot = true;
+    [SerializeField] protected bool isCharging;
     [SerializeField] float horizontalThreshold;
     [SerializeField] protected UnityEvent onEnterCannon;
     [SerializeField] protected UnityEvent onExitCannon;
 
 
-
+    public void resetIsCharging() {
+        isCharging = false;
+    }
     protected void enterInsideCannon(Collider2D collision)
     {
 
@@ -155,15 +160,15 @@ public class Cannon : MonoBehaviour
     {
 
         Vector3 currentPos = transform.position;
-        
+
 
         StopAllCoroutines();
         transform.position = currentPos;
-        gameObject.GetComponent<Animator>().Play("shoot");
+        playShootAnimation();
         gameObject.GetComponent<Animator>().SetFloat("chargeSpeed", 1);
         onExitCannon?.Invoke();
         canShoot = false;
-        if (IsFinal && transform.up.y > 0 && (SceneManager.GetActiveScene().name!="Tutorial" || SceneManager.GetActiveScene().name=="Main Game"))
+        if (IsFinal && transform.up.y > 0 && (SceneManager.GetActiveScene().name != "Tutorial" || SceneManager.GetActiveScene().name == "Main Game"))
         {
             // LevelObjectManager.Instance.nextMiniLevel();
             // GameManager.instance.nextMiniLevel();
@@ -179,8 +184,10 @@ public class Cannon : MonoBehaviour
 
         StopAllCoroutines();
         transform.position = currentPos;
-        gameObject.GetComponent<Animator>().Play("shoot");
+        playShootAnimation();
         gameObject.GetComponent<Animator>().SetFloat("chargeSpeed", speed);
+
+        onExitCannon?.Invoke();
         canShoot = false;
         if (IsFinal && transform.up.y > 0)
         {
@@ -189,7 +196,12 @@ public class Cannon : MonoBehaviour
         }
 
     }
-   
+    public void playShootAnimation()
+    {
+        
+        gameObject.GetComponent<Animator>().Play("shoot");
+    }
+
 
     protected IEnumerator rotateToAngle(float finalRotation, float rotSpeed)
     {
@@ -355,10 +367,10 @@ public class Cannon : MonoBehaviour
             //insideObject.GetComponent<PlayerScript>().Anim.SetBool("dash", true);
             //insideObject.GetComponent<PlayerScript>().Anim.Play("dash");
             insideObject.GetComponent<PlayerScript>().IsDashing = true;
-        
 
 
-         
+
+
 
 
         }
@@ -387,7 +399,7 @@ public class Cannon : MonoBehaviour
             insideObject.GetComponent<PlayerScript>().HorizontalThreshold = 1f;
         }
 
-    
+
         //Player.GetComponent<Rigidbody2D>().velocity = dashDirection/2;
 
 
@@ -413,9 +425,9 @@ public class Cannon : MonoBehaviour
     protected void shootObject()
     {
         //1
-
+        isCharging = false;
         insideObject.transform.SetParent(null);
-        insideObject.transform.position=transform.position;
+        insideObject.transform.position = transform.position;
         insideRb.constraints = RigidbodyConstraints2D.None;
         inBarrel = false;
 
@@ -427,9 +439,15 @@ public class Cannon : MonoBehaviour
         if (insideObject.GetComponent<PlayerScript>() != null)
         {
             PlayerScript playerScript = insideObject.GetComponent<PlayerScript>();
-            
-            if(canMoveInShoot == false) playerScript.dashWithThreshold(dashTime, dashSpeed, transform.up,0);
-            else playerScript.dashWithThreshold(dashTime, dashSpeed, transform.up,horizontalThreshold);
+
+            if (canMoveInShoot == false)
+            {
+                playerScript.dashWithThreshold(dashTime, dashSpeed, transform.up, 0);
+            }
+            else
+            {
+                playerScript.dashWithThreshold(dashTime, dashSpeed, transform.up, horizontalThreshold);
+            }
         }
         else
         {
@@ -443,6 +461,7 @@ public class Cannon : MonoBehaviour
     }
     public void hideObject()
     {
+        isCharging = true;
         if (insideObject != null)
         {
             insideRb.GetComponent<PlayerScript>().AnimatorHandler.onPlayerOut();
@@ -455,8 +474,9 @@ public class Cannon : MonoBehaviour
 
 
     }
-    public void changeScene(string args){
-        GameManager.Instance.LoadSceneWithTransition(args);
+    public void changeScene(string args)
+    {
+        GameManager.Instance.loadSceneWithTransition(args);
     }
 
     public void hideArrow()
@@ -469,7 +489,7 @@ public class Cannon : MonoBehaviour
         get { return mainMenuBarrelTime; }
         set { mainMenuBarrelTime = value; }
     }
-    
+
 
 
     public float DashSpeed { get => dashSpeed; set => dashSpeed = value; }

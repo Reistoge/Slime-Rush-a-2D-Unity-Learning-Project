@@ -189,7 +189,7 @@ public class ManualDirectionCannon : Cannon
     // Update is called once per frame
     void Update()
     {
-        if (inBarrel)
+        if (inBarrel && isCharging == false)
         {
 
             getHorizontalInput();

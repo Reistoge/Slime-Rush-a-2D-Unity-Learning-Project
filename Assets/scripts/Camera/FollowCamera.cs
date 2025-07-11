@@ -42,7 +42,7 @@ public class FollowCamera : MonoBehaviour
         if (PlayerReference == null)
         {
             PlayerReference = GameManager.Instance.SelectedPlayer;
-            print("the player was not instantiated ");
+            // print("the player was not instantiated ");
         }
 
     }

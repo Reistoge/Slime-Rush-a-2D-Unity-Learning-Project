@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Game/InGameShop.unity
     guid: b9f5ee876a020544fbbe6f83762fe264
   - enabled: 1
-    path: Assets/Scenes/Game/characterSelector.unity
+    path: Assets/Scenes/Game/CharacterSelector.unity
     guid: 491eefd1452c17141bbac5473ee9a922
   - enabled: 1
     path: Assets/Scenes/Game/Test/Tutorial.unity

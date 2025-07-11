@@ -28,7 +28,7 @@ public class UICoinManager : MonoBehaviour
 
         int currentCoin = GameManager.Instance.getPlayerCoins();
 
-        
+
         // if the coins value is 1 add 1;
         // there could be a coin that value more;
         int oldValue = currentCoin;
@@ -47,18 +47,18 @@ public class UICoinManager : MonoBehaviour
     IEnumerator updateCoinTextCoroutine(int oldValue, int newValue)
     {
         float waitTime = .01f; // Duration of the animation in seconds
-    
+
         if (Mathf.Abs(newValue - oldValue) > 5)
         {
             int temp = oldValue;
-            
-            while(temp != newValue)
+
+            while (temp != newValue)
             {
-                if(temp > newValue)
+                if (temp > newValue)
                 {
                     temp -= 1;
                 }
-                else if(temp < newValue)
+                else if (temp < newValue)
                 {
                     temp += 1;
                 }
@@ -71,6 +71,16 @@ public class UICoinManager : MonoBehaviour
         coinText.text = newValue.ToString() + " x";
     }
     public void initializeCoins()
+    {
+        coinImage.gameObject.SetActive(true);
+        int currentCoin = GameManager.Instance.getPlayerCoins();
+        coinImage.Play("playerGetCoin", -1, 0f);
+        // if the coins value is 1 add 1;
+        // there could be a coin that value more;
+        coinText.text = currentCoin.ToString() + " x";
+
+    }
+    public void initializeCoins(PlayerScript player)
     {
         coinImage.gameObject.SetActive(true);
         int currentCoin = GameManager.Instance.getPlayerCoins();

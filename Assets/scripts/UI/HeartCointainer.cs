@@ -12,6 +12,9 @@ public class HeartContainer : MonoBehaviour
     [SerializeField] private int totalHearts;
     [SerializeField] private int brokenHearts;
 
+
+
+
     private void OnEnable()
     {
         SubscribeToEvents();
@@ -57,7 +60,10 @@ public class HeartContainer : MonoBehaviour
         for (int i = 0; i < amount; i++)
         {
             bool shouldBeBroken = hasFixedHeart && i == 0; // Only the new heart should be broken if we fixed one
-            CreateHeart(shouldBeBroken,blueHeartPrefab); // Create a new heart
+            CreateBlueHeart(shouldBeBroken); // Create a new heart
+            GameManager.Instance.getRuntimeData().playerHp++;
+            GameManager.Instance.getRuntimeData().blueHearts++;
+
         }
     }
 
@@ -79,21 +85,23 @@ public class HeartContainer : MonoBehaviour
     {
         Vector3 position = CalculateHeartPosition(); // Childs * separationBetweenHearts
         GameObject newHeart = Instantiate(heartPrefab, position, Quaternion.identity, transform);
-        
+        newHeart.name = "Heart "; // Name the heart for easier debugging
         SetHeartState(newHeart.GetComponent<Animator>(), isBroken); // set the animator's bools to the broken state -> broke heart = true and fix heart = false 
-        
-        if (isBroken) brokenHearts++; 
+
+        if (isBroken) brokenHearts++;
         totalHearts++;
+        //GameManager.Instance.getRuntimeData().redHearts++;
     }
-        private void CreateHeart(bool isBroken, GameObject heart)
+    private void CreateBlueHeart(bool isBroken)
     {
         Vector3 position = CalculateHeartPosition(); // Childs * separationBetweenHearts
-        GameObject newHeart = Instantiate(heart, position, Quaternion.identity, transform);
-        
+        GameObject newHeart = Instantiate(blueHeartPrefab, position, Quaternion.identity, transform);
+        newHeart.name = "BlueHeart "; // Name the heart for easier debugging
         SetHeartState(newHeart.GetComponent<Animator>(), isBroken); // set the animator's bools to the broken state -> broke heart = true and fix heart = false 
-        
-        if (isBroken) brokenHearts++; 
+
+        if (isBroken) brokenHearts++;
         totalHearts++;
+        //GameManager.Instance.getRuntimeData().blueHearts++;
     }
 
     private Vector3 CalculateHeartPosition()
@@ -107,7 +115,7 @@ public class HeartContainer : MonoBehaviour
     private void SetHeartState(Animator heartAnimator, bool isBroken)
     {
         if (heartAnimator == null) return;
-        
+
         heartAnimator.SetBool("brokeHeart", isBroken);
         heartAnimator.SetBool("fixHeart", !isBroken);
     }
@@ -130,7 +138,7 @@ public class HeartContainer : MonoBehaviour
                 SetHeartState(heartAnimator, false);
                 healedCount++;
                 brokenHearts--;
-                 
+
             }
         }
     }
@@ -149,6 +157,7 @@ public class HeartContainer : MonoBehaviour
                 SetHeartState(heartAnimator, true);
                 damage--;
                 brokenHearts++;
+
             }
         }
 
@@ -158,7 +167,7 @@ public class HeartContainer : MonoBehaviour
         }
     }
 
-    public void LoadHearts()
+    public void LoadHearts(PlayerScript player)
     {
         if (heartPrefab == null)
         {
@@ -185,18 +194,50 @@ public class HeartContainer : MonoBehaviour
         PlayerScript player = GetPlayerReference();
         if (player == null) return;
 
-        int heartCount = GameManager.Instance.PlayerConfig.maxHp;
-        for (int i = 0; i < heartCount; i++)
+        int currentHp = GameManager.Instance.getRuntimeData().playerHp;
+        int redHearts = GameManager.Instance.PlayerConfig.maxHp;
+        int blueHearts = GameManager.Instance.getRuntimeData().blueHearts;
+        int allHearts = GameManager.Instance.getRuntimeData().playerMaxHp;
+
+        int blueHeartsBroken = blueHearts - (currentHp - redHearts);
+
+        if (allHearts != (redHearts + blueHearts))
         {
-            CreateHeart(i >= GameManager.Instance.PlayerConfig.startHp);
+            Debug.LogError("The total hearts do not match the player's max health configuration.");
         }
+        // print("Total Hearts: " + allHearts + ", Red Hearts: " + redHearts + ", Blue Hearts: " + blueHearts);
+        // print("Current HP: " + currentHp + ", Blue Hearts Broken: " + blueHeartsBroken);
+
+
+
+        // int heartCount = GameManager.Instance.getRuntimeData().playerMaxHp;
+        // int hp = GameManager.Instance.getRuntimeData().playerHp;
+        // blueHeartCount = GameManager.Instance.getRuntimeData().blueHearts;
+        // for (int i = 0; i < heartCount; i++)
+        // {
+        //     CreateHeart(i >= hp);
+        // }
+        // for (int i = 0; i < blueHeartCount; i++)
+        // {
+        //     CreateBlueHeart(i>=hp-blueHeartCount); // Create blue hearts for missing health
+        // }
+        for (int i = 0; i < redHearts; i++)
+        {
+            CreateHeart(i >= currentHp);
+        }
+        for (int i = 0; i < blueHearts; i++)
+        {
+            CreateBlueHeart(i >= (blueHearts-blueHeartsBroken)); // Create blue hearts for missing health
+        }
+
+
     }
 
     private PlayerScript GetPlayerReference()
     {
-        GameObject playerObject = GameManager.Instance.PlayerInScene 
+        GameObject playerObject = GameManager.Instance.PlayerInScene
             ?? GameManager.Instance.SelectedPlayer;
-        
+
         return playerObject?.GetComponent<PlayerScript>();
     }
 }

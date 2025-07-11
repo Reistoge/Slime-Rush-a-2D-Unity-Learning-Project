@@ -160,7 +160,7 @@ public class DefaultCannon : Cannon
             Invoke("rotateToInitialRotation", 0.5f);
 
         }
-        print("out " + collision.name);
+        // print("out " + collision.name);
     }
 
     public void rotateToInitialRotation()

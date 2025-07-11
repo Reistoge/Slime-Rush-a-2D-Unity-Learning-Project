@@ -5025,18 +5025,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81307bc4dce82704f85a520b0443b49d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  horizontalStrength: 100
-  verticalStrength: 1000
-  delay: 1
-  gravityMultiplier: 1
-  minHorizontalForce: 0
-  maxVerticalForce: 1200
   OnBegin:
     m_PersistentCalls:
       m_Calls: []
   OnDone:
     m_PersistentCalls:
       m_Calls: []
+  knockbackConfig: {fileID: 0}
 --- !u!114 &3689121437698805633
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5050,6 +5045,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   feedBack: {fileID: 1514234180421277056}
+  lavaDamage: 1
 --- !u!1 &4416098703473953604
 GameObject:
   m_ObjectHideFlags: 0
@@ -5279,10 +5275,10 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.058333334
+    x: 0.17222223
     y: 0
-    width: 1.31875
-    height: 1.31875
+    width: 1.3468751
+    height: 1.3468751
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
@@ -5500,7 +5496,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 11
   m_Sprite: {fileID: 21300000, guid: 0d2df79d7efc81741af521bfc98ab963, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.6}
   m_FlipX: 0

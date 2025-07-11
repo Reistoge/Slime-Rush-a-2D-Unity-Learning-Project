@@ -21,23 +21,35 @@ public class DangerZoneLevelManager : MonoBehaviour
     [SerializeField] GameObject cannonsPrefab;
     [SerializeField] GameObject coinsPrefab;
     [SerializeField] GameObject floorHeight;
-    
-    [SerializeField] GameObject topHeight;
 
- 
-    void Start()
+    [SerializeField] GameObject topHeight;
+    [SerializeField] float waitTimeToStartLevel = 2f;
+
+
+
+    IEnumerator Start()
     {
         generateDangerZoneLevel(DangerZoneType.platforms);
+        yield return new WaitForSeconds(waitTimeToStartLevel);
         startLevel();
+        // startLevel();
         // add offset;
-        
+
     }
-    public void startLevel(){
-        if (GameObject.Find("Main Camera")) Destroy(GameObject.Find("Main Camera"));
+    
+    public void startLevel()
+    {
+        GameObject mainCamera = GameObject.Find("Main Camera");
+        if (mainCamera != null)
+        {
+
+            dangerZoneCamera.transform.position = mainCamera.transform.position;
+            Destroy(mainCamera.gameObject);
+        }
         dangerZoneCamera.SetActive(true);
-        
+
     }
-   
+
     public void generateDangerZoneLevel(DangerZoneType type)
     {
 
@@ -48,7 +60,7 @@ public class DangerZoneLevelManager : MonoBehaviour
             case DangerZoneType.platforms:
                 GameObject platforms = new GameObject("Platforms");
                 GameObject coins = new GameObject("Coins");
-                
+
                 platforms.transform.SetParent(this.transform);
                 coins.transform.SetParent(this.transform);
                 platforms.transform.position = floorHeight.transform.position;
@@ -56,20 +68,20 @@ public class DangerZoneLevelManager : MonoBehaviour
                 float x = Random.Range(-160f, 160f);
 
                 float xNext = 0;
-                float height = floorHeight.transform.position.y+100f;
-                Vector2 nextPos = new Vector2( xNext,height);
-                for (int i = 0; height<=topHeight.transform.position.y ; i++)
+                float height = floorHeight.transform.position.y + 100f;
+                Vector2 nextPos = new Vector2(xNext, height);
+                for (int i = 0; height <= topHeight.transform.position.y; i++)
                 {
 
 
                     GameObject currentPlatform = Instantiate(platformPrefab, new Vector2(xNext, height), Quaternion.identity);
-                    
+
                     xNext = Random.Range(-80, 80);
                     height += Random.Range(70f, 130f);
                     currentPlatform.transform.SetParent(platforms.transform);
                     x = xNext;
-                    Vector2 coinPos = new Vector2(currentPlatform.transform.position.x+(xNext - currentPlatform.transform.position.x)/2, currentPlatform.transform.position.y + ((height - currentPlatform.transform.position.y)/2) );
-                    GameObject coin = Instantiate(coinsPrefab, coinPos,Quaternion.identity);
+                    Vector2 coinPos = new Vector2(currentPlatform.transform.position.x + (xNext - currentPlatform.transform.position.x) / 2, currentPlatform.transform.position.y + ((height - currentPlatform.transform.position.y) / 2));
+                    GameObject coin = Instantiate(coinsPrefab, coinPos, Quaternion.identity);
                     coin.transform.SetParent(coins.transform);
 
                 }

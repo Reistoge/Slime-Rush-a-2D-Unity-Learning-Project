@@ -15,8 +15,9 @@ GameObject:
   - component: {fileID: 6539510537499794685}
   - component: {fileID: 2717715542149294557}
   - component: {fileID: 9158286097609787833}
-  - component: {fileID: 759713803898017458}
   - component: {fileID: 957715710572846600}
+  - component: {fileID: 9000933773384453041}
+  - component: {fileID: 4798761830922822252}
   m_Layer: 0
   m_Name: SimpleFloor(center)
   m_TagString: ground
@@ -300,7 +301,51 @@ MonoBehaviour:
   randomPitch: 0
   minPitch: 1
   maxPitch: 1
---- !u!114 &759713803898017458
+--- !u!114 &957715710572846600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 73751425886506750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a2c203743068134e90cf310d04ab17e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  caster: {fileID: 0}
+  col: {fileID: 3352383770624807140}
+  sr: {fileID: 576107627648151613}
+  floorHeight: 6
+--- !u!114 &9000933773384453041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 73751425886506750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d72242e0651fea43aae989067dbf79a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  littleGemPrefab: {fileID: 5644099874879165389, guid: a30a7aa25d6cfe241ab523c966b977c8, type: 3}
+  gemColors: []
+  spawnArea: {fileID: 3352383770624807140}
+  spawnPoints:
+  - pos: {x: 32, y: 0}
+    radius: 3
+  - pos: {x: -32, y: 0}
+    radius: 3
+  - pos: {x: 40, y: 0}
+    radius: 3
+  - pos: {x: -40, y: 0}
+    radius: 3
+  - pos: {x: -10, y: 0}
+    radius: 3
+  - pos: {x: 20, y: 0}
+    radius: 3
+--- !u!114 &4798761830922822252
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -318,34 +363,18 @@ MonoBehaviour:
   m_UseRendererSilhouette: 1
   m_CastsShadows: 1
   m_SelfShadows: 0
-  m_ApplyToSortingLayers: 5ffe7e78055f3c9c000000001f881e6e
+  m_ApplyToSortingLayers: 5ffe7e78055f3c9c000000005b3e74f81f881e6e
   m_ShapePath:
-  - {x: -65, y: -4.799999, z: 0}
-  - {x: -65, y: 11.200001, z: 0}
-  - {x: 65, y: 11.200001, z: 0}
-  - {x: 65, y: -4.799999, z: 0}
+  - {x: -48, y: -4.799988, z: 0}
+  - {x: -48, y: 11.200012, z: 0}
+  - {x: 48, y: 11.200012, z: 0}
+  - {x: 48, y: -4.799988, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 204758
+  m_InstanceId: -788234
   m_LocalBounds:
-    m_Center: {x: 0, y: 3.2000008, z: 0}
-    m_Extent: {x: 65, y: 8, z: 0}
---- !u!114 &957715710572846600
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 73751425886506750}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a2c203743068134e90cf310d04ab17e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  caster: {fileID: 0}
-  col: {fileID: 0}
-  sr: {fileID: 0}
-  floorHeight: 6
+    m_Center: {x: 0, y: 3.2000122, z: 0}
+    m_Extent: {x: 48, y: 8, z: 0}
 --- !u!1 &7286361647824630036
 GameObject:
   m_ObjectHideFlags: 0

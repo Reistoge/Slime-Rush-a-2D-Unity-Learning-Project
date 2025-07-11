@@ -31,7 +31,7 @@ public class Spikes : MonoBehaviour, IEnemyBehaviour
          
         dealDamage(collision.gameObject);
     }
-    void OnTriggerEnter2D(Collider2D collision)
+    void OnCollisionEnter2D(Collision2D collision)
     {
         
         dealDamage(collision.gameObject);

@@ -55,6 +55,7 @@ MonoBehaviour:
   coinsPrefab: {fileID: 666404375840720440, guid: 54737c6ba1840f14889bd2021a538f3e, type: 3}
   floorHeight: {fileID: 5761411623391111414}
   topHeight: {fileID: 1192549423385950798}
+  waitTimeToStartLevel: 2
 --- !u!1 &1192549423385950798
 GameObject:
   m_ObjectHideFlags: 0
@@ -523,11 +524,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 195260511586993212, guid: e4150e21fb6390b4283486ca759fd49d, type: 3}
       propertyPath: m_SortingOrder
-      value: 1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5979297561772056217, guid: e4150e21fb6390b4283486ca759fd49d, type: 3}
       propertyPath: m_Name
       value: Boundaries1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7477600319592039824, guid: e4150e21fb6390b4283486ca759fd49d, type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8583916052872248115, guid: e4150e21fb6390b4283486ca759fd49d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -587,9 +592,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2067591966793928476}
     m_Modifications:
+    - target: {fileID: 195260511586993212, guid: e4150e21fb6390b4283486ca759fd49d, type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5979297561772056217, guid: e4150e21fb6390b4283486ca759fd49d, type: 3}
       propertyPath: m_Name
       value: Boundaries4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7477600319592039824, guid: e4150e21fb6390b4283486ca759fd49d, type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8583916052872248115, guid: e4150e21fb6390b4283486ca759fd49d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -649,9 +662,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2067591966793928476}
     m_Modifications:
+    - target: {fileID: 195260511586993212, guid: e4150e21fb6390b4283486ca759fd49d, type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5979297561772056217, guid: e4150e21fb6390b4283486ca759fd49d, type: 3}
       propertyPath: m_Name
       value: Boundaries3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7477600319592039824, guid: e4150e21fb6390b4283486ca759fd49d, type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8583916052872248115, guid: e4150e21fb6390b4283486ca759fd49d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -757,7 +778,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 6390e1d6f37a1f04da641bc599a97ea0, type: 2}
     - target: {fileID: 3892920206582631218, guid: 608adec99e674fa4ab5fe45d3ff720d9, type: 3}
       propertyPath: m_SortingOrder
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 4561527440714522260, guid: 608adec99e674fa4ab5fe45d3ff720d9, type: 3}
       propertyPath: m_RendererIndex
@@ -775,6 +796,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -320
       objectReference: {fileID: 0}
+    - target: {fileID: 7627553804617266930, guid: 608adec99e674fa4ab5fe45d3ff720d9, type: 3}
+      propertyPath: sharedProfile
+      value: 
+      objectReference: {fileID: 11400000, guid: 381bcd9c5f18bc9488eed11e43ff4ac5, type: 2}
     - target: {fileID: 8613930739106006223, guid: 608adec99e674fa4ab5fe45d3ff720d9, type: 3}
       propertyPath: cameraType
       value: 2
@@ -874,9 +899,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2067591966793928476}
     m_Modifications:
+    - target: {fileID: 195260511586993212, guid: e4150e21fb6390b4283486ca759fd49d, type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5979297561772056217, guid: e4150e21fb6390b4283486ca759fd49d, type: 3}
       propertyPath: m_Name
       value: Boundaries2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7477600319592039824, guid: e4150e21fb6390b4283486ca759fd49d, type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8583916052872248115, guid: e4150e21fb6390b4283486ca759fd49d, type: 3}
       propertyPath: m_LocalPosition.x

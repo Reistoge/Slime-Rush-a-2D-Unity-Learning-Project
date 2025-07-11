@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Numerics;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Animations;
+using Quaternion = UnityEngine.Quaternion;
 using Vector2 = UnityEngine.Vector2;
+using Vector3 = UnityEngine.Vector3;
 
 public class FloorPart : MonoBehaviour
 {
@@ -17,7 +20,8 @@ public class FloorPart : MonoBehaviour
     BreakableFloor floor;
     [SerializeField] FloorSide side;
     bool isBreak;
-    
+    [SerializeField] float verticalClampPosition = 20;
+    const float SMOOTH_CLAMP_DURATION = 200; 
 
     public SpriteRenderer Sr { get => sr; set => sr = value; }
     public Vector2 InitialSize { get => initialSize; set => initialSize = value; }
@@ -36,23 +40,29 @@ public class FloorPart : MonoBehaviour
     void OnTriggerEnter2D(Collider2D col)
     {
         if (col.transform.CompareTag("playerDetector") && floor && isBreak == false)
-        {
+        {   
 
             if (col.transform.parent.GetComponent<Rigidbody2D>())
             {
                 float vel = col.transform.parent.GetComponent<Rigidbody2D>().velocity.y;
-//                print(vel);
+                PlayerScript player = col.transform.parent.GetComponent<PlayerScript>();
+                Vector3 finalPos = new Vector3(player.transform.position.x, transform.position.y + verticalClampPosition);
+
+
                 if (vel >= floor.MinVelocity)
                 {
-                    if(floor.DetectDash){
-                        PlayerScript player = col.transform.parent.GetComponent<PlayerScript>();
+
+                    if (floor.DetectDash)
+                    {
+
                         if (player != null)
                         {
                             if (player.IsDashing == false) return;
                         }
                     }
-        
+
                     floor.breakObject(col.transform.position.x);
+                    player.lerpPosition(finalPos,Quaternion.identity, SMOOTH_CLAMP_DURATION); // lerp the player position to make sure he lands on the next level.
                 }
             }
 

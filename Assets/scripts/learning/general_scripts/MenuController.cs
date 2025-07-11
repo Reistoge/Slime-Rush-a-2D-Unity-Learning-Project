@@ -15,9 +15,9 @@ public class MenuController : MonoBehaviour
 
     public void returnHome()
     {
-        // Invoke("executeTransition1", 2);
+
         SceneManager.LoadScene(GameManager.Instance.MainMenuSceneName);
-        // GameManager.instance.ResetTriggerTrans1();
+
 
 
 
@@ -26,7 +26,7 @@ public class MenuController : MonoBehaviour
     }
     public void selectCharacterScene()
     {
-        //Invoke("executeTransition1", 2);
+
         SceneManager.LoadScene(GameManager.Instance.CharacterSelector);
 
     }
@@ -53,35 +53,17 @@ public class MenuController : MonoBehaviour
     public void PlayGame()
     {
 
-        // if (SpawnPoint != null)
-        // {
-
-        //     // Play game spawn the object in mainMenu using a reference in inspector of the spawnposition in the scene.
-        //     //GameObject Player=GameManager.instance.spawnPlayer(SpawnPoint.transform.position,"Main_Menu");
-        //     //Player.GetComponent<SpriteRenderer>().enabled = false;
-
-        // }
-        // else if (SpawnPoint == null)
-        // {
-        //     print("Set the spawnPoint gameObject reference in the button object in the inspector" % Colorize.Orange);
-        // }
-        // // starts loading the scene.
-        // Invoke("executeTransition1", 0);
 
 
         StartCoroutine(GameManager.Instance.LoadSceneIn(0, GameManager.Instance.MainGame.name));
-        // when the player press the start button it pass 6 seconds and loads the new scene
 
 
     }
     public void LoadSceneWithTransition(string args)
     {
-        GameManager.Instance.LoadSceneWithTransition(args);
+        GameManager.Instance.loadSceneWithTransition(args);
     }
-    // void executeTransition1()
-    // {
-    //     GameManager.instance.executeTransition1();
-    // }
+
 
 
 

@@ -9,18 +9,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: PlayerKnockback
-  m_EditorClassIdentifier: Assembly-CSharp::KnockbackFeedBackVariables
+  m_Script: {fileID: 11500000, guid: 518ad7115a86b84409cb24f4e36dd905, type: 3}
+  m_Name: PlayerKnockbackFeedBack
+  m_EditorClassIdentifier: 
   OnBegin:
     m_PersistentCalls:
       m_Calls: []
   OnDone:
     m_PersistentCalls:
       m_Calls: []
-  horizontalStrength: 300
-  verticalStrength: 400
-  delay: 0.3
-  gravityMultiplier: 0.3
-  minHorizontalForce: 200
-  maxVerticalForce: 300
+  horizontalStrength: 15
+  verticalStrength: 250
+  delay: 0.5
+  gravityMultiplier: 1
+  minHorizontalForce: 30
+  maxVerticalForce: 1000

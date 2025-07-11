@@ -60,9 +60,10 @@ public class LevelObjectManager : MonoBehaviour
     {
         Instantiate(dangerZonePrefab);
     }
-    public void generateRandomDangerZoneLevel(Transform transform)
+    public void generateRandomDangerZoneLevel(Transform transform, float offset)
     {
-        Instantiate(dangerZonePrefab,new Vector2(transform.position.x,transform.position.y+340),quaternion.identity);
+
+        Instantiate(dangerZonePrefab,new Vector2(transform.position.x,transform.position.y+offset),quaternion.identity);
     }
     public enum DangerZoneType
     {

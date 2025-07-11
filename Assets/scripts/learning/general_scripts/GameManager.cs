@@ -1,6 +1,6 @@
 using System;
 using System.Collections;
- 
+
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEditorInternal;
@@ -58,6 +58,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject transitionLoaded;
     [SerializeField] PlayerSO playerConfig;
 
+    [SerializeField] PlayerScript playerScript;
+    PlayerRuntimeData playerRuntimeData;
+    Coroutine transitionCoroutine;
+
     void Awake()
     {
         singletonLogic();
@@ -66,7 +70,7 @@ public class GameManager : MonoBehaviour
     {
         PlayerScript.OnPlayerDied += pauseGame;
         SceneManager.sceneLoaded += OnLevelFinishedLoading;
-        
+
 
 
     }
@@ -85,8 +89,9 @@ public class GameManager : MonoBehaviour
         }
 
     }
-    public LevelObjectManager getLevelObjectManager(){
-        return  (LevelObjectManager) GameObject.FindAnyObjectByType(typeof(LevelObjectManager));
+    public LevelObjectManager getLevelObjectManager()
+    {
+        return (LevelObjectManager)GameObject.FindAnyObjectByType(typeof(LevelObjectManager));
     }
     void Update()
     {
@@ -110,11 +115,7 @@ public class GameManager : MonoBehaviour
         {
             selectedPlayer = defaultPlayer;
         }
-        // if (selectedPlayer.activeInHierarchy == false)
-        // {
-        //     selectedPlayer.SetActive(true);
-        //     return;
-        // }
+
         if (GameObject.Find("startPos"))
         {
             startPos = GameObject.Find("startPos").transform.position;
@@ -205,7 +206,8 @@ public class GameManager : MonoBehaviour
     {
         return Camera.main.GetComponent<FollowCamera>().ShakeBehaviour;
     }
-    public void changeCameraBehaviour(cameraBehaviour behaviour){
+    public void changeCameraBehaviour(cameraBehaviour behaviour)
+    {
         Camera.main.GetComponent<FollowCamera>().CameraType = behaviour;
     }
 
@@ -228,7 +230,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-     
+
 
 
     public void instantiateAppearEffect(Transform pos, int effectIndex)
@@ -245,13 +247,13 @@ public class GameManager : MonoBehaviour
 
     public void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
     {
- 
+
         if (GameObject.Find("startPos")) startPos = GameObject.Find("startPos").transform.position;
 
         currentScene = scene.name;
         if (transitionLoaded)
-        {   
- 
+        {
+
             transitionLoaded.GetComponent<PlayableDirector>().Resume();
 
         }
@@ -270,43 +272,120 @@ public class GameManager : MonoBehaviour
     public void loadScene(string scene)
     {
 
-        if (transitionLoaded)
-        {
-            transitionLoaded.GetComponent<PlayableDirector>().Pause();
-        }
-  
+        // if (transitionLoaded)
+        // {
+        //     transitionLoaded.GetComponent<PlayableDirector>().Pause();
+        // }
+
         SceneManager.LoadScene(scene);
 
     }
 
-    IEnumerator loadSceneWithTransition(string args)
+    IEnumerator loadSceneWithTransitionCoroutine(string args)
     {
+
+        savePlayerRuntimeData();
         string[] parts = args.Split(",");
         float waitTime = 0;
         if (parts.Length == 2) waitTime = float.Parse(parts[1]);
-        yield return new WaitForSeconds(waitTime);
+        yield return new WaitForSecondsRealtime(waitTime);
+
         transitionLoaded = Instantiate(transitions[0]);
         transitionLoaded.transform.position = new Vector2(Camera.main.transform.position.x, Camera.main.transform.position.y);
         Transition t = transitionLoaded.GetComponent<Transition>();
         DontDestroyOnLoad(transitionLoaded);
-        yield return new WaitUntil(() => t.TransitionFinished == true);
-        t.TransitionFinished = false;
+        yield return new WaitForSecondsRealtime(3);
+
+        // yield return new WaitUntil(() => t.TransitionFinished == true);
+        // t.TransitionFinished = false;
 
         loadScene(parts[0]);
+        transitionCoroutine = null;
 
 
 
     }
-    public void LoadSceneWithTransition(string args)
+    IEnumerator loadSceneWithTransitionCoroutine(LoadSceneWithTransitionSO config)
     {
-        if (transitionLoaded == null) StartCoroutine(loadSceneWithTransition(args));
+
+        savePlayerRuntimeData();
+
+        yield return new WaitForSecondsRealtime(config.secondsDelay);
+
+        transitionLoaded = config.transitionPrefab;
+        if (transitionLoaded != null)
+        {
+            transitionLoaded = Instantiate(config.transitionPrefab);
+        }
+        else
+        {
+            transitionLoaded = Instantiate(transitions[0]);
+            Debug.LogError("Transition prefab is null, using default transition prefab.");
+        }
+        transitionLoaded.transform.position = new Vector2(Camera.main.transform.position.x, Camera.main.transform.position.y);
+        Transition t = transitionLoaded.GetComponent<Transition>();
+
+        DontDestroyOnLoad(transitionLoaded);
+
+        yield return new WaitUntil(() => t.SceneCanBeLoaded == true);
+        // t.TransitionFinished = false;
+
+        loadScene(config.sceneAsset.name);
+        transitionCoroutine = null;
+
+
+
+    }
+
+    private void savePlayerRuntimeData()
+    {
+        if (playerInScene != null)
+        {
+            PlayerScript playerScript = playerInScene.GetComponent<PlayerScript>();
+            if (playerScript != null)
+            {
+                if (playerRuntimeData == null)
+                {
+                    playerRuntimeData = new PlayerRuntimeData();
+                }
+                playerRuntimeData.playerInGameCoins = playerScript.Coins;
+                playerRuntimeData.playerHp = playerScript.Hp;
+
+            }
+        }
+    }
+    public PlayerRuntimeData getRuntimeData()
+    {
+        if (playerRuntimeData == null)
+        {
+            playerRuntimeData = new PlayerRuntimeData();
+            playerRuntimeData.playerInGameCoins = 0;
+            playerRuntimeData.playerHp = playerConfig.maxHp;
+
+        }
+        return playerRuntimeData;
+    }
+
+    public void loadSceneWithTransition(string args)
+    {
+        if (transitionLoaded == null && transitionCoroutine == null)
+        {
+          transitionCoroutine = StartCoroutine(loadSceneWithTransitionCoroutine(args));  
+        } 
+    }
+    public void loadSceneWithTransition(LoadSceneWithTransitionSO config)
+    {
+        if (transitionLoaded == null && transitionCoroutine == null)
+        {
+            transitionCoroutine = StartCoroutine(loadSceneWithTransitionCoroutine(config));
+        }
     }
 
 
 
     public void pauseGame()
     {
-       
+
         Time.timeScale = 0;
     }
     public void resumeGame()
@@ -336,18 +415,32 @@ public class GameManager : MonoBehaviour
 
 
     }
-    public int getPlayerCoins(){
+    public int getPlayerCoins()
+    {
         return playerConfig.totalCoins;
     }
-    public void setPlayerCoins(int coins){
+    public void setPlayerCoins(int coins)
+    {
         playerConfig.totalCoins = coins;
 
     }
-    public void onPlayerGetCoins(int value){
-        if(playerInScene != null){
+    public void onPlayerGetCoins(int value)
+    {
+        if (playerInScene != null)
+        {
             playerInScene.GetComponent<PlayerScript>().playerGetCoin(value);
         }
     }
+    public class PlayerRuntimeData
+    {
+
+        public int playerInGameCoins;
+        public int playerHp;
+        public int redHearts;
+        public int blueHearts;
+        public int playerMaxHp;
+    }
+
 
 
 
@@ -357,7 +450,7 @@ public class GameManager : MonoBehaviour
 
 
     //public float PlayerScore { get => playerScore; set => playerScore = value; }
-     
+
     public GameObject SelectedPlayer { get => selectedPlayer; set => selectedPlayer = value; }
     //public int PlayerLife { get => playerLife; set => playerLife = value; }
     public float Highscore { get => playerHighscore; set => playerHighscore = value; }
@@ -384,6 +477,7 @@ public class GameManager : MonoBehaviour
     {
         get { return mainCharacterSelector.name; }
     }
+
     public float MovXButtons { get => movXButtons; set => movXButtons = value; }
     public GameObject LastUsedBarrel { get => lastUsedBarrel; set => lastUsedBarrel = value; }
     public SceneAsset MainGame { get => mainGame; set => mainGame = value; }

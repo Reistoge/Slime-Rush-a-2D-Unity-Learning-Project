@@ -4,7 +4,8 @@ using UnityEngine.SceneManagement;
 public class HomeButton : MonoBehaviour
 {
     // Start is called before the first frame update
-    public void Home()
+    [SerializeField] LoadSceneWithTransition loadScene;
+    public void goHome()
     {
         // print("hi");
         if (PauseController.isGamePaused)
@@ -12,7 +13,7 @@ public class HomeButton : MonoBehaviour
             Time.timeScale = 1.0f;
             PauseController.isGamePaused = false;
         }
-        GameManager.Instance.LoadSceneWithTransition("Menu");
+        loadScene.loadSceneWithTransition();
 
 
     }

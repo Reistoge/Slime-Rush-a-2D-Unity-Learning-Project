@@ -96,13 +96,8 @@ MonoBehaviour:
   defaultPlayer: {fileID: 5838150465340594182, guid: 6f85552f7aa847f4ca56a098b02da573, type: 3}
   playerInScene: {fileID: 0}
   playerPos: {x: 0, y: 0, z: 0}
-  playerSpeed: 1000
-  playerScore: 0
-  initCoins: 0
-  playerLife: 3
-  playerPurchasedHearts: 5
   playerCoins: 0
-  screenController: {fileID: 0}
+  playerInGameCoins: 0
   currentScene: 
   movXButtons: 0
   movYButtons: 0
@@ -120,3 +115,4 @@ MonoBehaviour:
   transitions:
   - {fileID: 1845221606967173369, guid: 8dc19ccc3db663e4bba913db5fb89a40, type: 3}
   transitionLoaded: {fileID: 0}
+  playerConfig: {fileID: 11400000, guid: 56c520563df85ac4e9d514cfc5f23672, type: 2}

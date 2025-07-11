@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class FinalFloor : MonoBehaviour
 {
-    public void triggerDangerZone(){
-        
-        GameManager.Instance.getLevelObjectManager().generateRandomDangerZoneLevel(this.transform);
+    Coroutine coroutine;
+    [SerializeField] float offset = 340f;
+
+
+    public void triggerDangerZone()
+    {
+        GameManager.Instance.getLevelObjectManager().generateRandomDangerZoneLevel(this.transform, offset);
+
     }
+ 
 }

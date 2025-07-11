@@ -4,6 +4,7 @@ using System.Drawing;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
 public class Boundaries : MonoBehaviour
@@ -17,6 +18,9 @@ public class Boundaries : MonoBehaviour
     [SerializeField] GameObject wallLeft;
     [SerializeField] GameObject wallRight;
     [SerializeField] LayerMask excludeLayers;
+    [SerializeField] UnityEvent onMoveWallsEnd;
+    Coroutine moveWallsLeft;
+    Coroutine moveWallsRight;
 
     public void moveWalls()
     {
@@ -25,7 +29,7 @@ public class Boundaries : MonoBehaviour
             wallLeft.GetComponent<Collider2D>().excludeLayers = excludeLayers; // Specify the layer(s) to exclude
 
             wallRight.GetComponent<Collider2D>().excludeLayers = excludeLayers;
-            StartCoroutine(moveWall(wallLeft, amount, speed));
+            moveWallsLeft = StartCoroutine(moveWall(wallLeft, amount, speed));
             StartCoroutine(moveWall(wallRight, -amount, speed));
 
         }
@@ -37,7 +41,7 @@ public class Boundaries : MonoBehaviour
         moving = true;
         Vector3 startPos = wall.transform.position;
         Vector3 endPos = new Vector3(wall.transform.position.x + amount, startPos.y, wall.transform.position.z);
-        
+
 
         float duration = Mathf.Abs(amount / speed); // Ensure positive duration
         float elapsed = 0.0f;
@@ -63,6 +67,9 @@ public class Boundaries : MonoBehaviour
 
         wall.transform.position = endPos;
         moving = false;
+        moveWallsLeft = null;
+        onMoveWallsEnd?.Invoke();
+
     }
   
 

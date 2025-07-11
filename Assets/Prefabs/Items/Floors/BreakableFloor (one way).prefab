@@ -56,7 +56,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  - {fileID: 2100000, guid: b8ba8fc3050de1145919a2c7defa64d1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -77,8 +77,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
-  m_Sprite: {fileID: 21300000, guid: ef00f62fa76bfe64da6115874a3207af, type: 3}
-  m_Color: {r: 0.7, g: 0.7, b: 0.7, a: 1}
+  m_Sprite: {fileID: 21300000, guid: e6ee49d564035a74a862708f392f8bb9, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
@@ -176,6 +176,8 @@ MonoBehaviour:
   breakDetectionCol: {fileID: 3189244720459981909}
   platformSolidCollider: {fileID: 271680446720143488}
   side: 1
+  verticalClampPosition: 20
+  smoothClampDuration: 400
 --- !u!61 &3189244720459981909
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -304,7 +306,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  - {fileID: 2100000, guid: b8ba8fc3050de1145919a2c7defa64d1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -325,7 +327,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
-  m_Sprite: {fileID: 21300000, guid: bbe75b7edb35cd74d9279d8ede3306d2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b6ff6f7a8ef35a741bc8a924c126e62a, type: 3}
   m_Color: {r: 0.7, g: 0.7, b: 0.7, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -352,6 +354,8 @@ MonoBehaviour:
   breakDetectionCol: {fileID: 8529191857704256553}
   platformSolidCollider: {fileID: 4564111086267312735}
   side: 0
+  verticalClampPosition: 20
+  smoothClampDuration: 400
 --- !u!61 &4564111086267312735
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -476,9 +480,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 312065923287857875}
   - {fileID: 6150887180295760112}
   - {fileID: 8804489981896616733}
+  - {fileID: 312065923287857875}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4563500994260213460

@@ -68,6 +68,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2803399011719040798}
   - component: {fileID: 2426987683846647282}
+  - component: {fileID: 7863173449615431964}
   m_Layer: 7
   m_Name: near detection
   m_TagString: playerDetector
@@ -122,9 +123,21 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -3}
   serializedVersion: 2
-  m_Radius: 28
+  m_Radius: 26
+--- !u!114 &7863173449615431964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2266838604121568721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cd27057761bb8e41855c153ef55a1cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5264193109861021483
 GameObject:
   m_ObjectHideFlags: 0
@@ -512,7 +525,6 @@ MonoBehaviour:
   rb: {fileID: 2651844898336836181}
   sr: {fileID: 2152253323313139713}
   animatorHandler: {fileID: 6669311121154494313}
-  playerConfig: {fileID: 11400000, guid: 56c520563df85ac4e9d514cfc5f23672, type: 2}
   knockbackFeedBack: {fileID: 4442645777924847814}
   isGrounded: 0
   isDashing: 0
@@ -572,7 +584,7 @@ MonoBehaviour:
   OnDone:
     m_PersistentCalls:
       m_Calls: []
-  knockbackConfig: {fileID: 11400000, guid: 3298d82aa82168046b24eb2be10478ce, type: 2}
+  knockbackConfig: {fileID: 11400000, guid: 0d1d195f5800e30499872f2ec99792cc, type: 2}
 --- !u!114 &1630221891098906757
 MonoBehaviour:
   m_ObjectHideFlags: 0

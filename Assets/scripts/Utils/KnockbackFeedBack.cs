@@ -67,7 +67,7 @@ public class KnockbackFeedBack : MonoBehaviour
 
         rb.velocity = Vector2.zero; // Reset velocity
         rb.AddForce(forceVector, ForceMode2D.Impulse);
-
+        print("force vector: " + forceVector);
         resetCoroutine = StartCoroutine(ResetBody());
     }
     public void triggerFeedbackWithReference(Vector2 sender, Vector2 feedBackDirection, KnockbackFeedBack feedBack)
@@ -89,7 +89,7 @@ public class KnockbackFeedBack : MonoBehaviour
         rb.velocity = Vector2.zero; // Reset velocity
         rb.gravityScale = feedBack.knockbackConfig.gravityMultiplier;
         rb.AddForce(forceVector, ForceMode2D.Impulse);
-        print("force vector: " +forceVector );
+         print("force vector: " + forceVector);
         resetCoroutine = StartCoroutine(ResetBody(feedBack));
     }
     

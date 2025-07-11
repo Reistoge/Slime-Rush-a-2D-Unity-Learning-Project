@@ -47,7 +47,7 @@ public class BrokeRockScript : MonoBehaviour
                     rockEffects.playDestroyAnim();
                     ps3.Play();
 
-                    if (SceneManager.GetActiveScene().name == "Tutorial") GameManager.Instance.LoadSceneWithTransition("Menu,1");
+                    if (SceneManager.GetActiveScene().name == "Tutorial") GameManager.Instance.loadSceneWithTransition("Menu,1");
 
 
 

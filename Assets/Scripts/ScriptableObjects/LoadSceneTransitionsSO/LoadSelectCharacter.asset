@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39e55e6ee9058bf4ea9775f64bf79446, type: 3}
+  m_Name: LoadSelectCharacter
+  m_EditorClassIdentifier: 
+  sceneAsset: {fileID: 102900000, guid: 491eefd1452c17141bbac5473ee9a922, type: 3}
+  secondsDelay: 1
+  transitionPrefab: {fileID: 1845221606967173369, guid: 8dc19ccc3db663e4bba913db5fb89a40, type: 3}

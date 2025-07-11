@@ -24,7 +24,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
     public static Action<int> OnPlayerAddHeart;
 
     public static Action<int> OnEnemyIsDamaged;
-    public static Action OnPlayerInstantiated;
+    public static Action<PlayerScript> OnPlayerInstantiated;
     public static Action OnPlayerDied;
     public static Action onPlayerDash;
     #endregion
@@ -134,7 +134,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
         SwipeDetection.OnSwipeLine += swipeDash;
         SwipeDetection.OnSwipeStart += chargeJump;
         SwipeDetection.OnSwipeEnd += releaseJumpAnimHandler;
-        initializePlayerConfig();
+
         GameManager.Instance.instantiateAppearEffect(this.transform, 0);
 
 
@@ -165,7 +165,8 @@ public class PlayerScript : MonoBehaviour, IDamageable
         GameManager.Instance.CanMove = true;
         initialGravity = GetComponent<Rigidbody2D>().gravityScale;
         initialLinearDrag = GetComponent<Rigidbody2D>().drag;
-        OnPlayerInstantiated?.Invoke();
+        initializePlayerConfig();
+        OnPlayerInstantiated?.Invoke(this);
 
 
 
@@ -321,17 +322,111 @@ public class PlayerScript : MonoBehaviour, IDamageable
     }
 
 
-    private void ResetRotationAndFreeze()
+    private void resetRotationAndFreeze()
     {
 
         transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, 0);
         rb.freezeRotation = true;
-        knockbackFeedBack.stopFeedBack();
+        if (canTakeDamage == true)
+        {
+            knockbackFeedBack.stopFeedBack();
+
+        }
+        animatorHandler.stopHurtAnimation();
         animatorHandler.stopDash();
 
+        if (canTakeDamage == true)
+        {
+            animatorHandler.playIdle();
+
+        }
+
+    }
+    public void resetPlayerTransform(Vector3 position, Quaternion rotation)
+    {
+        // Stop any ongoing dash or movement coroutines
+        stopDash();
+
+        // Reset Rigidbody2D physics
+        if (rb != null)
+        {
+            rb.velocity = Vector2.zero;
+            rb.angularVelocity = 0f;
+            rb.gravityScale = initialGravity;
+            rb.drag = initialLinearDrag;
+            rb.sharedMaterial = null;
+            rb.freezeRotation = false;
+        }
+
+        // Reset transform position and rotation
+        transform.position = position;
+        transform.rotation = rotation;
+
+        // Reset animation and state
+        animatorHandler.stopDash();
         animatorHandler.stopHurtAnimation();
         animatorHandler.playIdle();
+
+        // Reset player state variables
+        isDashing = false;
+        isFalling = false;
+        onJumpCut = false;
+        playerIsDead = false;
+        IsGrounded = false;
+        dashCounter = maxDashCounter;
+        currentGround = null;
+        currentGroundCollision = null;
+        horizontalThreshold = 1f;
     }
+    public void lerpPosition(Vector3 targetPosition, Quaternion finalRot,float duration)
+    {
+
+        StartCoroutine(LerpPositionCoroutine(targetPosition,finalRot, duration));
+
+    }
+ 
+    protected IEnumerator LerpPositionCoroutine(Vector3 finalPos,Quaternion finalRot, float speed)
+    {
+        resetPlayerTransform(transform.position, transform.rotation);
+        yield return new WaitForEndOfFrame();
+        Vector3 startPosition = transform.position;
+
+        // Temporarily disable physics so gravity doesn't pull the player down
+        bool prevKinematic = rb.isKinematic;
+        rb.isKinematic = true;
+        rb.velocity = Vector2.zero;
+
+        Quaternion startRotation = transform.rotation;
+        float elapsedTime = 0f;
+
+        // Calculate total distance to determine duration
+        float distance = Vector2.Distance(transform.position, finalPos);
+        float duration = distance / speed;
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / duration;
+
+            // Smooth out the interpolation
+            float smoothT = Mathf.SmoothStep(0f, 1f, t);
+
+            transform.position = Vector3.Lerp(startPosition, finalPos, smoothT);
+            transform.rotation = Quaternion.Lerp(startRotation,
+                Quaternion.Euler(0f, 0f, finalRot.z), smoothT);
+
+            yield return null;
+        }
+
+
+        // Ensure we reach the exact final position
+        rb.isKinematic = prevKinematic;
+        transform.position = finalPos;
+        transform.rotation = Quaternion.Euler(0f, 0f, finalRot.z);
+
+
+    }
+
 
     private void HandleDamageableCollision(Collision2D collision)
     {
@@ -367,13 +462,16 @@ public class PlayerScript : MonoBehaviour, IDamageable
                 StopCoroutine(lerpRotation);
                 angularFallingVelocity = tempAng;
             }
-            if (collision.contacts[0].point.y <= transform.position.y)
+            if (collision.contacts[0].point.y <= transform.position.y && canTakeDamage == true)
             {
                 animatorHandler.playOnTouchGround();
             }
             // if the player is above the ground play the animation to touch the ground
 
-            ResetRotationAndFreeze();
+
+            resetRotationAndFreeze();
+
+
             currentGround = collision.collider;
             DashCounter = MaxDashCounter;
             if (collision.gameObject.CompareTag("moveableGround") && transform.parent == null)
@@ -567,12 +665,18 @@ public class PlayerScript : MonoBehaviour, IDamageable
 
     public void takeDamage(int damage) // this function damages the player
     {
+
         if (canTakeDamage == false)
         {
             return;
         }
-
+        if (isDashing)
+        {
+            stopDash();
+        }
         hp -= damage;
+        GameManager.Instance.getRuntimeData().playerHp = hp;
+        // GameManager.Instance.CanMove = false;
         //this parameter is in the enemy_damagezone.cs
         OnPlayerIsDamaged(damage);
         animatorHandler.playHurt(canTakeDamageResetTime);
@@ -643,16 +747,17 @@ public class PlayerScript : MonoBehaviour, IDamageable
             //double angle = Math.Atan(rotatedVector.x/rotatedVector.y)*180f;
             // print(angle);
             rb.AddForce(directionVector * rb.gravityScale, ForceMode2D.Impulse);
-            print(
-            "directionVector: " + directionVector +
-            "\n" +
-            "angle: " + angle
-            + "\n" +
-            "gravity scale: " + rb.gravityScale
-            + "\n" +
-            "vel scale: " + rb.velocity + ": " + rb.velocity.magnitude
 
-            );
+            // print(
+            // "directionVector: " + directionVector +
+            // "\n" +
+            // "angle: " + angle
+            // + "\n" +
+            // "gravity scale: " + rb.gravityScale
+            // + "\n" +
+            // "vel scale: " + rb.velocity + ": " + rb.velocity.magnitude
+
+            // );
             transform.eulerAngles = new Vector3(0, 0, (angle * Mathf.Rad2Deg) - 90);
             // StartCoroutine(LerpRotation(0.3f, (angle * Mathf.Rad2Deg) - 90));
             //             print(Vector2.Angle(startPos, endPos));
@@ -920,7 +1025,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
         float angle = Mathf.Atan2(direction.normalized.y, direction.normalized.x);
         transform.eulerAngles = new Vector3(0, 0, (angle * Mathf.Rad2Deg) - 90);
 
-        print("Constant vel Start " + gameObject.name);
+        // print("Constant vel Start " + gameObject.name);
         // moving
 
         Player.GetComponent<Rigidbody2D>().sharedMaterial = bounceMat;
@@ -942,7 +1047,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
         Player.GetComponent<Rigidbody2D>().gravityScale = initialGravity;
         Player.GetComponent<Rigidbody2D>().sharedMaterial = null;
         IsDashing = false;
-        print("Constant vel ends " + gameObject.name);
+        // print("Constant vel ends " + gameObject.name);
 
         //Player.GetComponent<Rigidbody2D>().velocity = dashDirection/2;
     }
@@ -960,7 +1065,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
     public void storeValuesWhenDie()
     {
         // store values in the player config
-        if(playerConfig == null)
+        if (playerConfig == null)
         {
             playerConfig = GameManager.Instance.PlayerConfig;
         }
@@ -1014,8 +1119,9 @@ public class PlayerScript : MonoBehaviour, IDamageable
         maxDownVelocity = scriptableObject.maxDownVelocity;
 
         // Player Health
-        hp = scriptableObject.startHp;
+        hp = GameManager.Instance.getRuntimeData().playerHp;
         maxHp = scriptableObject.maxHp;
+        GameManager.Instance.getRuntimeData().playerMaxHp = maxHp; // Update runtime data
         playerDamage = scriptableObject.playerDamage;
 
         // Physics Settings
@@ -1062,6 +1168,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
         }
 
         maxHp++; // Increase max HP
+        GameManager.Instance.getRuntimeData().playerMaxHp = maxHp; // Update runtime data
 
         if (hp < maxHp - 1)
         {
