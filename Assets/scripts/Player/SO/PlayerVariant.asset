@@ -21,7 +21,7 @@ MonoBehaviour:
   maxHp: 10
   startHp: 10
   playerDamage: 0
-  totalCoins: 0
+  totalCoins: 140
   startCoins: 0
   score: 0
   angularFallingVelocity: 200

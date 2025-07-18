@@ -154,7 +154,7 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 0.36862746, g: 0.18039216, b: 0.121568635, a: 1}
+  m_Color: {r: 0.2264151, g: 0.2264151, b: 0.2264151, a: 1}
   m_Intensity: 10
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
@@ -580,6 +580,7 @@ MonoBehaviour:
   isFirst: 0
   isAutoShoot: 0
   canMoveInShoot: 0
+  isCharging: 0
   horizontalThreshold: 0
   onEnterCannon:
     m_PersistentCalls:

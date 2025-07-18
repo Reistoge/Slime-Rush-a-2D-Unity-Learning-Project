@@ -62,6 +62,8 @@ public class GameManager : MonoBehaviour
     PlayerRuntimeData playerRuntimeData;
     Coroutine transitionCoroutine;
 
+
+
     void Awake()
     {
         singletonLogic();
@@ -70,10 +72,13 @@ public class GameManager : MonoBehaviour
     {
         PlayerScript.OnPlayerDied += pauseGame;
         SceneManager.sceneLoaded += OnLevelFinishedLoading;
-
-
-
     }
+    private void OnDisable()
+    {
+        PlayerScript.OnPlayerDied -= pauseGame;
+        SceneManager.sceneLoaded -= OnLevelFinishedLoading;
+    }
+
     void Start()
     {
         if (playerInScene == null)
@@ -145,12 +150,7 @@ public class GameManager : MonoBehaviour
 
         }
     }
-    private void OnDisable()
-    {
-        // when the object is disable desuscribe from the event
-        PlayerScript.OnPlayerDied -= pauseGame;
-        SceneManager.sceneLoaded -= OnLevelFinishedLoading;
-    }
+
     void singletonLogic()
     {
         if (Instance == null)
@@ -247,7 +247,7 @@ public class GameManager : MonoBehaviour
 
     public void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
     {
-
+         
         if (GameObject.Find("startPos")) startPos = GameObject.Find("startPos").transform.position;
 
         currentScene = scene.name;
@@ -261,6 +261,27 @@ public class GameManager : MonoBehaviour
         {
 
             instantiatePlayer();
+        }
+        checkSceneLoaded(scene);
+
+    }
+
+    void checkSceneLoaded(Scene scene)
+    {
+        
+        switch (scene.name)
+        {
+            case "MainGame":
+                GameEvents.triggerOnMainGameSceneLoaded();
+                break;
+            case "InGameShop":
+                GameEvents.triggerOnInGameShopSceneLoaded();
+                break;
+            case "MainMenu":
+                GameEvents.triggerOnMainMenuSceneLoaded();
+                break;
+
+
         }
     }
 
@@ -370,8 +391,8 @@ public class GameManager : MonoBehaviour
     {
         if (transitionLoaded == null && transitionCoroutine == null)
         {
-          transitionCoroutine = StartCoroutine(loadSceneWithTransitionCoroutine(args));  
-        } 
+            transitionCoroutine = StartCoroutine(loadSceneWithTransitionCoroutine(args));
+        }
     }
     public void loadSceneWithTransition(LoadSceneWithTransitionSO config)
     {

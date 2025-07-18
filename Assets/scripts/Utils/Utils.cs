@@ -45,6 +45,18 @@ public class Utils : MonoBehaviour
         }
         return 0f;
     }
+    public static float getAnimationClipDuration(Animator animator, string clipName)
+    {
+        if (animator == null || string.IsNullOrEmpty(clipName))
+            return 0f;
+
+        foreach (var clip in animator.runtimeAnimatorController.animationClips)
+        {
+            if (clip.name == clipName)
+                return clip.length;
+        }
+        return 0f;
+    }
     public static int GetActiveChildCount(Transform t)
     {
         int count = 0;
@@ -60,7 +72,7 @@ public class Utils : MonoBehaviour
         //print(t.name+": "+count);
         return count;
     }
- 
+
 
 
 
