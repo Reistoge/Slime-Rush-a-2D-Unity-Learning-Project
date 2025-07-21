@@ -102,6 +102,7 @@ public class PlayerAnimationHandler : MonoBehaviour
         damageParticles.TriggerEffect(transform.position);
         StartCoroutine(playHurtAnimation());
         StartCoroutine(canTakeDamageMaterialHandler(cantTakeDamageTime));
+        // squish(SquishType.down);
     }
      
     public void stopHurtAnimation()

@@ -8,14 +8,14 @@ public class Dasher : MonoBehaviour
 {
     [SerializeField] float dissapearTime = 5f;
     [SerializeField] Transform center;
-    [SerializeField] bool isCentering;
+ 
 
     Coroutine dasherCoroutine;
     Coroutine dasherCounterCoroutine;
     Coroutine lerpPositionCoroutine;
 
 
-
+    // the dasher is broken some times it doesnt launch the object 
     void OnEnable()
     {
         PlayerScript.onPlayerDash += dasherIn;
@@ -78,6 +78,7 @@ public class Dasher : MonoBehaviour
         print("enter on dasher");
         if ( lerpPositionCoroutine == null && dasherCoroutine == null)
         {
+            print("executing dasherMechanic coroutine");
             dasherCoroutine = StartCoroutine(dasherMechanic(col.transform, Utils.getAnimationClipDuration(anim, "dasherOnUse")));
             
         }

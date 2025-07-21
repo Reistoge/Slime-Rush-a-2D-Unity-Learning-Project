@@ -115,11 +115,11 @@ public class GameManager : MonoBehaviour
 
     public void instantiatePlayer()
     {
-        selectedPlayer = GameObject.FindWithTag("Player");
-        if (selectedPlayer == null)
-        {
-            selectedPlayer = defaultPlayer;
-        }
+        // selectedPlayer = GameObject.FindWithTag("Player");
+        // if (selectedPlayer == null)
+        // {
+        //     selectedPlayer = defaultPlayer;
+        // }
 
         if (GameObject.Find("startPos"))
         {
@@ -247,8 +247,9 @@ public class GameManager : MonoBehaviour
 
     public void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
     {
-         
-        if (GameObject.Find("startPos")) startPos = GameObject.Find("startPos").transform.position;
+
+        if (GameObject.Find("startPos"))
+        { startPos = GameObject.Find("startPos").transform.position; }
 
         currentScene = scene.name;
         if (transitionLoaded)

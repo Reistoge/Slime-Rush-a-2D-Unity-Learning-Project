@@ -98,9 +98,12 @@ public class ManualDirectionCannon : Cannon
         }
 
         indexRot = nextIndex;
-
-        transform.rotation = Quaternion.Euler(0, 0, RotationVariables[indexRot].Angles);
-        insideObject.transform.rotation = transform.rotation;
+        if (RotationVariables.Length > 0)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, RotationVariables[indexRot].Angles);
+            insideObject.transform.rotation = transform.rotation;
+            
+        }
         playPlayerEnterBarrel();
 
 
@@ -230,11 +233,15 @@ public class ManualDirectionCannon : Cannon
     {
 
 
-        if (canShoot && inBarrel)
+        if (inBarrel)
         {
+            if (canShoot)
+            {
+                insideCannonAction();
 
-            insideCannonAction();
+            }
             gameObject.GetComponent<Animator>().SetFloat("chargeSpeed", gameObject.GetComponent<Animator>().GetFloat("chargeSpeed") * chargeMultiplier);
+            
         }
     }
     public void playChangeRotation()

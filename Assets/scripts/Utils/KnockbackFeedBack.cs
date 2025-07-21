@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using Vector2 = UnityEngine.Vector2;
@@ -20,9 +21,9 @@ public class KnockbackFeedBack : MonoBehaviour
     // [SerializeField] float maxVerticalForce = 15f;
 
     KnockbackFeedBack thisFeedback;
-   
+
     float initGravity;
-    
+
     Coroutine resetCoroutine;
 
     public UnityEvent OnBegin, OnDone;
@@ -33,18 +34,20 @@ public class KnockbackFeedBack : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        if(rb){
+        if (rb)
+        {
             initGravity = rb.gravityScale;
 
         }
         thisFeedback = this;
-        
+
     }
-   
+
 
     public void triggerFeedback(Vector2 sender, Vector2 feedBackDirection)
     {
-        if(rb==null) return; 
+        // PROBLEM: THE DIRECTION CLAMP IS NOT CONSIDERING THE SPIKE ROTATION, 
+        if (rb == null) return;
         StopAllCoroutines();
         OnBegin?.Invoke();
 
@@ -55,11 +58,15 @@ public class KnockbackFeedBack : MonoBehaviour
         float horizontalForce = feedBackDirection.x * knockbackConfig.horizontalStrength;
 
         rb.gravityScale = knockbackConfig.gravityMultiplier;
+
         // Ensure a minimum horizontal force when spike is mostly vertical
-        if (Mathf.Abs(feedBackDirection.y) > 0.8f && Mathf.Abs(horizontalForce) < knockbackConfig.minHorizontalForce)
-        {
-            horizontalForce = knockbackConfig.minHorizontalForce * Mathf.Sign(direction.x); // Add bias based on player position
-        }
+        // this is not applying the min force when is rotated
+        // if (Mathf.Abs(feedBackDirection.y) > 0.8f && Mathf.Abs(horizontalForce) < knockbackConfig.minHorizontalForce)
+        // {
+        //     horizontalForce = knockbackConfig.minHorizontalForce * Mathf.Sign(direction.x); // Add bias based on player position
+        // }
+
+        horizontalForce = knockbackConfig.minHorizontalForce * Mathf.Sign(direction.x); // Add bias based on player position
 
         float verticalForce = Mathf.Clamp(feedBackDirection.y * knockbackConfig.verticalStrength, -knockbackConfig.maxVerticalForce, knockbackConfig.maxVerticalForce);
 
@@ -68,15 +75,17 @@ public class KnockbackFeedBack : MonoBehaviour
         rb.velocity = Vector2.zero; // Reset velocity
         rb.AddForce(forceVector, ForceMode2D.Impulse);
         print("force vector: " + forceVector);
+
         resetCoroutine = StartCoroutine(ResetBody());
     }
+ 
     public void triggerFeedbackWithReference(Vector2 sender, Vector2 feedBackDirection, KnockbackFeedBack feedBack)
     {
         StopAllCoroutines();
         OnBegin?.Invoke();
         feedBack.OnBegin?.Invoke();
-        
-         
+
+
         // Adjust horizontal and vertical forces
         float horizontalForce = feedBack.knockbackConfig.horizontalStrength;
 
@@ -89,11 +98,11 @@ public class KnockbackFeedBack : MonoBehaviour
         rb.velocity = Vector2.zero; // Reset velocity
         rb.gravityScale = feedBack.knockbackConfig.gravityMultiplier;
         rb.AddForce(forceVector, ForceMode2D.Impulse);
-         print("force vector: " + forceVector);
+        print("force vector: " + forceVector);
         resetCoroutine = StartCoroutine(ResetBody(feedBack));
     }
-    
- 
+
+
 
 
     IEnumerator ResetBody()
@@ -113,19 +122,20 @@ public class KnockbackFeedBack : MonoBehaviour
 
         rb.gravityScale = initGravity;
         rb.velocity = Vector2.zero;
-         
+
         OnDone?.Invoke();
         feedBack.OnDone?.Invoke();
     }
     public void stopFeedBack()
-    { 
-        if(resetCoroutine!=null){
+    {
+        if (resetCoroutine != null)
+        {
             StopAllCoroutines();
             rb.gravityScale = initGravity;
             OnDone?.Invoke();
 
         }
-         
+
 
     }
 }

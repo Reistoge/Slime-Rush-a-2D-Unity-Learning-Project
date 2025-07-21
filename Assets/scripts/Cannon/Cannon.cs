@@ -12,7 +12,7 @@ public class Cannon : MonoBehaviour
     {
 
         restartButton.StopCoroutines += StopAllCoroutines;
-         
+
 
         // GameManager.Instance.instantiateAppearEffect(transform, 0);
 
@@ -21,7 +21,7 @@ public class Cannon : MonoBehaviour
     protected void OnDisable()
     {
         restartButton.StopCoroutines -= StopAllCoroutines;
-       
+
     }
     protected void Start()
     {
@@ -80,7 +80,8 @@ public class Cannon : MonoBehaviour
     [SerializeField] protected UnityEvent onExitCannon;
 
 
-    public void resetIsCharging() {
+    public void resetIsCharging()
+    {
         isCharging = false;
     }
     protected void enterInsideCannon(Collider2D collision)
@@ -198,7 +199,7 @@ public class Cannon : MonoBehaviour
     }
     public void playShootAnimation()
     {
-        
+
         gameObject.GetComponent<Animator>().Play("shoot");
     }
 
@@ -375,7 +376,7 @@ public class Cannon : MonoBehaviour
 
         }
         Vector3 dashDirection = direction * velocity;
-        // print("Constant vel start "+gameObject.name);
+        print("Constant vel start " + gameObject.name + " vel: " + dashDirection);
 
         // moving
 
@@ -383,7 +384,20 @@ public class Cannon : MonoBehaviour
         insideObject.GetComponent<Rigidbody2D>().drag = 0;
         insideObject.GetComponent<Rigidbody2D>().velocity = dashDirection;
 
-        yield return new WaitForSeconds(time);
+      
+        Vector2 beforeDash = insideObject.transform.position;
+        print("Constant vel start " + insideObject.gameObject.name + " vel: " + velocity + " time: " + time);
+
+        float elapsed = 0f;
+        while (elapsed < time)
+        {
+            float step = Mathf.Min(Time.fixedDeltaTime, time - elapsed); // run the function in fixed update for physics behaviour
+            yield return new WaitForFixedUpdate();
+            elapsed += step;
+        }
+
+        float delta = Vector2.Distance(beforeDash, transform.position);
+        print("delta position " + delta + " (should be: " + (velocity * time) + ")");
 
         // print("Constant vel ends "+gameObject.name);
         insideObject.GetComponent<Rigidbody2D>().velocity *= 1;

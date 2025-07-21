@@ -41,6 +41,8 @@ public class FloorEditor : Editor
             handler.Col.size = new Vector2(handler.Sr.size.x, handler.PlatformHeight);
             DestroyImmediate(handler.Caster);
             handler.Caster = handler.AddComponent<ShadowCaster2D>();
+             
+              
 
         }
     }

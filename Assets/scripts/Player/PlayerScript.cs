@@ -163,9 +163,9 @@ public class PlayerScript : MonoBehaviour, IDamageable
             Camera.main.GetComponent<FollowCamera>().PlayerReference = this.gameObject;
         }
         GameManager.Instance.CanMove = true;
-        initialGravity = GetComponent<Rigidbody2D>().gravityScale;
         initialLinearDrag = GetComponent<Rigidbody2D>().drag;
         initializePlayerConfig();
+       
         OnPlayerInstantiated?.Invoke(this);
 
 
@@ -374,8 +374,8 @@ public class PlayerScript : MonoBehaviour, IDamageable
         playerIsDead = false;
         IsGrounded = false;
         dashCounter = maxDashCounter;
-        currentGround = null;
-        currentGroundCollision = null;
+        // currentGround = null;
+        // currentGroundCollision = null;
         horizontalThreshold = 1f;
     }
     public void lerpPosition(Vector3 targetPosition, Quaternion finalRot,float duration)
@@ -665,10 +665,10 @@ public class PlayerScript : MonoBehaviour, IDamageable
 
     public void takeDamage(int damage) // this function damages the player
     {
-
+        // WHEN THE PLAYER ENTERS A BARREL IT NEEDS TO STOP BEING DAMAGED.
         if (canTakeDamage == false)
         {
-            return;
+            return; 
         }
         if (isDashing)
         {
@@ -680,6 +680,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
         //this parameter is in the enemy_damagezone.cs
         OnPlayerIsDamaged(damage);
         animatorHandler.playHurt(canTakeDamageResetTime);
+        
 
         if (hp <= 0)
         {
@@ -979,9 +980,21 @@ public class PlayerScript : MonoBehaviour, IDamageable
         // Player.GetComponent<PlayerScript>().Anim.SetBool("dash", true);
         // animatorHandler.playDash();
         // HANDLER.DASH();
+         
         animatorHandler.playDash();
-        yield return new WaitForSeconds(time);
-        animatorHandler.stopDash();
+        Vector2 beforeDash = transform.position;
+        print("Constant vel start " + gameObject.name + " vel: " + velocity + " time: " + time);
+
+        float elapsed = 0f;
+        while (elapsed < time)
+        {
+            float step = Mathf.Min(Time.fixedDeltaTime, time - elapsed);
+            yield return new WaitForFixedUpdate();
+            elapsed += step;
+        }
+
+        float delta = Vector2.Distance(beforeDash, transform.position);
+        print("delta position " + delta + " (should be: " + (velocity * time) + ")");
         //Player.GetComponent<PlayerScript>().Anim.SetBool("dash", false);
         // HANDLER.STOPDASH();
         Player.GetComponent<Rigidbody2D>().sharedMaterial = null;
@@ -1037,7 +1050,19 @@ public class PlayerScript : MonoBehaviour, IDamageable
         // HANDLER.DASH();
         horizontalThreshold = threshold;
         animatorHandler.playDash();
-        yield return new WaitForSeconds(time);
+        Vector2 beforeDash = transform.position;
+        print("Constant vel start " + gameObject.name + " vel: " + velocity + " time: " + time);
+
+        float elapsed = 0f;
+        while (elapsed < time)
+        {
+            float step = Mathf.Min(Time.fixedDeltaTime, time - elapsed);
+            yield return new WaitForFixedUpdate();
+            elapsed += step;
+        }
+
+        float delta = Vector2.Distance(beforeDash, transform.position);
+        print("delta position " + delta + " (should be: " + (velocity * time) + ")");
         horizontalThreshold = 1;
         animatorHandler.stopDash();
         //Player.GetComponent<PlayerScript>().Anim.SetBool("dash", false);
@@ -1140,6 +1165,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
 
         rb.mass = scriptableObject.mass;
         rb.gravityScale = scriptableObject.gravity;
+        initialGravity = rb.gravityScale;
         rb.drag = scriptableObject.linearDrag;
 
 

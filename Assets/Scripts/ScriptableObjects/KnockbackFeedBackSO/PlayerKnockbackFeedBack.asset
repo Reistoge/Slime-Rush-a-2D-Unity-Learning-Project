@@ -22,5 +22,5 @@ MonoBehaviour:
   verticalStrength: 250
   delay: 0.5
   gravityMultiplier: 1
-  minHorizontalForce: 30
+  minHorizontalForce: 60
   maxVerticalForce: 1000

@@ -654,9 +654,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1613546845}
-        m_TargetAssemblyTypeName: MenuController, Assembly-CSharp
-        m_MethodName: selectCharacterScene
+      - m_Target: {fileID: 593744561}
+        m_TargetAssemblyTypeName: LoadSceneWithTransition, Assembly-CSharp
+        m_MethodName: loadSceneWithTransition
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3049,13 +3049,9 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -269472790733728335, guid: f196710a5e5677043ae6388c5503f842, type: 3}
-      propertyPath: mainGame
+      propertyPath: selectedPlayer
       value: 
-      objectReference: {fileID: 102900000, guid: f12d185acbafd074486a86b2014f7349, type: 3}
-    - target: {fileID: -269472790733728335, guid: f196710a5e5677043ae6388c5503f842, type: 3}
-      propertyPath: playerConfig
-      value: 
-      objectReference: {fileID: 11400000, guid: 56c520563df85ac4e9d514cfc5f23672, type: 2}
+      objectReference: {fileID: 5838150465340594182, guid: 6f85552f7aa847f4ca56a098b02da573, type: 3}
     - target: {fileID: 3814059994185193265, guid: f196710a5e5677043ae6388c5503f842, type: 3}
       propertyPath: m_Name
       value: GameManager

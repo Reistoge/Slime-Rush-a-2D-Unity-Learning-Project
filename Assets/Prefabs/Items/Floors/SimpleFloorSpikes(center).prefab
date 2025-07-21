@@ -546,7 +546,7 @@ MonoBehaviour:
   - {x: 31.000002, y: -4.9156494, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 56468
+  m_InstanceId: 385274
   m_LocalBounds:
     m_Center: {x: 0, y: 3.2770844, z: 0}
     m_Extent: {x: 31, y: 8.192734, z: 0}
@@ -599,6 +599,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 2947202055728854142}
   spikeDamage: 1
+  onTrigger: 1
+  onCollision: 1
   solidXSize: 0.9583333
   solidYSize: 0.7
   triggerXSize: 0.49

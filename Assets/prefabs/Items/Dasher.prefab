@@ -5097,7 +5097,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dissapearTime: 10
   center: {fileID: 2200891433624176246}
-  isCentering: 0
 --- !u!60 &3122805701005629994
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -5161,7 +5160,7 @@ CircleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 959
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2

@@ -197,13 +197,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7533318688792017237}
+  - component: {fileID: 8015315539302802187}
   - component: {fileID: 7015404677612168115}
   - component: {fileID: 6484813259930482795}
   - component: {fileID: 9048770523565254383}
   - component: {fileID: 7712886608866178539}
   - component: {fileID: 8259753450191850533}
   - component: {fileID: 2035006213946249119}
-  - component: {fileID: 8015315539302802187}
   m_Layer: 0
   m_Name: Manual Direction Cannon
   m_TagString: cannon
@@ -229,6 +229,38 @@ Transform:
   - {fileID: 2507088049400546653}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8015315539302802187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6626315879357740428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9da3f65740f0bd44a315f3191a9dc02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canShoot: 0
+  isRotating: 0
+  inBarrel: 0
+  dashSpeed: 500
+  dashTime: 0.5
+  rotDelay: 0
+  isFinal: 0
+  isFirst: 0
+  isAutoShoot: 0
+  canMoveInShoot: 0
+  isCharging: 0
+  horizontalThreshold: 0
+  onEnterCannon:
+    m_PersistentCalls:
+      m_Calls: []
+  onExitCannon:
+    m_PersistentCalls:
+      m_Calls: []
+  rotationVariables: []
+  alwaysRotate: 0
 --- !u!120 &7015404677612168115
 LineRenderer:
   serializedVersion: 2
@@ -558,50 +590,6 @@ MonoBehaviour:
   randomPitch: 0
   minPitch: 1
   maxPitch: 1
---- !u!114 &8015315539302802187
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6626315879357740428}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9da3f65740f0bd44a315f3191a9dc02, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canShoot: 0
-  isRotating: 0
-  inBarrel: 0
-  dashSpeed: 500
-  dashTime: 0.5
-  rotDelay: 0
-  isFinal: 0
-  isFirst: 0
-  isAutoShoot: 0
-  canMoveInShoot: 0
-  isCharging: 0
-  horizontalThreshold: 0
-  onEnterCannon:
-    m_PersistentCalls:
-      m_Calls: []
-  onExitCannon:
-    m_PersistentCalls:
-      m_Calls: []
-  rotationVariables:
-  - Angles: 0
-    Velocity: 0
-    dashForce: 500
-  - Angles: 90
-    Velocity: 0
-    dashForce: 500
-  - Angles: 180
-    Velocity: 0
-    dashForce: 500
-  - Angles: 270
-    Velocity: 0
-    dashForce: 500
-  alwaysRotate: 0
 --- !u!1001 &6320533796214577219
 PrefabInstance:
   m_ObjectHideFlags: 0

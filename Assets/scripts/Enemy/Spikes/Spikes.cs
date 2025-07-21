@@ -7,12 +7,17 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEditor.EditorTools;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using Vector2 = UnityEngine.Vector2;
+using Vector3 = UnityEngine.Vector3;
 
 public class Spikes : MonoBehaviour, IEnemyBehaviour
 {
     [SerializeField] Animator animator;
     [SerializeField] int spikeDamage=1;
+    [SerializeField] bool onTrigger = true;
+    [SerializeField] bool onCollision = true;
+   
     [Tooltip("Proportion based on sprite size (solid size is the spriteSize by this number)"), SerializeField] float solidXSize = 0.9583333f;
     [Tooltip("Proportion based on sprite size"), SerializeField] float solidYSize = 0.7f;
     [Tooltip("Proportion based on the solid or not trigger size"), SerializeField] float triggerXSize = 0.49f;
@@ -28,13 +33,22 @@ public class Spikes : MonoBehaviour, IEnemyBehaviour
     void OnTriggerStay2D(Collider2D collision)
     {
 
-         
-        dealDamage(collision.gameObject);
+        if (onTrigger)
+        {
+            dealDamage(collision.gameObject);
+            
+        }
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
-        
-        dealDamage(collision.gameObject);
+
+        if (onCollision)
+        {
+            dealDamage(collision.gameObject);
+            
+        }
+            
+         
     }
     public void dealDamage(GameObject o)
     {
@@ -60,6 +74,7 @@ public class Spikes : MonoBehaviour, IEnemyBehaviour
         if (o.TryGetComponent<KnockbackFeedBack>(out KnockbackFeedBack knocback)) 
         {
             // Calculate knockback direction based on spike orientation
+            //Vector2 shootDirection = transform.up;
             Vector2 shootDirection = transform.up;
             // Knockback source is the spike's position
             Vector2 knockbackSource = transform.position;
@@ -134,6 +149,17 @@ public class Spikes : MonoBehaviour, IEnemyBehaviour
         points.Add(new Vector2(-x * spike.TriggerX, spike.gameObject.GetComponent<EdgeCollider2D>().points[1].y));
         spike.gameObject.GetComponent<EdgeCollider2D>().SetPoints(points);
         spike.gameObject.GetComponent<EdgeCollider2D>().offset = new Vector2(0, spike.TriggerOffset);
+       
+        animator.gameObject.GetComponent<Light2D>().lightType = Light2D.LightType.Freeform;
+
+        Vector2 spriteSize = sr.size;
+        Vector3[] shapePath = new Vector3[4];
+        float verticalOffset = 5f;
+        shapePath[0] = new Vector3(-spriteSize.x/2, verticalOffset, 0);
+        shapePath[1] = new Vector3(spriteSize.x/2, verticalOffset, 0);
+        shapePath[2] = new Vector3(spriteSize.x/2, spriteSize.y, 0);
+        shapePath[3] = new Vector3(-spriteSize.x/2, spriteSize.y, 0);
+        animator.gameObject.GetComponent<Light2D>().SetShapePath(shapePath);
 
     }
 
