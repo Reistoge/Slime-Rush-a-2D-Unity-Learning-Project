@@ -24,6 +24,12 @@ MonoBehaviour:
     height: 16
     spawnRate: 1
     horizontalRandomness: 0
+  platformDissolve:
+    prefab: {fileID: 6951988364758899019, guid: 5b89315fd947623478c1c43a547c6cd2, type: 3}
+    width: 48
+    height: 16
+    spawnRate: 1
+    horizontalRandomness: 0
   floorClassic:
     prefab: {fileID: 73751425886506750, guid: 2ed37b9c06bb5574e8166e906ae2842a, type: 3}
     width: 48
