@@ -18,6 +18,11 @@ public class LittleGemSpawn : MonoBehaviour
     [SerializeField] Color[] gemColors;
     [SerializeField] BoxCollider2D spawnArea;
     [SerializeField] gemSpawnPoint[] spawnPoints;
+    [SerializeField] GameObject gems;
+
+
+
+
     [System.Serializable]
     class gemSpawnPoint
     {
@@ -25,14 +30,46 @@ public class LittleGemSpawn : MonoBehaviour
         public float radius;
 
     }
+    void OnEnable()
+    {
+        gems = new GameObject("gems");
+        gems.transform.SetParent(transform);
+        gemsGenerate();
 
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        gemsGenerate();
+
     }
 
+    public void desactivateGems()
+    {
+        foreach (Transform child in gems.transform)
+        {
+
+            child.gameObject.GetComponent<Animator>().Play("disappear");
+
+        }
+        // gems.SetActive(false);
+    }
+    public void desactivateGemsNoAnimation()
+    {
+        foreach (Transform g in gems.transform)
+        {
+            g.gameObject.GetComponent<Animator>().Play("disappear", 0, 99f);
+        }
+    }
+    public void activateGems()
+    {
+        foreach (Transform child in gems.transform)
+        {
+
+            child.gameObject.GetComponent<Animator>().Play("appear");
+
+        }
+    }
 
     void gemsGenerate()
     {
@@ -54,6 +91,7 @@ public class LittleGemSpawn : MonoBehaviour
             GameObject gem = Instantiate(littleGemPrefab,
              spawnPos,
               Quaternion.Euler(0, 0, Random.Range(-120, 120)), transform);
+            gem.transform.SetParent(gems.transform);
             var gemLight = gem.GetComponent<Light2D>();
             var gemSprite = gem.GetComponent<SpriteRenderer>();
             if (gemSprite && gemLight)

@@ -17,7 +17,16 @@ public class DefaultCannon : Cannon
 
         foreach (RotationBehaviour v in values)
         {
-            coroutine = rotateToAngle(v.Angles, v.Velocity, v.dashForce);
+            if (!isInterruptible)
+            {
+                coroutine = rotateToAngle(v.Angles, v.Velocity, v.dashForce);
+
+            }
+            else
+            {
+                coroutine = rotateToAngleInterruptible(v.Angles, v.Velocity, v.dashForce);
+                
+            }
             coroutineQueue.Enqueue(coroutine);
         }
     }
@@ -56,6 +65,7 @@ public class DefaultCannon : Cannon
 
     [SerializeField] protected RotationBehaviour[] rotationVariables;
     [SerializeField] protected bool alwaysRotate;
+    [SerializeField] bool isInterruptible=false;
     IEnumerator RotateCannon;
     IEnumerator rotateInit;
 

@@ -57,6 +57,19 @@ public class Utils : MonoBehaviour
         }
         return 0f;
     }
+    public static float getAnimationClipDuration(Animator animator, int hash)
+    {
+        if (animator == null)
+            return 0f;
+
+        foreach (var clip in animator.runtimeAnimatorController.animationClips)
+        {
+            if (Animator.StringToHash(clip.name) == hash)
+                return clip.length;
+        }
+        return 0f;
+    }
+
     public static int GetActiveChildCount(Transform t)
     {
         int count = 0;

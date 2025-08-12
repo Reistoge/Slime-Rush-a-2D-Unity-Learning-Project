@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 9158286097609787833}
   - component: {fileID: 957715710572846600}
   - component: {fileID: 9000933773384453041}
-  - component: {fileID: 4798761830922822252}
+  - component: {fileID: 8166585130516360691}
   m_Layer: 0
   m_Name: SimpleFloor(center)
   m_TagString: ground
@@ -114,7 +114,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 130, y: 16.385458}
+  m_Size: {x: 144, y: 16.385458}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -157,13 +157,13 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.3}
     oldSize: {x: 48, y: 48}
-    newSize: {x: 130, y: 16.385458}
+    newSize: {x: 144, y: 16.385458}
     adaptiveTilingThreshold: 0.5
     drawMode: 2
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 130, y: 6}
+  m_Size: {x: 144, y: 6}
   m_EdgeRadius: 0
 --- !u!95 &6539510537499794685
 Animator:
@@ -313,7 +313,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a2c203743068134e90cf310d04ab17e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  caster: {fileID: 0}
+  caster: {fileID: 8166585130516360691}
   col: {fileID: 3352383770624807140}
   sr: {fileID: 576107627648151613}
   floorHeight: 6
@@ -345,7 +345,7 @@ MonoBehaviour:
     radius: 3
   - pos: {x: 20, y: 0}
     radius: 3
---- !u!114 &4798761830922822252
+--- !u!114 &8166585130516360691
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -365,16 +365,16 @@ MonoBehaviour:
   m_SelfShadows: 0
   m_ApplyToSortingLayers: 5ffe7e78055f3c9c000000005b3e74f81f881e6e
   m_ShapePath:
-  - {x: -48, y: -4.799988, z: 0}
-  - {x: -48, y: 11.200012, z: 0}
-  - {x: 48, y: 11.200012, z: 0}
-  - {x: 48, y: -4.799988, z: 0}
+  - {x: -72, y: -4.915638, z: 0}
+  - {x: -72, y: 11.469822, z: 0}
+  - {x: 72, y: 11.469822, z: 0}
+  - {x: 72, y: -4.915638, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: -788234
+  m_InstanceId: -74832
   m_LocalBounds:
-    m_Center: {x: 0, y: 3.2000122, z: 0}
-    m_Extent: {x: 48, y: 8, z: 0}
+    m_Center: {x: 0, y: 3.277092, z: 0}
+    m_Extent: {x: 72, y: 8.19273, z: 0}
 --- !u!1 &7286361647824630036
 GameObject:
   m_ObjectHideFlags: 0

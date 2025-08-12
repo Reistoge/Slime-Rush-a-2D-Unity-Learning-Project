@@ -19,8 +19,17 @@ public class Boundaries : MonoBehaviour
     [SerializeField] GameObject wallRight;
     [SerializeField] LayerMask excludeLayers;
     [SerializeField] UnityEvent onMoveWallsEnd;
+    [SerializeField] UnityEvent onPassThroughMiddle;
+    [SerializeField] UnityEvent onExitThroughMiddle;
     Coroutine moveWallsLeft;
     Coroutine moveWallsRight;
+    void OnDisable()
+    {
+        onPassThroughMiddle.RemoveAllListeners();
+        onMoveWallsEnd.RemoveAllListeners();
+    }
+    public UnityEvent OnPassThroughMiddle { get => onPassThroughMiddle; set => onPassThroughMiddle = value; }
+    public UnityEvent OnExitThroughMiddle { get => onExitThroughMiddle; set => onExitThroughMiddle = value; }
 
     public void moveWalls()
     {
@@ -33,6 +42,15 @@ public class Boundaries : MonoBehaviour
             StartCoroutine(moveWall(wallRight, -amount, speed));
 
         }
+    }
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        OnPassThroughMiddle?.Invoke();
+        print("asdasd");
+    }
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        OnExitThroughMiddle?.Invoke();
     }
 
     IEnumerator moveWall(GameObject wall, float amount, float speed)

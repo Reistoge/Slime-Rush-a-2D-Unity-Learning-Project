@@ -12,8 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 518ad7115a86b84409cb24f4e36dd905, type: 3}
   m_Name: LavaToPlayerKnockBack
   m_EditorClassIdentifier: 
+  OnBegin:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDone:
+    m_PersistentCalls:
+      m_Calls: []
   horizontalStrength: 100
-  verticalStrength: 1000
+  verticalStrength: 500
   delay: 1
   gravityMultiplier: 1
   minHorizontalForce: 0

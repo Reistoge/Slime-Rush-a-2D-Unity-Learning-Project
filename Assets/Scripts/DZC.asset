@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f27bfe08b14e0f4f94908f0237d1609, type: 3}
+  m_Name: DZC
+  m_EditorClassIdentifier: 
+  platformClassic:
+    prefab: {fileID: 1269703295195249702, guid: 5ea321363be134d46a6ef5fbe45ec90e, type: 3}
+    width: 48
+    height: 16
+    spawnRate: 1
+    horizontalRandomness: 0
+  platformLarge:
+    prefab: {fileID: 1191131064758217546, guid: d00280c1cc44fdf4cafb2aba8874b6cd, type: 3}
+    width: 96
+    height: 16
+    spawnRate: 1
+    horizontalRandomness: 0
+  floorClassic:
+    prefab: {fileID: 73751425886506750, guid: 2ed37b9c06bb5574e8166e906ae2842a, type: 3}
+    width: 48
+    height: 16
+    spawnRate: 1
+    horizontalRandomness: 0
+  floorLarge:
+    prefab: {fileID: 73751425886506750, guid: e126dffee77ceda4aa3dee19abf18791, type: 3}
+    width: 96
+    height: 16
+    spawnRate: 1
+    horizontalRandomness: 0
+  floorSpikes:
+    prefab: {fileID: 0}
+    width: 0
+    height: 0
+    spawnRate: 0
+    horizontalRandomness: 0
+  horizontalMoveFloor:
+    prefab: {fileID: 6162007461947533438, guid: be9afa04fa8f1d24299b39278e901807, type: 3}
+    width: 0
+    height: 0
+    spawnRate: 0
+    horizontalRandomness: 0
+  breakableFloor:
+    prefab: {fileID: 0}
+    width: 0
+    height: 0
+    spawnRate: 0
+    horizontalRandomness: 0
+  coinsPrefabA:
+    prefab: {fileID: 666404375840720440, guid: 54737c6ba1840f14889bd2021a538f3e, type: 3}
+    spawnRate: 0.6
+  coinsPrefabB:
+    prefab: {fileID: 762122353428906240, guid: 0d9a7653a0b4fc541af5ad8c57f541a0, type: 3}
+    spawnRate: 0.3
+  cannonPrefab:
+    prefab: {fileID: 0}
+    spawnRate: 0
+  boundarie:
+    prefab: {fileID: 5979297561772056217, guid: e4150e21fb6390b4283486ca759fd49d, type: 3}
+  finalBoundarie:
+    prefab: {fileID: 0}
+  maxPlatformsInBound: 6
+  waitTimeToStartLevel: 2
+  HORIZONTAL_EDGE_LIMIT: 180
+  PLAYER_JUMP: 120

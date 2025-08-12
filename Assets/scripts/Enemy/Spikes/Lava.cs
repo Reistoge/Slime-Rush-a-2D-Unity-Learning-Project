@@ -7,18 +7,24 @@ public class Lava : MonoBehaviour, IEnemyBehaviour
     [SerializeField] KnockbackFeedBack feedBack;
     [SerializeField] int lavaDamage = 1;
 
+    // add different movement.
+
     public int Damage { get => lavaDamage; set => lavaDamage = value; }
 
 
     void OnTriggerEnter2D(Collider2D collision)
     {
         // separate the logic between push and damage because the lava always pushes
-        pushObject(collision.gameObject); 
-        dealDamage(collision.gameObject); 
+        // pushObject(collision.gameObject);
+        dealDamage(collision.gameObject);
     }
+    void OnTriggerStay2D(Collider2D collision)
+    {
+        pushObject(collision.gameObject);
+     }
     public void dealDamage(GameObject o)
     {
-         // do this 
+        // do this 
         if (o.TryGetComponent<IDamageable>(out IDamageable damageable) && damageable.CanTakeDamage)
         {
             // lava deals damage only when tha player is damaged
@@ -32,7 +38,7 @@ public class Lava : MonoBehaviour, IEnemyBehaviour
         {
             pushPlayer(o);
         }
-    } 
+    }
     public void pushPlayer(GameObject o)
     {
         if (o.TryGetComponent<KnockbackFeedBack>(out KnockbackFeedBack knocback))

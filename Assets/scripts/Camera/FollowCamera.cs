@@ -32,6 +32,7 @@ public class FollowCamera : MonoBehaviour
     [SerializeField] Coroutine behaviourRoutine;
 
 
+
     float lerpTime = 0;
 
     private void Start()
@@ -77,6 +78,7 @@ public class FollowCamera : MonoBehaviour
 
 
     }
+
 
 
     public void lerp()
@@ -162,16 +164,19 @@ public class FollowCamera : MonoBehaviour
 
 
     }
-    public void changeCameraBehaviour(int args){
+    public void changeCameraBehaviour(int args)
+    {
         StopAllCoroutines();
         cameraType = (cameraBehaviour)args;
     }
-    public void stopCameraBehaviour(){
+    public void stopCameraBehaviour()
+    {
         StopAllCoroutines();
         cameraType = cameraBehaviour.stop;
     }
-    public void lerp(Transform target){
-        lerp(transform.position.y, target.transform.position.y-transform.position.y);        
+    public void lerp(Transform target)
+    {
+        lerp(transform.position.y, target.transform.position.y - transform.position.y);
     }
 
 
@@ -220,7 +225,7 @@ public class FollowCamera : MonoBehaviour
         //rise.riseTotalDuration = math.abs(startPos.magnitude - endPos.magnitude) * (1 / rise.speed);
         while ((Vector2)transform.position != (Vector2)(endPos))
         {
-            transform.position = Vector3.MoveTowards(new Vector3(startPos.x, startPos.y, -10), new Vector3(endPos.x, endPos.y, -10), lerpTime * rise.speed);
+            transform.position = Vector3.MoveTowards(new Vector3(startPos.x, startPos.y, -10), new Vector3(endPos.x, endPos.y, -10), lerpTime * Rise.speed);
 
             lerpTime += Time.deltaTime;
             yield return new WaitForEndOfFrame();
@@ -230,7 +235,7 @@ public class FollowCamera : MonoBehaviour
 
 
     }
-  
+
     private IEnumerator Zoom(SmoothZoom zoomCameraVariables)
     {
 
@@ -259,7 +264,7 @@ public class FollowCamera : MonoBehaviour
     {
         StartCoroutine(Zoom(smooth));
     }
-     
+
     #region "Camera Behaviour"
     public void processCameraBehaviour()
     {
@@ -294,10 +299,10 @@ public class FollowCamera : MonoBehaviour
                     break;
                 case cameraBehaviour.alwaysRise:
 
-                    if (rise.alwaysRiseRoutine == null)
+                    if (Rise.alwaysRiseRoutine == null)
                     {
                         PlayerReference = GameObject.FindWithTag("Player");
-                        rise.alwaysRiseRoutine = StartCoroutine(alwaysRise(Camera.main.transform.position, new Vector2(Camera.main.transform.position.x, Camera.main.transform.position.y + rise.alwaysRiseEndPos)));
+                        Rise.alwaysRiseRoutine = StartCoroutine(alwaysRise(Camera.main.transform.position, new Vector2(Camera.main.transform.position.x, Camera.main.transform.position.y + Rise.alwaysRiseEndPos)));
 
                     }
                     else // the coroutine is running
@@ -306,32 +311,32 @@ public class FollowCamera : MonoBehaviour
                         if (PlayerReference)
                         {
                             float dif = (PlayerReference.transform.position.y - transform.position.y);
-                            if (dif <= -rise.verticalDamp)
+                            if (dif <= -Rise.verticalDamp)
                             {
 
-                                StopCoroutine(rise.alwaysRiseRoutine);
-                                rise.speed = rise.slowSpeed;
-                                rise.alwaysRiseRoutine = StartCoroutine(alwaysRise(Camera.main.transform.position, new Vector2(Camera.main.transform.position.x, Camera.main.transform.position.y + rise.alwaysRiseEndPos)));
+                                StopCoroutine(Rise.alwaysRiseRoutine);
+                                Rise.speed = Rise.slowSpeed;
+                                Rise.alwaysRiseRoutine = StartCoroutine(alwaysRise(Camera.main.transform.position, new Vector2(Camera.main.transform.position.x, Camera.main.transform.position.y + Rise.alwaysRiseEndPos)));
 
 
                             }
-                            else if (dif > rise.verticalDamp)
+                            else if (dif > Rise.verticalDamp)
                             {
-                                StopCoroutine(rise.alwaysRiseRoutine);
-                                rise.speed = rise.fastSpeed;
-                                rise.alwaysRiseRoutine = StartCoroutine(alwaysRise(Camera.main.transform.position, new Vector2(Camera.main.transform.position.x, Camera.main.transform.position.y + rise.alwaysRiseEndPos)));
+                                StopCoroutine(Rise.alwaysRiseRoutine);
+                                Rise.speed = Rise.fastSpeed;
+                                Rise.alwaysRiseRoutine = StartCoroutine(alwaysRise(Camera.main.transform.position, new Vector2(Camera.main.transform.position.x, Camera.main.transform.position.y + Rise.alwaysRiseEndPos)));
 
                             }
                             else
                             {
-                                StopCoroutine(rise.alwaysRiseRoutine);
-                                rise.speed = rise.normalSpeed;
-                                rise.alwaysRiseRoutine = StartCoroutine(alwaysRise(Camera.main.transform.position, new Vector2(Camera.main.transform.position.x, Camera.main.transform.position.y + rise.alwaysRiseEndPos)));
+                                StopCoroutine(Rise.alwaysRiseRoutine);
+                                Rise.speed = Rise.normalSpeed;
+                                Rise.alwaysRiseRoutine = StartCoroutine(alwaysRise(Camera.main.transform.position, new Vector2(Camera.main.transform.position.x, Camera.main.transform.position.y + Rise.alwaysRiseEndPos)));
                             }
                         }
                     }
                     break;
-                
+
 
                 case cameraBehaviour.zoomToPlayer:
                     // if we zoom to the player we also want to follow them
@@ -346,7 +351,7 @@ public class FollowCamera : MonoBehaviour
 
 
                     break;
-     
+
 
 
 
@@ -410,7 +415,7 @@ public class FollowCamera : MonoBehaviour
 
     }
 
- 
+
     [System.Serializable]
     public class SmoothZoom
     {
@@ -443,7 +448,20 @@ public class FollowCamera : MonoBehaviour
         public float normalSpeed;
         public float fastSpeed;
         public float slowSpeed;
- 
+
+        public void increaseSpeed(float multiplier)
+        {
+            slowSpeed *= multiplier;
+            normalSpeed *= multiplier;
+            fastSpeed *= multiplier;
+        }
+        public void decreaseSpeed(float multiplier)
+        {
+            slowSpeed /= multiplier;
+            normalSpeed /= multiplier;
+            fastSpeed /= multiplier;
+        }
+
 
     }
 
@@ -457,9 +475,9 @@ public class FollowCamera : MonoBehaviour
     public SmoothZoom UnZoomCamera { get => unZoomCamera; set => unZoomCamera = value; }
     public bool IsZoom { get => isZoom; set => isZoom = value; }
     public GameObject PlayerReference { get => playerReference; set => playerReference = value; }
-    private AlwaysRise Rise { get => rise; set => rise = value; }
+ 
     public bool Moving { get => moving; set => moving = value; }
-    
+    public AlwaysRise Rise { get => rise; set => rise = value; }
 }
 public enum shakeType
 {
@@ -473,8 +491,8 @@ public enum shakeType
 
 public enum cameraBehaviour
 {
-    followCharacter ,
-    riseWhenReachesHeight ,
+    followCharacter,
+    riseWhenReachesHeight,
     alwaysRise,
     zoomToPlayer,
     stop,
