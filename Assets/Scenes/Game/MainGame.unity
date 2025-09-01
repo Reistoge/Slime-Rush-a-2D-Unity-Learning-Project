@@ -2263,6 +2263,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 311982973347094313, guid: c0e9ebd948e72f147833695036f6483a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -347
+      objectReference: {fileID: 0}
     - target: {fileID: 883193101097819323, guid: c0e9ebd948e72f147833695036f6483a, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -2270,6 +2274,10 @@ PrefabInstance:
     - target: {fileID: 1179397498864126053, guid: c0e9ebd948e72f147833695036f6483a, type: 3}
       propertyPath: m_Name
       value: DangerZone (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3161205709075789227, guid: c0e9ebd948e72f147833695036f6483a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3914762030148314664, guid: c0e9ebd948e72f147833695036f6483a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2309,6 +2317,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3914762030148314664, guid: c0e9ebd948e72f147833695036f6483a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5925401024333705013, guid: c0e9ebd948e72f147833695036f6483a, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

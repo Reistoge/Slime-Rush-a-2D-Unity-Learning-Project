@@ -15,13 +15,13 @@ EditorBuildSettings:
     path: Assets/Scenes/Game/MainGame.unity
     guid: f12d185acbafd074486a86b2014f7349
   - enabled: 1
-    path: Assets/CharacterSelector2.unity
+    path: Assets/Scenes/CharacterSelector2.unity
     guid: a7410f20dc90a2345903dc71796a1ee2
   - enabled: 1
-    path: Assets/InGameShop2.unity
+    path: Assets/Scenes/InGameShop2.unity
     guid: 782be47dfd7b3034394eacff4192fade
   - enabled: 1
-    path: Assets/LevelSets.unity
+    path: Assets/Scenes/LevelSets.unity
     guid: 13d920e387a2d1f4dafaa657c900aeba
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 349043e066bce5b4992c25e00469d00d, type: 2}
