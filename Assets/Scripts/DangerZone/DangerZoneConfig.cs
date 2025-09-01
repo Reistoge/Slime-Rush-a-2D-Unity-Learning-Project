@@ -22,6 +22,8 @@ public class DangerZoneConfig : ScriptableObject
     public Cannon cannonPrefab;
     public Boundaries boundarie;
     public Boundaries finalBoundarie;
+
+    public Portal shopPortal;
   
 
 
@@ -40,6 +42,12 @@ public class DangerZoneConfig : ScriptableObject
         public GameObject prefab;
     }
 
+    [Serializable]
+    public class Portal
+    {
+        public float spawnRate;
+        public GameObject prefab;
+    }
     [Serializable]
     public class Platform
     {

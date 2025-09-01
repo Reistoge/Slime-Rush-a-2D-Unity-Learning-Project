@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] PlayerSO playerConfig;
 
     [SerializeField] PlayerScript playerScript;
-    PlayerRuntimeData playerRuntimeData;
+    [SerializeField] PlayerRuntimeData playerRuntimeData;
     Coroutine transitionCoroutine;
 
 
@@ -71,11 +71,13 @@ public class GameManager : MonoBehaviour
     private void OnEnable()
     {
         PlayerScript.OnPlayerDied += pauseGame;
+        GameEvents.onGameIsRestarted += destroyRuntimeData;
         SceneManager.sceneLoaded += OnLevelFinishedLoading;
     }
     private void OnDisable()
     {
         PlayerScript.OnPlayerDied -= pauseGame;
+        GameEvents.onGameIsRestarted -= destroyRuntimeData;
         SceneManager.sceneLoaded -= OnLevelFinishedLoading;
     }
 
@@ -110,6 +112,16 @@ public class GameManager : MonoBehaviour
         {
             Time.timeScale = 1f;
         }
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            Time.timeScale = 5f;
+        }
+        if (Input.GetKeyUp(KeyCode.LeftControl))
+        {
+            Time.timeScale = 1f;
+        }
+
+
     }
 
 
@@ -129,6 +141,12 @@ public class GameManager : MonoBehaviour
 
         }
 
+    }
+    public void instantiateDefaultPlayer()
+    {
+        startPos = GameObject.Find("startPos").transform.position;
+        PlayerInScene = Instantiate(defaultPlayer, startPos, Quaternion.identity);
+        PlayerInScene.transform.SetParent(null);
     }
     public void instantiatePlayer(Transform pos)
     {
@@ -269,7 +287,7 @@ public class GameManager : MonoBehaviour
 
     void checkSceneLoaded(Scene scene)
     {
-        
+
         switch (scene.name)
         {
             case "MainGame":
@@ -278,7 +296,7 @@ public class GameManager : MonoBehaviour
             case "InGameShop":
                 GameEvents.triggerOnInGameShopSceneLoaded();
                 break;
-            case "MainMenu":
+            case "Menu":
                 GameEvents.triggerOnMainMenuSceneLoaded();
                 break;
 
@@ -306,8 +324,13 @@ public class GameManager : MonoBehaviour
     IEnumerator loadSceneWithTransitionCoroutine(string args)
     {
 
-        savePlayerRuntimeData();
+
         string[] parts = args.Split(",");
+
+        savePlayerRuntimeData();
+
+
+
         float waitTime = 0;
         if (parts.Length == 2) waitTime = float.Parse(parts[1]);
         yield return new WaitForSecondsRealtime(waitTime);
@@ -320,7 +343,6 @@ public class GameManager : MonoBehaviour
 
         // yield return new WaitUntil(() => t.TransitionFinished == true);
         // t.TransitionFinished = false;
-
         loadScene(parts[0]);
         transitionCoroutine = null;
 
@@ -330,7 +352,9 @@ public class GameManager : MonoBehaviour
     IEnumerator loadSceneWithTransitionCoroutine(LoadSceneWithTransitionSO config)
     {
 
+
         savePlayerRuntimeData();
+
 
         yield return new WaitForSecondsRealtime(config.secondsDelay);
 
@@ -348,8 +372,8 @@ public class GameManager : MonoBehaviour
         Transition t = transitionLoaded.GetComponent<Transition>();
 
         DontDestroyOnLoad(transitionLoaded);
-
         yield return new WaitUntil(() => t.SceneCanBeLoaded == true);
+        //Time.timeScale = 1.0f;
         // t.TransitionFinished = false;
 
         loadScene(config.sceneAsset.name);
@@ -358,6 +382,7 @@ public class GameManager : MonoBehaviour
 
 
     }
+
 
     private void savePlayerRuntimeData()
     {
@@ -376,9 +401,10 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
     public PlayerRuntimeData getRuntimeData()
     {
-        if (playerRuntimeData == null)
+        if (playerRuntimeData == null || playerRuntimeData.playerHp <= 0)
         {
             playerRuntimeData = new PlayerRuntimeData();
             playerRuntimeData.playerInGameCoins = 0;
@@ -386,6 +412,21 @@ public class GameManager : MonoBehaviour
 
         }
         return playerRuntimeData;
+    }
+    public void resetPlayerRuntimeData()
+    {
+        playerRuntimeData = new PlayerRuntimeData();
+        playerRuntimeData.playerInGameCoins = 0;
+        playerRuntimeData.playerHp = playerConfig.maxHp;
+    }
+    public void destroyRuntimeData()
+    {
+
+        // playerRuntimeData = new PlayerRuntimeData();
+        // playerRuntimeData.playerInGameCoins = 0;
+        // playerRuntimeData.playerHp = playerConfig.maxHp;
+
+        //  savePlayerRuntimeData();
     }
 
     public void loadSceneWithTransition(string args)
@@ -405,10 +446,15 @@ public class GameManager : MonoBehaviour
 
 
 
+
     public void pauseGame()
     {
 
         Time.timeScale = 0;
+
+
+
+
     }
     public void resumeGame()
     {
@@ -445,6 +491,7 @@ public class GameManager : MonoBehaviour
     {
         playerConfig.totalCoins = coins;
 
+
     }
     public void onPlayerGetCoins(int value)
     {
@@ -453,6 +500,7 @@ public class GameManager : MonoBehaviour
             playerInScene.GetComponent<PlayerScript>().playerGetCoin(value);
         }
     }
+    [Serializable]
     public class PlayerRuntimeData
     {
 

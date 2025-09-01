@@ -10,9 +10,10 @@ public class HomeButton : MonoBehaviour
         // print("hi");
         if (PauseController.isGamePaused)
         {
-            Time.timeScale = 1.0f;
+            // Time.timeScale = 1.0f;
             PauseController.isGamePaused = false;
         }
+        GameManager.Instance.destroyRuntimeData();
         loadScene.loadSceneWithTransition();
 
 

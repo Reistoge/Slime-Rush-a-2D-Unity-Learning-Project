@@ -31,11 +31,9 @@ public class LevelObjectManager : MonoBehaviour
 
     void Start()
     {
-        if (SceneManager.GetActiveScene().name == GameManager.Instance.MainGameSceneName)
-        {
-            generateInitialLevels();
-        }
-        ;
+
+        generateInitialLevels();
+
     }
     public void generateInitialLevels()
     {
@@ -55,7 +53,7 @@ public class LevelObjectManager : MonoBehaviour
         Vector3 hardLevelPos = new Vector3(0, 1920, 0);
         Instantiate(hardLevelPrefab, hardLevelPos, Quaternion.identity, parent);
     }
- 
+
     public void generateRandomDangerZoneLevel()
     {
         Instantiate(dangerZonePrefab);
@@ -63,7 +61,7 @@ public class LevelObjectManager : MonoBehaviour
     public void generateRandomDangerZoneLevel(Transform transform, float offset)
     {
 
-        Instantiate(dangerZonePrefab,new Vector2(transform.position.x,transform.position.y+offset),quaternion.identity);
+        Instantiate(dangerZonePrefab, new Vector2(transform.position.x, transform.position.y + offset), quaternion.identity);
     }
     public enum DangerZoneType
     {

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3914762030148314664}
   - component: {fileID: 6624089939256475980}
   m_Layer: 0
-  m_Name: DangerZone 1
+  m_Name: DangerZone-old
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -52,10 +52,14 @@ MonoBehaviour:
   dangerZoneCamera: {fileID: 2322906127285772570}
   floorHeight: {fileID: 5761411623391111414}
   topHeight: {fileID: 1192549423385950798}
+  config: {fileID: 0}
   platformPrefab: {fileID: 1269703295195249702, guid: 5ea321363be134d46a6ef5fbe45ec90e, type: 3}
   coinsPrefab: {fileID: 666404375840720440, guid: 54737c6ba1840f14889bd2021a538f3e, type: 3}
   cannonsPrefab: {fileID: 0}
   waitTimeToStartLevel: 2
+  camera: {fileID: 0}
+  levelCount: 1
+  shopPortalPrefab: {fileID: 0}
 --- !u!1 &1192549423385950798
 GameObject:
   m_ObjectHideFlags: 0

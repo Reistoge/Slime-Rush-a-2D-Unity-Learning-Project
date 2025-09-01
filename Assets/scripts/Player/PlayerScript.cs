@@ -165,7 +165,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
         GameManager.Instance.CanMove = true;
         initialLinearDrag = GetComponent<Rigidbody2D>().drag;
         initializePlayerConfig();
-       
+
         OnPlayerInstantiated?.Invoke(this);
 
 
@@ -378,14 +378,14 @@ public class PlayerScript : MonoBehaviour, IDamageable
         // currentGroundCollision = null;
         horizontalThreshold = 1f;
     }
-    public void lerpPosition(Vector3 targetPosition, Quaternion finalRot,float duration)
+    public void lerpPosition(Vector3 targetPosition, Quaternion finalRot, float duration)
     {
 
-        StartCoroutine(LerpPositionCoroutine(targetPosition,finalRot, duration));
+        StartCoroutine(LerpPositionCoroutine(targetPosition, finalRot, duration));
 
     }
- 
-    protected IEnumerator LerpPositionCoroutine(Vector3 finalPos,Quaternion finalRot, float speed)
+
+    protected IEnumerator LerpPositionCoroutine(Vector3 finalPos, Quaternion finalRot, float speed)
     {
         resetPlayerTransform(transform.position, transform.rotation);
         yield return new WaitForEndOfFrame();
@@ -668,7 +668,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
         // WHEN THE PLAYER ENTERS A BARREL IT NEEDS TO STOP BEING DAMAGED.
         if (canTakeDamage == false)
         {
-            return; 
+            return;
         }
         if (isDashing)
         {
@@ -680,7 +680,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
         //this parameter is in the enemy_damagezone.cs
         OnPlayerIsDamaged(damage);
         animatorHandler.playHurt(canTakeDamageResetTime);
-        
+
 
         if (hp <= 0)
         {
@@ -980,7 +980,7 @@ public class PlayerScript : MonoBehaviour, IDamageable
         // Player.GetComponent<PlayerScript>().Anim.SetBool("dash", true);
         // animatorHandler.playDash();
         // HANDLER.DASH();
-         
+
         animatorHandler.playDash();
         Vector2 beforeDash = transform.position;
         print("Constant vel start " + gameObject.name + " vel: " + velocity + " time: " + time);
@@ -1096,10 +1096,15 @@ public class PlayerScript : MonoBehaviour, IDamageable
         }
         playerConfig.startHp = maxHp;
         playerConfig.maxHp = maxHp;
-        playerConfig.startCoins = Coins;
-        playerConfig.totalCoins = Coins;
+        playerConfig.startCoins = 0;
+        // playerConfig.totalCoins = Coins;
         playerConfig.playerDamage = playerDamage;
         playerConfig.handleVelocities = handleVelocities;
+        GameManager.Instance.resetPlayerRuntimeData();
+
+
+
+
     }
     IEnumerator dieRoutine()
     {
@@ -1142,8 +1147,10 @@ public class PlayerScript : MonoBehaviour, IDamageable
         maxHorizontalVelocity = scriptableObject.maxHorizontalVelocity;
         maxUpVelocity = scriptableObject.maxUpVelocity;
         maxDownVelocity = scriptableObject.maxDownVelocity;
+        
 
         // Player Health
+
         hp = GameManager.Instance.getRuntimeData().playerHp;
         maxHp = scriptableObject.maxHp;
         GameManager.Instance.getRuntimeData().playerMaxHp = maxHp; // Update runtime data

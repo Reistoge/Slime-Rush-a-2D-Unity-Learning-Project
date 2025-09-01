@@ -10,7 +10,7 @@ public class FinalFloor : MonoBehaviour
 
     public void triggerDangerZone()
     {
-        GameManager.Instance.getLevelObjectManager().generateRandomDangerZoneLevel(this.transform, offset);
+        //GameManager.Instance.getLevelObjectManager().generateRandomDangerZoneLevel(this.transform, offset);
 
     }
  

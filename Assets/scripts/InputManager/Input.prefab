@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1055560808197270788}
   - component: {fileID: 594524873999114644}
-  - component: {fileID: 2796235891684333529}
   - component: {fileID: 943666030651962304}
   - component: {fileID: 5115401250284155719}
+  - component: {fileID: 6413645819674137435}
   m_Layer: 0
   m_Name: Input
   m_TagString: Untagged
@@ -88,37 +88,6 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   speed: 0
---- !u!114 &2796235891684333529
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1720255327078850797}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c13238c0c57261f4da16b679f825fc19, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minimunDistance: 2
-  maximumTime: 20
-  directionThreshold: 0.1
-  trail: {fileID: 0}
-  trailPrefab: {fileID: 8177246880077709874, guid: a101a3f0855bbef4eb10787453bb2815, type: 3}
-  startPosition: {x: 0, y: 0}
-  currentPosition: {x: 0, y: 0}
-  OnSwipeLeft:
-    m_PersistentCalls:
-      m_Calls: []
-  OnSwipeRight:
-    m_PersistentCalls:
-      m_Calls: []
-  OnSwipeDown:
-    m_PersistentCalls:
-      m_Calls: []
-  OnSwipeUp:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &943666030651962304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,10 +102,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   launchPoint: {fileID: 0}
   lineRenderer: {fileID: 5115401250284155719}
-  player: {fileID: 0}
+  playerReference: {fileID: 0}
   linePoints: 150
   timeIntervalInPoints: 0.1
   offset: {x: 0, y: 3}
+  drawTrajectoryWaitTime: 2
   factor: 10
 --- !u!120 &5115401250284155719
 LineRenderer:
@@ -242,3 +212,34 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &6413645819674137435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1720255327078850797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c13238c0c57261f4da16b679f825fc19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minimunDistance: 2
+  maximumTime: 100
+  directionThreshold: 0.1
+  trail: {fileID: 0}
+  trailPrefab: {fileID: 8177246880077709874, guid: a101a3f0855bbef4eb10787453bb2815, type: 3}
+  startPosition: {x: 0, y: 0}
+  currentPosition: {x: 0, y: 0}
+  OnSwipeLeft:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSwipeRight:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSwipeDown:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSwipeUp:
+    m_PersistentCalls:
+      m_Calls: []

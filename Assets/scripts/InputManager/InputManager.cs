@@ -189,11 +189,6 @@ public class InputManager : GenericSingleton<InputManager>
             OnTouchRightEvent?.Invoke();
             horizontalAxisRaw = 1;
         }
-        // else
-        // {
-        //     GameManager.instance.MovXButtons = 0;
-        // }
-
 
 
     }

@@ -34,7 +34,7 @@ public class WayPointMovement : MonoBehaviour
             // Smooth out the interpolation
             float smoothT = Mathf.SmoothStep(0f, 1f, t);
 
-            transform.position = Vector3.Lerp(startPosition, finalPos.position, smoothT);
+            transform.position = Vector3.Lerp(startPosition, new Vector2(finalPos.position.x, finalPos.position.y) , smoothT);
             transform.rotation = Quaternion.Lerp(startRotation,
                 Quaternion.Euler(0f, 0f, finalPos.rotation.z), smoothT);
 
@@ -42,7 +42,7 @@ public class WayPointMovement : MonoBehaviour
         }
 
         // Ensure we reach the exact final position
-        transform.position = finalPos.position;
+        transform.position = new Vector2(finalPos.position.x, finalPos.position.y);
         transform.rotation = Quaternion.Euler(0f, 0f, finalPos.rotation.z);
 
         moveVariables[index].OnEndMovement?.Invoke();

@@ -13,8 +13,12 @@ public class Cannon : MonoBehaviour
 
         restartButton.StopCoroutines += StopAllCoroutines;
 
+        TryGetComponent(out Collider2D col);
+        if (Utils.isVisible(col))
+        {
+            GameManager.Instance.instantiateAppearEffect(transform, 0);
 
-        // GameManager.Instance.instantiateAppearEffect(transform, 0);
+        }
 
 
     }
@@ -73,12 +77,12 @@ public class Cannon : MonoBehaviour
     [SerializeField] protected bool isFinal;
     [SerializeField] protected bool isFirst;
     [SerializeField] protected bool isAutoShoot;
+    [SerializeField] float autoShootSeconds = 0;
     [SerializeField] protected bool canMoveInShoot = true;
     [SerializeField] protected bool isCharging;
     [SerializeField] float horizontalThreshold;
     [SerializeField] protected UnityEvent onEnterCannon;
     [SerializeField] protected UnityEvent onExitCannon;
-
 
     public void resetIsCharging()
     {
@@ -126,7 +130,8 @@ public class Cannon : MonoBehaviour
             }
             if (isAutoShoot)
             {
-                insideCannonAction();
+
+                StartCoroutine(executeInSeconds(insideCannonAction,autoShootSeconds));
 
             }
         }
@@ -156,6 +161,11 @@ public class Cannon : MonoBehaviour
         {
             insideObject.GetComponent<PlayerScript>().AnimatorHandler.enterBarrel();
         }
+    }
+    IEnumerator executeInSeconds(Action func, float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        func?.Invoke();
     }
     protected void insideCannonAction()
     {

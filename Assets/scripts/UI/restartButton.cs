@@ -13,8 +13,10 @@ public class restartButton : MonoBehaviour
 
         PauseController.isGamePaused = false;
         StopCoroutines?.Invoke();
-        Time.timeScale = 1;
-        
+        //Time.timeScale = 1;
+
+        GameEvents.triggerGameIsRestarted();
+        // GameManager.Instance.destroyRuntimeData();
         GameManager.Instance.loadSceneWithTransition(SceneManager.GetActiveScene().name);
     }
 }

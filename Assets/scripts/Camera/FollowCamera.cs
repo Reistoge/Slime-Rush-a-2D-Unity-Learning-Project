@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Drawing;
+using System.Numerics;
 using System.Timers;
 using Unity.Mathematics;
 using Unity.VisualScripting;
@@ -10,6 +11,8 @@ using UnityEditor.Experimental;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 using Random = UnityEngine.Random;
+using Vector2 = UnityEngine.Vector2;
+using Vector3 = UnityEngine.Vector3;
 
 
 public class FollowCamera : MonoBehaviour
@@ -33,7 +36,12 @@ public class FollowCamera : MonoBehaviour
 
 
 
+
+
     float lerpTime = 0;
+    [SerializeField] private bool followHorizontal = false;
+    [SerializeField] private bool followVertical = true;
+    [SerializeField] private float minVerticalPosition = 0;
 
     private void Start()
     {
@@ -46,10 +54,25 @@ public class FollowCamera : MonoBehaviour
             // print("the player was not instantiated ");
         }
 
+
     }
+    void OnEnable()
+    {
+
+        GameEvents.onSceneChanged += stopCameraBehaviour;
+        GameEvents.onGameIsRestarted += StopAllCoroutines;
+
+    }
+    void OnDisable()
+    {
+        GameEvents.onSceneChanged -= stopCameraBehaviour;
+        GameEvents.onGameIsRestarted -= StopAllCoroutines;
+    }
+
 
     void LateUpdate()
     {
+
         processCameraBehaviour();
     }
     private IEnumerator LerpCamera(float startPosY, float height)
@@ -174,6 +197,7 @@ public class FollowCamera : MonoBehaviour
         StopAllCoroutines();
         cameraType = cameraBehaviour.stop;
     }
+
     public void lerp(Transform target)
     {
         lerp(transform.position.y, target.transform.position.y - transform.position.y);
@@ -182,41 +206,41 @@ public class FollowCamera : MonoBehaviour
 
 
 
-    private IEnumerator LerpCamera(Vector3 startPos, Vector3 endPos, float duration, float speed)
-    {
+    // private IEnumerator LerpCamera(Vector3 startPos, Vector3 endPos, float duration, float speed)
+    // {
 
-        float lerpTime = 0;
-        moving = true;
-        while (lerpTime < duration)
-        {
-            transform.position = Vector3.Lerp(new Vector3(startPos.x, startPos.y, -10), new Vector3(endPos.x, endPos.y, -10), lerpTime * speed);
+    //     float lerpTime = 0;
+    //     moving = true;
+    //     while (lerpTime < duration)
+    //     {
+    //         transform.position = Vector3.Lerp(new Vector3(startPos.x, startPos.y, -10), new Vector3(endPos.x, endPos.y, -10), lerpTime * speed);
 
-            lerpTime += Time.deltaTime * speed;
-            yield return new WaitForEndOfFrame();
-        }
-        transform.position = new Vector3(endPos.x, endPos.y, -10);
-        moving = false;
-
-
-    }
-    private IEnumerator LerpCamera(Vector3 startPos, Vector3 endPos, float speed)
-    {
-
-        float lerpTime = 0;
-        moving = true;
-        float duration = math.abs(startPos.magnitude - endPos.magnitude) / speed;
-        while (lerpTime < duration)
-        {
-            transform.position = Vector3.Lerp(new Vector3(startPos.x, startPos.y, -10), new Vector3(endPos.x, endPos.y, -10), lerpTime * speed);
-
-            lerpTime += Time.deltaTime * speed;
-            yield return new WaitForEndOfFrame();
-        }
-        transform.position = new Vector3(endPos.x, endPos.y, -10);
-        moving = false;
+    //         lerpTime += Time.deltaTime * speed;
+    //         yield return new WaitForEndOfFrame();
+    //     }
+    //     transform.position = new Vector3(endPos.x, endPos.y, -10);
+    //     moving = false;
 
 
-    }
+    // }
+    // private IEnumerator LerpCamera(Vector3 startPos, Vector3 endPos, float speed)
+    // {
+
+    //     float lerpTime = 0;
+    //     moving = true;
+    //     float duration = math.abs(startPos.magnitude - endPos.magnitude) / speed;
+    //     while (lerpTime < duration)
+    //     {
+    //         transform.position = Vector3.Lerp(new Vector3(startPos.x, startPos.y, -10), new Vector3(endPos.x, endPos.y, -10), lerpTime * speed);
+
+    //         lerpTime += Time.deltaTime * speed;
+    //         yield return new WaitForEndOfFrame();
+    //     }
+    //     transform.position = new Vector3(endPos.x, endPos.y, -10);
+    //     moving = false;
+
+
+    // }
     private IEnumerator alwaysRise(Vector3 startPos, Vector3 endPos)
     {
 
@@ -274,8 +298,22 @@ public class FollowCamera : MonoBehaviour
             {
                 case cameraBehaviour.followCharacter:
                     // this just follow the character
-                    Vector3 newpos = new Vector3(PlayerReference.transform.position.x, PlayerReference.transform.position.y, -10);
-                    transform.position = newpos;
+
+                        float newPosX = playerReference.transform.position.x;
+                        float newPosY = playerReference.transform.position.y;
+                        Vector3 newPos = new Vector3(0, 0, -10);
+                        if (followHorizontal)
+                        {
+                            newPos.x = newPosX;
+                        }
+                        if (followVertical)
+                        {
+                            newPos.y = newPosY;
+                        }
+                        // Vector3 newpos = new Vector3(PlayerReference.transform.position.x, PlayerReference.transform.position.y, -10);
+                        transform.position = Vector3.Lerp(transform.position, newPos, Time.deltaTime);
+                    
+
                     break;
                 case cameraBehaviour.riseWhenReachesHeight:
                     // if the character surpases the limit of a certain point of the camera we are going to lerp the camera up.
@@ -463,6 +501,7 @@ public class FollowCamera : MonoBehaviour
         }
 
 
+
     }
 
 
@@ -475,9 +514,10 @@ public class FollowCamera : MonoBehaviour
     public SmoothZoom UnZoomCamera { get => unZoomCamera; set => unZoomCamera = value; }
     public bool IsZoom { get => isZoom; set => isZoom = value; }
     public GameObject PlayerReference { get => playerReference; set => playerReference = value; }
- 
+
     public bool Moving { get => moving; set => moving = value; }
     public AlwaysRise Rise { get => rise; set => rise = value; }
+    public cameraBehaviour CameraType1 { get => cameraType; set => cameraType = value; }
 }
 public enum shakeType
 {

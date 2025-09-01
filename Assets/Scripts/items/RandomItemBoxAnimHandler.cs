@@ -11,7 +11,7 @@ public class RandomItemBoxAnimHandler : MonoBehaviour
  
     public void playBreakAnimation()
     {
-         animator.Play(breakHash,-1,0);
+        animator.Play(breakHash,-1,0);
     }
     public void playCantPurchaseAnimation()
     {

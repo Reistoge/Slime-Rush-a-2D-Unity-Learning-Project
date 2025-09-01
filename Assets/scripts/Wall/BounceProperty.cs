@@ -43,16 +43,18 @@ public class BounceProperty : MonoBehaviour
 
         if (useBounceVector)
         {
-       
-            rb.AddForce(bounceVector.normalized * Bounciness, ForceMode2D.Impulse);
-            
 
-         
+            rb.AddForce(bounceVector.normalized * Bounciness, ForceMode2D.Impulse);
+            rb.velocity = Vector2.ClampMagnitude(rb.velocity, Bounciness);
+
+
+
         }
         else
         {
 
             rb.AddForce(transform.up * Bounciness, ForceMode2D.Impulse);
+            rb.velocity = Vector2.ClampMagnitude(rb.velocity, Bounciness);
 
         }
         rb.transform.rotation = transform.rotation; 

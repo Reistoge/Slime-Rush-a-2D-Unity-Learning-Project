@@ -2,17 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PressToStart : MonoBehaviour
 {
     // Start is called before the first frame update
     // Dialogue dialogue;
     Animator anim;
-
+    [SerializeField] UnityEvent onGameStarted;
     void Start()
     {
-        // Time.timeScale = 0;
+        Time.timeScale = 1.0f;
         anim = GetComponent<Animator>();    
+        
     }
     void Update()
     {
@@ -31,7 +33,19 @@ public class PressToStart : MonoBehaviour
     }
     public void startGame()
     {
-        GameManager.Instance.instantiatePlayer();
+        InputManager.Instance.gameObject.SetActive(true);
+        try
+        {
+            GameManager.Instance.instantiatePlayer();
+
+        }
+        catch
+        {
+            #if UNITY_EDITOR
+                        Debug.LogWarning("Failed to instantiate player. Instantiating default player instead.");
+                        GameManager.Instance.instantiateDefaultPlayer();
+            #endif
+        }
         anim.Play("keyPressed",-1,0f);
         
 

@@ -5170,8 +5170,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1473218351361220520}
-  - component: {fileID: 8613930739106006223}
   - component: {fileID: 8877711059911041661}
+  - component: {fileID: 2669462385040302401}
   - component: {fileID: 7026994304445041621}
   - component: {fileID: 4561527440714522260}
   - component: {fileID: 6201103518501612220}
@@ -5204,50 +5204,6 @@ Transform:
   - {fileID: 5792246466814683063}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8613930739106006223
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4925183400230582360}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20152451f28e68940b5db7bff4e808f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  UpLimit: {fileID: 5184406592290635871}
-  LowerLimit: {fileID: 7601433989024365880}
-  playerReference: {fileID: 5838150465340594182, guid: 6f85552f7aa847f4ca56a098b02da573, type: 3}
-  shakeBehaviour: 1
-  cameraType: 2
-  height: 640
-  magnitudeShake: 300
-  timeShake: 1
-  zoomCamera:
-    target: {fileID: 0}
-    offset: {x: 0, y: 0, z: 0}
-    zoomSpeed: 2
-    finalZoom: 75
-    initZoom: 320
-    duration: 1
-  unZoomCamera:
-    target: {fileID: 0}
-    offset: {x: 0, y: 0, z: 0}
-    zoomSpeed: 2
-    finalZoom: 320
-    initZoom: 75
-    duration: 1
-  moving: 0
-  isZoom: 0
-  isCenteringCamera: 0
-  rise:
-    alwaysRiseEndPos: 2560
-    verticalDamp: 0
-    speed: 0.5
-    normalSpeed: 0
-    fastSpeed: 0
-    slowSpeed: 0
 --- !u!20 &8877711059911041661
 Camera:
   m_ObjectHideFlags: 0
@@ -5275,10 +5231,10 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.17222223
+    x: 0
     y: 0
-    width: 1.3468751
-    height: 1.3468751
+    width: 1
+    height: 1
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
@@ -5299,6 +5255,50 @@ Camera:
   m_OcclusionCulling: 0
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &2669462385040302401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4925183400230582360}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20152451f28e68940b5db7bff4e808f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UpLimit: {fileID: 5184406592290635871}
+  LowerLimit: {fileID: 7601433989024365880}
+  playerReference: {fileID: 0}
+  shakeBehaviour: 1
+  cameraType: 2
+  height: 640
+  magnitudeShake: 300
+  timeShake: 1
+  zoomCamera:
+    target: {fileID: 0}
+    offset: {x: 0, y: 0, z: 0}
+    zoomSpeed: 2
+    finalZoom: 75
+    initZoom: 320
+    duration: 1
+  unZoomCamera:
+    target: {fileID: 0}
+    offset: {x: 0, y: 0, z: 0}
+    zoomSpeed: 2
+    finalZoom: 320
+    initZoom: 75
+    duration: 1
+  moving: 0
+  isZoom: 0
+  isCenteringCamera: 0
+  rise:
+    alwaysRiseEndPos: 1920
+    verticalDamp: 160
+    speed: 10
+    normalSpeed: 10
+    fastSpeed: 40
+    slowSpeed: 5
 --- !u!81 &7026994304445041621
 AudioListener:
   m_ObjectHideFlags: 0

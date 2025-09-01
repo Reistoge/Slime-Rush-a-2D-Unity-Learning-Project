@@ -46,7 +46,7 @@ public class Boundaries : MonoBehaviour
     void OnTriggerEnter2D(Collider2D col)
     {
         OnPassThroughMiddle?.Invoke();
-        print("asdasd");
+        // print("asdasd");
     }
     void OnTriggerExit2D(Collider2D collision)
     {

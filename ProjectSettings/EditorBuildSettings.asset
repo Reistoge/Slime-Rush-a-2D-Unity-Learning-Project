@@ -8,7 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Game/Menu.unity
     guid: ea44d2cbbb3c5434cab755b679e0d68a
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Game/InGameShop.unity
     guid: b9f5ee876a020544fbbe6f83762fe264
   - enabled: 1
@@ -17,5 +17,11 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/CharacterSelector2.unity
     guid: a7410f20dc90a2345903dc71796a1ee2
+  - enabled: 1
+    path: Assets/InGameShop2.unity
+    guid: 782be47dfd7b3034394eacff4192fade
+  - enabled: 1
+    path: Assets/LevelSets.unity
+    guid: 13d920e387a2d1f4dafaa657c900aeba
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 349043e066bce5b4992c25e00469d00d, type: 2}

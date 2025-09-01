@@ -70,6 +70,26 @@ public class Utils : MonoBehaviour
         return 0f;
     }
 
+
+    public static bool isVisible(Collider2D objCollider)
+    {
+        var cam = Camera.main;
+        var planes = GeometryUtility.CalculateFrustumPlanes(cam);
+         
+
+        if (GeometryUtility.TestPlanesAABB(planes, objCollider.bounds))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+         }
+
+    }
+
+
+
     public static int GetActiveChildCount(Transform t)
     {
         int count = 0;
