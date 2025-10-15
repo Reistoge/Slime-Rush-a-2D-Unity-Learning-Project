@@ -21,7 +21,7 @@ public class FollowCamera : MonoBehaviour
     [SerializeField] Transform UpLimit, LowerLimit;
     [SerializeField] GameObject playerReference;
     [SerializeField] shakeType shakeBehaviour;
-    [SerializeField] cameraBehaviour cameraType;
+    [SerializeField] cameraBehaviour selectedBehaviour;
     [SerializeField] float height = 640;
     [SerializeField] float magnitudeShake;
     [SerializeField] float timeShake;
@@ -56,16 +56,17 @@ public class FollowCamera : MonoBehaviour
 
 
     }
+
     void OnEnable()
     {
 
-        GameEvents.onSceneChanged += stopCameraBehaviour;
+        GameEvents.onSceneChanged += () => { selectedBehaviour = cameraBehaviour.stop; };
         GameEvents.onGameIsRestarted += StopAllCoroutines;
 
     }
     void OnDisable()
     {
-        GameEvents.onSceneChanged -= stopCameraBehaviour;
+        GameEvents.onSceneChanged -= () => { selectedBehaviour = cameraBehaviour.stop; };
         GameEvents.onGameIsRestarted -= StopAllCoroutines;
     }
 
@@ -190,12 +191,25 @@ public class FollowCamera : MonoBehaviour
     public void changeCameraBehaviour(int args)
     {
         StopAllCoroutines();
-        cameraType = (cameraBehaviour)args;
+        selectedBehaviour = (cameraBehaviour)args;
     }
-    public void stopCameraBehaviour()
+
+    public void stopCameraBehaviourForSeconds(float seconds)
     {
-        StopAllCoroutines();
-        cameraType = cameraBehaviour.stop;
+        if (selectedBehaviour != cameraBehaviour.stop)
+        {
+            StartCoroutine(stopCameraBehaviourCoroutine(seconds));
+
+        }
+    }
+    public IEnumerator stopCameraBehaviourCoroutine(float seconds)
+    {
+
+        cameraBehaviour temp = selectedBehaviour;
+        StopCoroutine(Rise.alwaysRiseRoutine);
+        selectedBehaviour = cameraBehaviour.stop;
+        yield return new WaitForSeconds(seconds);
+        selectedBehaviour = temp;
     }
 
     public void lerp(Transform target)
@@ -203,44 +217,6 @@ public class FollowCamera : MonoBehaviour
         lerp(transform.position.y, target.transform.position.y - transform.position.y);
     }
 
-
-
-
-    // private IEnumerator LerpCamera(Vector3 startPos, Vector3 endPos, float duration, float speed)
-    // {
-
-    //     float lerpTime = 0;
-    //     moving = true;
-    //     while (lerpTime < duration)
-    //     {
-    //         transform.position = Vector3.Lerp(new Vector3(startPos.x, startPos.y, -10), new Vector3(endPos.x, endPos.y, -10), lerpTime * speed);
-
-    //         lerpTime += Time.deltaTime * speed;
-    //         yield return new WaitForEndOfFrame();
-    //     }
-    //     transform.position = new Vector3(endPos.x, endPos.y, -10);
-    //     moving = false;
-
-
-    // }
-    // private IEnumerator LerpCamera(Vector3 startPos, Vector3 endPos, float speed)
-    // {
-
-    //     float lerpTime = 0;
-    //     moving = true;
-    //     float duration = math.abs(startPos.magnitude - endPos.magnitude) / speed;
-    //     while (lerpTime < duration)
-    //     {
-    //         transform.position = Vector3.Lerp(new Vector3(startPos.x, startPos.y, -10), new Vector3(endPos.x, endPos.y, -10), lerpTime * speed);
-
-    //         lerpTime += Time.deltaTime * speed;
-    //         yield return new WaitForEndOfFrame();
-    //     }
-    //     transform.position = new Vector3(endPos.x, endPos.y, -10);
-    //     moving = false;
-
-
-    // }
     private IEnumerator alwaysRise(Vector3 startPos, Vector3 endPos)
     {
 
@@ -265,7 +241,7 @@ public class FollowCamera : MonoBehaviour
 
         // Smoothly follow the player
         GetComponent<PixelPerfectCamera>().enabled = false; // config
-        cameraType = cameraBehaviour.zoomToPlayer;
+        selectedBehaviour = cameraBehaviour.zoomToPlayer;
         float elapsed = 0;
 
         // add to follow the target.
@@ -299,20 +275,20 @@ public class FollowCamera : MonoBehaviour
                 case cameraBehaviour.followCharacter:
                     // this just follow the character
 
-                        float newPosX = playerReference.transform.position.x;
-                        float newPosY = playerReference.transform.position.y;
-                        Vector3 newPos = new Vector3(0, 0, -10);
-                        if (followHorizontal)
-                        {
-                            newPos.x = newPosX;
-                        }
-                        if (followVertical)
-                        {
-                            newPos.y = newPosY;
-                        }
-                        // Vector3 newpos = new Vector3(PlayerReference.transform.position.x, PlayerReference.transform.position.y, -10);
-                        transform.position = Vector3.Lerp(transform.position, newPos, Time.deltaTime);
-                    
+                    float newPosX = playerReference.transform.position.x;
+                    float newPosY = playerReference.transform.position.y;
+                    Vector3 newPos = new Vector3(0, 0, -10);
+                    if (followHorizontal)
+                    {
+                        newPos.x = newPosX;
+                    }
+                    if (followVertical)
+                    {
+                        newPos.y = newPosY;
+                    }
+                    // Vector3 newpos = new Vector3(PlayerReference.transform.position.x, PlayerReference.transform.position.y, -10);
+                    transform.position = Vector3.Lerp(transform.position, newPos, Time.deltaTime);
+
 
                     break;
                 case cameraBehaviour.riseWhenReachesHeight:
@@ -502,11 +478,14 @@ public class FollowCamera : MonoBehaviour
 
 
 
+
+
+
     }
 
 
     public shakeType ShakeBehaviour { get => shakeBehaviour; set => shakeBehaviour = value; }
-    public cameraBehaviour CameraType { get => cameraType; set => cameraType = value; }
+    public cameraBehaviour CameraType { get => selectedBehaviour; set => selectedBehaviour = value; }
 
     public float TimeShake { get => timeShake; set => timeShake = value; }
     public float MagnitudeShake { get => magnitudeShake; set => magnitudeShake = value; }
@@ -517,7 +496,7 @@ public class FollowCamera : MonoBehaviour
 
     public bool Moving { get => moving; set => moving = value; }
     public AlwaysRise Rise { get => rise; set => rise = value; }
-    public cameraBehaviour CameraType1 { get => cameraType; set => cameraType = value; }
+    public cameraBehaviour CameraType1 { get => selectedBehaviour; set => selectedBehaviour = value; }
 }
 public enum shakeType
 {
@@ -529,6 +508,7 @@ public enum shakeType
 
 }
 
+[Serializable]
 public enum cameraBehaviour
 {
     followCharacter,

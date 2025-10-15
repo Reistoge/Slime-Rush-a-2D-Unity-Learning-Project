@@ -15,7 +15,15 @@ public class PauseController : MonoBehaviour
     [SerializeField] Sprite resume;
     [SerializeField] GameObject UIPauseContainer;
     // [SerializeField] GameObject screenController;
+
     [SerializeField] pauseState state;
+
+    [SerializeField] UnityEvent onClickResume;
+    [SerializeField] UnityEvent onResume;
+    [SerializeField] UnityEvent onPause;
+    
+    
+
     public static Action OnPause;
     public static Action OnResume;
     float maxTime;
@@ -95,7 +103,8 @@ public class PauseController : MonoBehaviour
 
         //double check ????
         maxTime = 0f;
-        string name="";
+        string name = "";
+       
         foreach (Transform child in UIPauseContainer.transform)
         
         {

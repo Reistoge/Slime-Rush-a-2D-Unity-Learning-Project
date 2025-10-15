@@ -317,8 +317,69 @@ public class DangerZoneLevelManager : MonoBehaviour
             int randomIndex = Random.Range(0, platforms.childCount);
             Transform randomPlatform = platforms.GetChild(randomIndex);
 
-            float portalX = Random.Range(randomPlatform.position.x + +64, 140) * Random.Range(0, 2) == 1 ? 1 : -1;
-            GameObject portal = Instantiate(config.shopPortal.prefab, new Vector2(portalX, randomPlatform.position.y + 60f), Quaternion.identity);
+            float minX = -180f, maxX = 180f;
+            float minDist = 90f, maxDist = 140f;
+            float platformX = randomPlatform.position.x;
+
+            // try random side first
+            int sign = (Random.Range(0, 2) == 0) ? -1 : 1;
+            float offset = Random.Range(minDist, maxDist);
+            float candidate = platformX + sign * offset;
+
+            // if candidate out of bounds try the other side
+            if (candidate < minX || candidate > maxX)
+            {
+                int otherSign = -sign;
+                float candidateOther = platformX + otherSign * offset;
+                if (candidateOther >= minX && candidateOther <= maxX)
+                {
+                    candidate = candidateOther;
+                }
+                else
+                {
+                    // compute available space on each side and pick a valid offset within [minDist, maxDist]
+                    float availablePos = maxX - platformX;   // max offset to the right
+                    float availableNeg = platformX - minX;   // max offset to the left
+
+                    if (availablePos >= minDist || availableNeg >= minDist)
+                    {
+                        if (availablePos >= minDist && availableNeg >= minDist)
+                        {
+                            // both sides valid, pick one randomly
+                            if (Random.Range(0, 2) == 0)
+                            {
+                                offset = Random.Range(minDist, Mathf.Min(maxDist, availablePos));
+                                candidate = platformX + offset;
+                            }
+                            else
+                            {
+                                offset = Random.Range(minDist, Mathf.Min(maxDist, availableNeg));
+                                candidate = platformX - offset;
+                            }
+                        }
+                        else if (availablePos >= minDist)
+                        {
+                            offset = Random.Range(minDist, Mathf.Min(maxDist, availablePos));
+                            candidate = platformX + offset;
+                        }
+                        else
+                        {
+                            offset = Random.Range(minDist, Mathf.Min(maxDist, availableNeg));
+                            candidate = platformX - offset;
+                        }
+                    }
+                    else
+                    {
+                        // fallback clamp (should be rare); keeps within bounds
+                        candidate = Mathf.Clamp(candidate, minX, maxX);
+                    }
+                }
+            }
+
+            float portalX = candidate;
+            print($" RANDOM PORTAL POSITION {portalX}");
+            print($" RANDOM PORTAL POSITION {portalX}");
+            GameObject portal = Instantiate(config.shopPortal.prefab, new Vector2(portalX, randomPlatform.position.y + 45f), Quaternion.identity);
             portal.transform.SetParent(bound.transform);
             portal.SetActive(true);
         }

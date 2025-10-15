@@ -11,7 +11,17 @@ public class GameEvents
     public static Action onGameIsRestarted;
     public static Action onMainGameStart;
     public static Action onSceneChanged;
+    public static Action onClickResume;
+    public static Action onResume;
 
+    public static void triggerOnClickResume()
+    {
+        onClickResume?.Invoke();
+    }
+    public static void triggerOnResume()
+    {
+        onResume?.Invoke();
+    }
     public static void triggerOnMainGameSceneLoaded()
     {
         onMainGameSceneLoaded?.Invoke();
