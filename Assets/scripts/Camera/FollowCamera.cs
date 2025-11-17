@@ -198,9 +198,14 @@ public class FollowCamera : MonoBehaviour
     {
         if (selectedBehaviour != cameraBehaviour.stop)
         {
-            StartCoroutine(stopCameraBehaviourCoroutine(seconds));
+            // StartCoroutine(stopCameraBehaviourCoroutine(seconds));
+            cameraBehaviour temp = selectedBehaviour;
+            StopCoroutine(Rise.alwaysRiseRoutine);
+            selectedBehaviour = cameraBehaviour.stop;
+            StartCoroutine(GameManager.Instance.enumerateThis(() => { selectedBehaviour = temp; }, seconds));
 
         }
+
     }
     public IEnumerator stopCameraBehaviourCoroutine(float seconds)
     {

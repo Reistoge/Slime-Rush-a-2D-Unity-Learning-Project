@@ -96,6 +96,17 @@ public class GameManager : MonoBehaviour
         }
 
     }
+
+    public IEnumerator enumerateThis(Action func, float seconds)
+    {
+        
+        yield return new WaitForSeconds(seconds);
+        func?.Invoke();
+        
+    }
+    
+    
+ 
     public LevelObjectManager getLevelObjectManager()
     {
         return (LevelObjectManager)GameObject.FindAnyObjectByType(typeof(LevelObjectManager));
