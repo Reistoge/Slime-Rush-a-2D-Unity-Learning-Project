@@ -1,93 +1,126 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+
+/// <summary>
+/// Base class for cannon mechanics in the game.
+/// Handles player entry, rotation, charging, and launching.
+/// Extend this class to create specialized cannon behaviors.
+/// </summary>
 public class Cannon : MonoBehaviour
 {
+    #region Components
+    protected Animator anim;
+    protected Animator arrowAnim;
+    protected CannonSoundSystem soundSystem;
+    protected SpriteRenderer sprite;
+    #endregion
+
+    #region Cannon State
+    [Header("Cannon State")]
+    [SerializeField] protected bool canShoot = false;
+    [SerializeField] protected bool isRotating;
+    [SerializeField] public bool inBarrel;
+    [SerializeField] protected bool isCharging;
+    #endregion
+
+    #region Cannon Configuration
+    [Header("Cannon Configuration")]
+    [SerializeField]
+    [Range(0f, 1000f)]
+    [Tooltip("Launch speed in units per second")]
+    public float dashSpeed;
+
+    [SerializeField]
+    [Range(0f, 1000)]
+    [Tooltip("Duration of the launch dash")]
+    public float dashTime;
+
+    [SerializeField]
+    [Min(0)]
+    [Tooltip("Delay before rotation starts")]
+    public float rotDelay;
+
+    [SerializeField]
+    [Tooltip("Whether this is the first cannon in the level")]
+    protected bool isFirst;
+
+    [SerializeField]
+    [Tooltip("Whether this is the final cannon that completes the level")]
+    protected bool isFinal;
+
+    [SerializeField]
+    [Tooltip("Auto-shoot after this many seconds")]
+    protected bool isAutoShoot;
+
+    [SerializeField]
+    private float autoShootSeconds = 0;
+
+    [SerializeField]
+    [Tooltip("Whether player can move horizontally during launch")]
+    protected bool canMoveInShoot = true;
+
+    [SerializeField]
+    [Tooltip("Horizontal movement multiplier during launch")]
+    private float horizontalThreshold;
+    #endregion
+
+    #region Events
+    [Header("Events")]
+    [SerializeField] protected UnityEvent onEnterCannon;
+    [SerializeField] protected UnityEvent onExitCannon;
+    #endregion
+
+    #region Private Fields
+    private float mainMenuBarrelTime = 4;
+    protected float initRot;
+    private float initG;
+    private float initD;
+    protected GameObject insideObject;
+    protected Rigidbody2D insideRb;
+    private IEnumerator ConstantVel;
+    #endregion
 
     protected void OnEnable()
     {
-
         restartButton.StopCoroutines += StopAllCoroutines;
 
         TryGetComponent(out Collider2D col);
         if (Utils.isVisible(col))
         {
             GameManager.Instance.instantiateAppearEffect(transform, 0);
-
         }
-
-
     }
+
     protected void OnDisable()
     {
         restartButton.StopCoroutines -= StopAllCoroutines;
-
     }
+
     protected void Start()
     {
-
-
         arrowAnim = transform.GetChild(0).GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
         soundSystem = gameObject.GetComponent<CannonSoundSystem>();
         initRot = transform.rotation.eulerAngles.z;
         anim = GetComponent<Animator>();
-
-
-
-
     }
 
-    //refactor.
-
-    // this array is the queue in array form you have to convert it in start with the createQueue method.
-    // basically createqueue convert the class values to a Ienumerator Queue and DequeueCoroutines starts all the coroutines in order 
-
-
-
-
-    protected Animator anim;
-    protected Animator arrowAnim;
-    [Header("Cannon State")]
-    [SerializeField] protected bool canShoot = false;
-    [SerializeField] protected bool isRotating;
-    [SerializeField] public bool inBarrel;
-
-    [Header("Cannon")]
-
-    [SerializeField][Range(0f, 1000f)][Tooltip("Pixels per second")] public float dashSpeed;
-
-
-    [SerializeField][Range(0f, 1000)][Tooltip("applyConstantVelocityToRigidbody() time duration")] public float dashTime;
-
-    [SerializeField][Min(0)][Tooltip("Time that take to the object to start rotating again (in the opposite direction) ")] public float rotDelay;
-    private float mainMenuBarrelTime = 4;
-    protected float initRot;
-    float initG;
-    float initD;
-    protected GameObject insideObject;
-    protected private Rigidbody2D insideRb;
-    IEnumerator ConstantVel;
-    protected CannonSoundSystem soundSystem;
-    protected SpriteRenderer sprite;
-    [SerializeField] protected bool isFinal;
-    [SerializeField] protected bool isFirst;
-    [SerializeField] protected bool isAutoShoot;
-    [SerializeField] float autoShootSeconds = 0;
-    [SerializeField] protected bool canMoveInShoot = true;
-    [SerializeField] protected bool isCharging;
-    [SerializeField] float horizontalThreshold;
-    [SerializeField] protected UnityEvent onEnterCannon;
-    [SerializeField] protected UnityEvent onExitCannon;
-
+    /// <summary>
+    /// Resets the charging state of the cannon.
+    /// </summary>
     public void resetIsCharging()
     {
         isCharging = false;
     }
+
+    /// <summary>
+    /// Handles when an object enters the cannon.
+    /// Sets up the object for launching and plays entry animations.
+    /// </summary>
+    /// <param name="collision">The collider that entered the cannon</param>
     protected void enterInsideCannon(Collider2D collision)
     {
 
@@ -167,11 +200,13 @@ public class Cannon : MonoBehaviour
         yield return new WaitForSeconds(seconds);
         func?.Invoke();
     }
+    /// <summary>
+    /// Action performed when object is ready to be shot from cannon.
+    /// Stops coroutines, plays animation, and triggers exit events.
+    /// </summary>
     protected void insideCannonAction()
     {
-
         Vector3 currentPos = transform.position;
-
 
         StopAllCoroutines();
         transform.position = currentPos;
@@ -179,16 +214,17 @@ public class Cannon : MonoBehaviour
         gameObject.GetComponent<Animator>().SetFloat("chargeSpeed", 1);
         onExitCannon?.Invoke();
         canShoot = false;
+
         if (IsFinal && transform.up.y > 0 && (SceneManager.GetActiveScene().name != "Tutorial" || SceneManager.GetActiveScene().name == "Main Game"))
         {
-            // LevelObjectManager.Instance.nextMiniLevel();
-            // GameManager.instance.nextMiniLevel();
-
+            // Final cannon logic - can trigger level completion
         }
-
     }
 
-
+    /// <summary>
+    /// Action performed when object is ready to be shot from cannon with custom charge speed.
+    /// </summary>
+    /// <param name="speed">Charge animation speed multiplier</param>
     protected void insideCannonAction(float speed)
     {
         Vector3 currentPos = transform.position;
@@ -200,20 +236,26 @@ public class Cannon : MonoBehaviour
 
         onExitCannon?.Invoke();
         canShoot = false;
+
         if (IsFinal && transform.up.y > 0)
         {
-            //GameManager.instance.nextMiniLevel();
-            // Camera.main.GetComponent<FollowCamera>().startZoom();
+            // Final cannon logic
         }
-
     }
+
+    /// <summary>
+    /// Plays the cannon shoot animation.
+    /// </summary>
     public void playShootAnimation()
     {
-
         gameObject.GetComponent<Animator>().Play("shoot");
     }
 
-
+    /// <summary>
+    /// Rotates the cannon to a target angle over time.
+    /// </summary>
+    /// <param name="finalRotation">Target rotation in degrees</param>
+    /// <param name="rotSpeed">Rotation speed in degrees per second</param>
     protected IEnumerator rotateToAngle(float finalRotation, float rotSpeed)
     {
 
@@ -458,9 +500,12 @@ public class Cannon : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// Shoots the object currently inside the cannon.
+    /// Applies launch force and triggers camera shake.
+    /// </summary>
     protected void shootObject()
     {
-        //1
         isCharging = false;
         insideObject.transform.SetParent(null);
         insideObject.transform.position = transform.position;
@@ -472,6 +517,7 @@ public class Cannon : MonoBehaviour
 
         hideArrow();
         GameManager.Instance.shakeCamera(shakeType.lite);
+
         if (insideObject.GetComponent<PlayerScript>() != null)
         {
             PlayerScript playerScript = insideObject.GetComponent<PlayerScript>();
@@ -489,12 +535,12 @@ public class Cannon : MonoBehaviour
         {
             ConstantVel = applyConstantVelocityToRigidbody(insideObject, dashTime, dashSpeed, transform.up);
             StartCoroutine(ConstantVel);
-
         }
-
-
-
     }
+
+    /// <summary>
+    /// Hides the object inside the cannon (for charging animation).
+    /// </summary>
     public void hideObject()
     {
         isCharging = true;
@@ -502,19 +548,28 @@ public class Cannon : MonoBehaviour
         {
             insideRb.GetComponent<PlayerScript>().AnimatorHandler.onPlayerOut();
         }
-
     }
+
+    /// <summary>
+    /// Shows the direction arrow indicating cannon is ready to fire.
+    /// </summary>
     public void showArrow()
     {
         arrowAnim.SetBool("canShoot", true);
-
-
     }
+
+    /// <summary>
+    /// Triggers a scene change with transition.
+    /// </summary>
+    /// <param name="args">Scene change arguments</param>
     public void changeScene(string args)
     {
         GameManager.Instance.loadSceneWithTransition(args);
     }
 
+    /// <summary>
+    /// Hides the direction arrow.
+    /// </summary>
     public void hideArrow()
     {
         arrowAnim.SetBool("canShoot", false);
