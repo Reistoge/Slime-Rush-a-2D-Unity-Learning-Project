@@ -883,7 +883,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -0.9313965}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -126.73447}
+  m_AnchoredPosition: {x: 0, y: -126.7345}
   m_SizeDelta: {x: 100, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &706429552
@@ -1514,6 +1514,7 @@ GameObject:
   - component: {fileID: 1106837552}
   - component: {fileID: 1106837551}
   - component: {fileID: 1106837550}
+  - component: {fileID: 1106837553}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -1571,6 +1572,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1106837553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1106837549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e31057ef324a04478bb4f7d469b3cdc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1140284919
 GameObject:
   m_ObjectHideFlags: 0
@@ -1789,7 +1802,7 @@ MonoBehaviour:
   LowerLimit: {fileID: 1732185643}
   playerReference: {fileID: 5838150465340594182, guid: 6f85552f7aa847f4ca56a098b02da573, type: 3}
   shakeBehaviour: 1
-  cameraType: 1
+  selectedBehaviour: 0
   height: 640
   magnitudeShake: 300
   timeShake: 1
@@ -1817,6 +1830,9 @@ MonoBehaviour:
     normalSpeed: 0
     fastSpeed: 0
     slowSpeed: 0
+  followHorizontal: 0
+  followVertical: 1
+  minVerticalPosition: 0
 --- !u!4 &1323922874
 Transform:
   m_ObjectHideFlags: 0
@@ -1882,6 +1898,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 594524873999114644, guid: cadc4eaebed86e746aba12573cbbf5bf, type: 3}
+      propertyPath: pad
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 943666030651962304, guid: cadc4eaebed86e746aba12573cbbf5bf, type: 3}
       propertyPath: drawTrajectoryWaitTime
       value: 1.5

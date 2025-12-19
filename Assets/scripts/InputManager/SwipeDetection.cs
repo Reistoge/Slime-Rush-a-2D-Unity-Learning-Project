@@ -8,6 +8,7 @@ using System.Numerics;
 
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using Color = UnityEngine.Color;
 using Debug = UnityEngine.Debug;
 using Vector2 = UnityEngine.Vector2;
@@ -47,28 +48,37 @@ public class SwipeDetection : MonoBehaviour
     public Vector2 CurrentPosition { get => currentPosition; set => currentPosition = value; }
     public Vector2 EndPosition { get => endPosition; set => endPosition = value; }
 
-    void Awake()
-    {
 
-    }
+
+
+
     private void OnEnable()
     {
 
         inputManager = InputManager.Instance;
         inputManager.OnStartTouch += SwipeStart;
         inputManager.OnEndTouch += SwipeEnd;
-
+        SceneManager.sceneLoaded +=  instantiateTrailOnSceneLoaded;
+    }
+    private void instantiateTrailOnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (!trail)
+        {
+            trail = Instantiate(trailPrefab);
+        }
     }
     private void OnDisable()
     {
         inputManager.OnStartTouch -= SwipeStart;
         inputManager.OnEndTouch -= SwipeEnd;
+        SceneManager.sceneLoaded -=  instantiateTrailOnSceneLoaded;
 
 
     }
     private void SwipeStart(Vector2 position, float time)
     {
-        if(trail==null){
+        if (trail == null)
+        {
             trail = Instantiate(trailPrefab);
 
         }
@@ -91,7 +101,7 @@ public class SwipeDetection : MonoBehaviour
             //GameManager.instance.PlayerInScene
 
             trail.transform.position = inputManager.PrimaryPosition();
-            CurrentPosition=trail.transform.position;
+            CurrentPosition = trail.transform.position;
             yield return null;
         }
     }

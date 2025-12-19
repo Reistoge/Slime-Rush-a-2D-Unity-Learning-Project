@@ -77,7 +77,7 @@ public class InputManager : GenericSingleton<InputManager>
 
 
     }
- 
+
     void Update()
     {
 
@@ -87,6 +87,7 @@ public class InputManager : GenericSingleton<InputManager>
     }
     void getHorizontalInput()
     {
+       
         if (horizontalAxisRaw != 0)
         {
 
@@ -108,29 +109,36 @@ public class InputManager : GenericSingleton<InputManager>
         if (touchingPad == false)
         {
             horizontalAxisRaw = Input.GetAxisRaw("Horizontal");
-   
+
 
         }
- 
+
     }
     void StartTouchPrimary(InputAction.CallbackContext ctx)
     {
+        
         if (Camera.main == null) return;
         Vector2 touchPosition = playerControls.Touch.PrimaryPosition.ReadValue<Vector2>();
         if (IsPointerOverUIObject())
         {
+            print("pointer is over UI object");
             touchingPad = checkIfPadTouched();
+
             if (touchingPad)
             {
                 CheckScreenSection(touchPosition);
+                
                 return;
             }
 
 
 
         }
-        if (OnStartTouch != null) OnStartTouch(Utils.ScreenToWorld(Camera.main, playerControls.Touch.PrimaryPosition.ReadValue<Vector2>()), (float)ctx.startTime);
-
+        if (OnStartTouch != null)
+        {
+            
+            OnStartTouch(Utils.ScreenToWorld(Camera.main, playerControls.Touch.PrimaryPosition.ReadValue<Vector2>()), (float)ctx.startTime);
+        }
         // CheckScreenSection(touchPosition);
 
     }
@@ -194,7 +202,9 @@ public class InputManager : GenericSingleton<InputManager>
     }
     private bool IsPointerOverUIObject()
     {
+        print("pointer over UI Object");
         PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+        
         eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
         List<RaycastResult> results = new List<RaycastResult>();
         EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
