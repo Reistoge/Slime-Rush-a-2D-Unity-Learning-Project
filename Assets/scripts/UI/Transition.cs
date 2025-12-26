@@ -14,14 +14,14 @@ public class Transition : MonoBehaviour
     void OnEnable()
     {
         SceneManager.sceneLoaded += resumeTransition;
-        GameEvents.onMainMenuSceneLoaded += resetTransformonMainMenuLoad;
+        LegacyEvents.GameEvents.onMainMenuSceneLoaded += resetTransformonMainMenuLoad;
 
 
     }
     void OnDisable()
     {
         SceneManager.sceneLoaded -= resumeTransition;
-        GameEvents.onMainMenuSceneLoaded -= resetTransformonMainMenuLoad;
+        LegacyEvents.GameEvents.onMainMenuSceneLoaded -= resetTransformonMainMenuLoad;
     }
     void Start()
     {

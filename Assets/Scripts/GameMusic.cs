@@ -10,15 +10,15 @@ public class GameMusic : SoundSystem
     new void OnEnable()
     {
         base.OnEnable();
-        GameEvents.onMainGameSceneLoaded += playMainGameOST;
-        GameEvents.onInGameShopSceneLoaded += playInGameShopOST;
-        GameEvents.onMainMenuSceneLoaded += playMainMenuOST;
+        LegacyEvents.GameEvents.onMainGameSceneLoaded += playMainGameOST;
+        LegacyEvents.GameEvents.onInGameShopSceneLoaded += playInGameShopOST;
+        LegacyEvents.GameEvents.onMainMenuSceneLoaded += playMainMenuOST;
     }
     void OnDisable()
     {
-        GameEvents.onMainGameSceneLoaded -= playMainGameOST;
-        GameEvents.onInGameShopSceneLoaded -= playInGameShopOST;
-        GameEvents.onMainMenuSceneLoaded -= playMainMenuOST;
+        LegacyEvents.GameEvents.onMainGameSceneLoaded -= playMainGameOST;
+        LegacyEvents.GameEvents.onInGameShopSceneLoaded -= playInGameShopOST;
+        LegacyEvents.GameEvents.onMainMenuSceneLoaded -= playMainMenuOST;
     }
 
     void playMainMenuOST()

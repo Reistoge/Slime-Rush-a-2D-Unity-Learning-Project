@@ -1,77 +1,90 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Numerics;
-using Unity.VisualScripting;
-using UnityEditor;
-using UnityEditor.EditorTools;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
-using Vector2 = UnityEngine.Vector2;
-using Vector3 = UnityEngine.Vector3;
+using Unity.VisualScripting;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
+/// <summary>
+/// Spike hazard that damages players and enemies on contact.
+/// Implements IEnemyBehaviour for consistent enemy damage behavior.
+/// </summary>
 public class Spikes : MonoBehaviour, IEnemyBehaviour
 {
-    [SerializeField] Animator animator;
-    [SerializeField] int spikeDamage=1;
-    [SerializeField] bool onTrigger = true;
-    [SerializeField] bool onCollision = true;
-   
-    [Tooltip("Proportion based on sprite size (solid size is the spriteSize by this number)"), SerializeField] float solidXSize = 0.9583333f;
-    [Tooltip("Proportion based on sprite size"), SerializeField] float solidYSize = 0.7f;
-    [Tooltip("Proportion based on the solid or not trigger size"), SerializeField] float triggerXSize = 0.49f;
-    [Tooltip("how much up is the edgeCollider"), SerializeField] float triggerOffset = 13.4f;
+    [SerializeField] private Animator animator;
+    [SerializeField] private int spikeDamage = 1;
+    [SerializeField] private bool onTrigger = true;
+    [SerializeField] private bool onCollision = true;
 
+    [Tooltip("Proportion based on sprite size (solid size is the spriteSize by this number)")]
+    [SerializeField] private float solidXSize = 0.9583333f;
 
-    void Start()
+    [Tooltip("Proportion based on sprite size")]
+    [SerializeField] private float solidYSize = 0.7f;
+
+    [Tooltip("Proportion based on the solid or not trigger size")]
+    [SerializeField] private float triggerXSize = 0.49f;
+
+    [Tooltip("how much up is the edgeCollider")]
+    [SerializeField] private float triggerOffset = 13.4f;
+
+    private void Start()
     {
-        gameObject.tag = "ground";   
+        gameObject.tag = "ground";
     }
- 
-    Vector2 upVector;
-    void OnTriggerStay2D(Collider2D collision)
-    {
 
+    private void OnTriggerStay2D(Collider2D collision)
+    {
         if (onTrigger)
         {
             dealDamage(collision.gameObject);
-            
         }
     }
-    void OnCollisionEnter2D(Collision2D collision)
-    {
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
         if (onCollision)
         {
             dealDamage(collision.gameObject);
-            
         }
-            
-         
     }
-    public void dealDamage(GameObject o)
+
+    /// <summary>
+    /// Deal damage to a game object if it implements IDamageable.
+    /// </summary>
+    /// <param name="target">The object to damage</param>
+    public void dealDamage(GameObject target)
     {
-        
-        if (o.TryGetComponent<IDamageable>(out IDamageable damageable) && damageable.CanTakeDamage) 
+        if (target.TryGetComponent<IDamageable>(out IDamageable damageable) && damageable.CanTakeDamage)
         {
-            // only when the player is damaged, the spikes deal damages and push the object
             damageable.takeDamage(spikeDamage);
-            pushObject(o);
-            
+            pushObject(target);
         }
     }
-     
-    public void pushObject(GameObject o){
-        if(o.CompareTag("Player")){
-            pushPlayer(o);
-        }
-        else{
-            
+
+    /// <summary>
+    /// Applies knockback to an object based on its type.
+    /// </summary>
+    /// <param name="obj">The object to push back</param>
+    public void pushObject(GameObject obj)
+    {
+        if (obj.CompareTag("Player"))
+        {
+            pushPlayer(obj);
         }
     }
-    public void pushPlayer(GameObject o){
-        if (o.TryGetComponent<KnockbackFeedBack>(out KnockbackFeedBack knocback)) 
+
+    /// <summary>
+    /// Applies knockback feedback to the player.
+    /// </summary>
+    /// <param name="player">The player object to knock back</param>
+    public void pushPlayer(GameObject player)
+    {
+        if (player.TryGetComponent<KnockbackFeedBack>(out KnockbackFeedBack knocback)) 
         {
             // Calculate knockback direction based on spike orientation
             //Vector2 shootDirection = transform.up;
@@ -97,40 +110,56 @@ public class Spikes : MonoBehaviour, IEnemyBehaviour
     // enable spriterenderer can be part of an animation
     public void hideSpike()
     {
-
-        // this.GetComponent<SpriteRenderer>().enabled = false;
         if (animator == null) return;
 
         if (Animator.GetCurrentAnimatorClipInfo(0)[0].clip.name == "up")
         {
             Animator.Play("hide", -1, 0);
-
         }
     }
+
+    /// <summary>
+    /// Shows the spike by playing the up animation.
+    /// </summary>
     public void unHideSpike()
     {
         if (animator == null) return;
-        //enableSpriteRenderer();
+
         if (Animator.GetCurrentAnimatorClipInfo(0)[0].clip.name == "hide")
         {
             Animator.Play("up", -1, 0);
-
         }
-
     }
+
+    /// <summary>
+    /// Enables the sprite renderer.
+    /// </summary>
     public void enableSpriteRenderer()
     {
-        this.GetComponent<SpriteRenderer>().enabled = true;
+        GetComponent<SpriteRenderer>().enabled = true;
     }
+
+    /// <summary>
+    /// Disables the collider.
+    /// </summary>
     public void desactivateCollider()
     {
-        this.GetComponent<Collider2D>().enabled = false;
-
+        GetComponent<Collider2D>().enabled = false;
     }
+
+    /// <summary>
+    /// Enables the collider.
+    /// </summary>
     public void activateCollider()
     {
-        this.GetComponent<Collider2D>().enabled = true;
+        GetComponent<Collider2D>().enabled = true;
     }
+
+    /// <summary>
+    /// Sets the collision bounds for the spike based on sprite size.
+    /// Editor utility method.
+    /// </summary>
+    /// <param name="spike">The spike to configure</param>
     public void setBounds(Spikes spike)
     {
         SpriteRenderer sr = spike.Animator.gameObject.GetComponent<SpriteRenderer>();
@@ -149,45 +178,47 @@ public class Spikes : MonoBehaviour, IEnemyBehaviour
         points.Add(new Vector2(-x * spike.TriggerX, spike.gameObject.GetComponent<EdgeCollider2D>().points[1].y));
         spike.gameObject.GetComponent<EdgeCollider2D>().SetPoints(points);
         spike.gameObject.GetComponent<EdgeCollider2D>().offset = new Vector2(0, spike.TriggerOffset);
-       
+
+        // Configure 2D light
         animator.gameObject.GetComponent<Light2D>().lightType = Light2D.LightType.Freeform;
 
         Vector2 spriteSize = sr.size;
         Vector3[] shapePath = new Vector3[4];
         float verticalOffset = 5f;
-        shapePath[0] = new Vector3(-spriteSize.x/2, verticalOffset, 0);
-        shapePath[1] = new Vector3(spriteSize.x/2, verticalOffset, 0);
-        shapePath[2] = new Vector3(spriteSize.x/2, spriteSize.y, 0);
-        shapePath[3] = new Vector3(-spriteSize.x/2, spriteSize.y, 0);
+        shapePath[0] = new Vector3(-spriteSize.x / 2, verticalOffset, 0);
+        shapePath[1] = new Vector3(spriteSize.x / 2, verticalOffset, 0);
+        shapePath[2] = new Vector3(spriteSize.x / 2, spriteSize.y, 0);
+        shapePath[3] = new Vector3(-spriteSize.x / 2, spriteSize.y, 0);
         animator.gameObject.GetComponent<Light2D>().SetShapePath(shapePath);
-
     }
 
-
-
+    // Properties
     public Animator Animator { get => animator; set => animator = value; }
     public float X { get => solidXSize; set => solidXSize = value; }
     public float Y { get => solidYSize; set => solidYSize = value; }
     public float TriggerX { get => triggerXSize; set => triggerXSize = value; }
     public float TriggerOffset { get => triggerOffset; set => triggerOffset = value; }
-    public int Damage { get => spikeDamage; set => spikeDamage=value; }
+    public int Damage { get => spikeDamage; set => spikeDamage = value; }
 }
+
 #if UNITY_EDITOR
+/// <summary>
+/// Custom editor for Spikes to provide utility buttons.
+/// </summary>
 [CustomEditor(typeof(Spikes)), CanEditMultipleObjects]
 public class SpikesEditor : Editor
 {
-
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
 
         Spikes handler = (Spikes)target;
+
         if (GUILayout.Button("Set Collision Bounds"))
         {
-
             handler.setBounds(handler);
-
         }
+
         if (GUILayout.Button("Set Collision Bounds to All"))
         {
             List<UnityEngine.Object> items = FindObjectsByType(typeof(Spikes), FindObjectsSortMode.None).ToList();
@@ -195,7 +226,6 @@ public class SpikesEditor : Editor
             {
                 item.GetComponent<Spikes>().setBounds(item.GetComponent<Spikes>());
             }
-
         }
     }
 }

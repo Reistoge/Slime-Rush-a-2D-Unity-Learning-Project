@@ -15,7 +15,7 @@ public class restartButton : MonoBehaviour
         StopCoroutines?.Invoke();
         //Time.timeScale = 1;
 
-        GameEvents.triggerGameIsRestarted();
+        LegacyEvents.GameEvents.triggerGameIsRestarted();
         // GameManager.Instance.destroyRuntimeData();
         GameManager.Instance.loadSceneWithTransition(SceneManager.GetActiveScene().name);
     }

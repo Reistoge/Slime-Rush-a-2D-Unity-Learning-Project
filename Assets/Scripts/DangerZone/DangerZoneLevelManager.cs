@@ -60,13 +60,13 @@ public class DangerZoneLevelManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        GameEvents.onGameIsRestarted += StopAllCoroutines;
-        GameEvents.onGameIsRestarted += stopCameraFollow;
+        LegacyEvents.GameEvents.onGameIsRestarted += StopAllCoroutines;
+        LegacyEvents.GameEvents.onGameIsRestarted += stopCameraFollow;
     }
     void OnDisable()
     {
-        GameEvents.onGameIsRestarted -= StopAllCoroutines;
-        GameEvents.onGameIsRestarted -= stopCameraFollow;
+        LegacyEvents.GameEvents.onGameIsRestarted -= StopAllCoroutines;
+        LegacyEvents.GameEvents.onGameIsRestarted -= stopCameraFollow;
     }
     void stopCameraFollow()
     {

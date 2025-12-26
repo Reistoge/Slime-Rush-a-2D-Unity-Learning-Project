@@ -4,46 +4,52 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+/// <summary>
+/// Manages portal behavior, centering objects and triggering actions.
+/// Handles smooth transitions for objects entering the portal.
+/// </summary>
 public class Portal : MonoBehaviour
 {
+    private Coroutine portalCoroutine;
 
-    Coroutine portalCoroutine;
-    [SerializeField] Transform portalCenter;
-    [SerializeField] float centerObjectDuration;
-    [SerializeField] ColliderTriggerEvent colTrigger;
-    List<Action> simpleActionsAfterCentering = new List<Action>();
-    List<Action<Transform>> actionsBeforeCenteringTarget = new List<Action<Transform>>();
-    List<Action<Transform>> actionsAfterCenteringTarget = new List<Action<Transform>>();
+    [SerializeField] private Transform portalCenter;
+    [SerializeField] private float centerObjectDuration;
+    [SerializeField] private ColliderTriggerEvent colTrigger;
 
+    private List<Action> simpleActionsAfterCentering = new List<Action>();
+    private List<Action<Transform>> actionsBeforeCenteringTarget = new List<Action<Transform>>();
+    private List<Action<Transform>> actionsAfterCenteringTarget = new List<Action<Transform>>();
+
+    /// <summary>Actions to execute after an object is centered (no parameters).</summary>
     public List<Action> SimpleActionsAfterCentering { get => simpleActionsAfterCentering; set => simpleActionsAfterCentering = value; }
+
+    /// <summary>Actions to execute before centering begins (receives target transform).</summary>
     public List<Action<Transform>> ActionsBeforeCenteringTarget { get => actionsBeforeCenteringTarget; set => actionsBeforeCenteringTarget = value; }
+
+    /// <summary>Actions to execute after centering completes (receives target transform).</summary>
     public List<Action<Transform>> ActionsAfterCenteringTarget { get => actionsAfterCenteringTarget; set => actionsAfterCenteringTarget = value; }
 
-    void Start()
+    private void Start()
     {
-
         colTrigger.EvenTriggerCollider.AddListener(centerObject);
-        
-
     }
 
-
-
-    // public void changeScene(string args)
-    // {
-    //     GameManager.Instance.loadSceneWithTransition(args);
-    // }
-    // public void changeScene(LoadSceneWithTransitionSO so)
-    // {
-    //     GameManager.Instance.loadSceneWithTransition(so);
-    // }
+    /// <summary>
+    /// Centers an object that enters the portal.
+    /// </summary>
+    /// <param name="collision">The collider that entered the portal</param>
     public void centerObject(Collider2D collision)
     {
         portalCoroutine = StartCoroutine(lerpPositionAndRotation(collision.gameObject.transform, portalCenter, centerObjectDuration));
     }
-    
 
-    IEnumerator lerpPositionAndRotation(Transform target, Transform center, float duration)
+    /// <summary>
+    /// Smoothly interpolates an object's position and rotation to the portal center.
+    /// </summary>
+    /// <param name="target">The transform to move</param>
+    /// <param name="center">The target center position</param>
+    /// <param name="duration">Time in seconds for the interpolation</param>
+    private IEnumerator lerpPositionAndRotation(Transform target, Transform center, float duration)
     {
         
         actionsBeforeCenteringTarget?.ForEach((Action<Transform> a) => a?.Invoke(target));

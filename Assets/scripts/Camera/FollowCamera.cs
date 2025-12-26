@@ -60,14 +60,14 @@ public class FollowCamera : MonoBehaviour
     void OnEnable()
     {
 
-        GameEvents.onSceneChanged += () => { selectedBehaviour = cameraBehaviour.stop; };
-        GameEvents.onGameIsRestarted += StopAllCoroutines;
+        LegacyEvents.GameEvents.onSceneChanged += () => { selectedBehaviour = cameraBehaviour.stop; };
+        LegacyEvents.GameEvents.onGameIsRestarted += StopAllCoroutines;
 
     }
     void OnDisable()
     {
-        GameEvents.onSceneChanged -= () => { selectedBehaviour = cameraBehaviour.stop; };
-        GameEvents.onGameIsRestarted -= StopAllCoroutines;
+        LegacyEvents.GameEvents.onSceneChanged -= () => { selectedBehaviour = cameraBehaviour.stop; };
+        LegacyEvents.GameEvents.onGameIsRestarted -= StopAllCoroutines;
     }
 
 

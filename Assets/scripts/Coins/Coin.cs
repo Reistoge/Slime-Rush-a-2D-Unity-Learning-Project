@@ -1,62 +1,75 @@
 using UnityEngine;
-using UnityEngine.UIElements;
- 
- 
+
+/// <summary>
+/// Represents a collectible coin in the game.
+/// Handles coin collection, animation, and value.
+/// </summary>
 public class Coin : MonoBehaviour
 {
-    // how it would be for multiple coins ??
-    
-    [SerializeField] int value;
- 
-    Animator anim;
-    coinsLevelHandler coinsLevelHandler;
-    
-    void OnEnable(){
+    [SerializeField] private int value;
+
+    private Animator anim;
+    private coinsLevelHandler coinsLevelHandler;
+
+    private void OnEnable()
+    {
         Anim = transform.GetChild(0).GetComponent<Animator>();
-        anim.Play("spawn",-1,0f);
-  
-        //GameManager.instance.instantiateAppearEffect(transform,1);
+        anim.Play("spawn", -1, 0f);
     }
 
     private void Start()
     {
-         
-        if(transform.parent) coinsLevelHandler=transform.parent.GetComponent<coinsLevelHandler>();
-        
+        if (transform.parent)
+        {
+            coinsLevelHandler = transform.parent.GetComponent<coinsLevelHandler>();
+        }
     }
+
+    /// <summary>
+    /// Called when the player collects this coin.
+    /// Plays sound and triggers collection animation.
+    /// </summary>
     public void getCoin()
     {
-        // THIS METHOD is call by the player triggers the coin collider
         gameObject.GetComponent<SoundSystem>().playDefaultClip();
         gameObject.GetComponent<BoxCollider2D>().enabled = false;
-        // we call the animation of the animation child to start the "destruction" of the coin.
 
+        // Trigger the collection animation on the child object
         transform.GetChild(0).GetComponent<AnimationCoin>().getCoin();
-
-        // is core
-        
     }
+
+    /// <summary>
+    /// Disables the coin after collection.
+    /// Notifies the level handler if present.
+    /// </summary>
     public void disableCoin()
     {
-        if(coinsLevelHandler) coinsLevelHandler.coinCollected();
-        if(transform.parent!=null && transform.name == "enemyCore"){
-            
-            transform.parent.gameObject.SetActive(false);
-            
+        if (coinsLevelHandler)
+        {
+            coinsLevelHandler.coinCollected();
         }
-     
-        else{
-            gameObject.SetActive(false);
 
+        if (transform.parent != null && transform.name == "enemyCore")
+        {
+            transform.parent.gameObject.SetActive(false);
+        }
+        else
+        {
+            gameObject.SetActive(false);
         }
     }
+
+    /// <summary>
+    /// Re-enables the coin's collider.
+    /// </summary>
     public void enableCoin()
     {
-        
         gameObject.GetComponent<BoxCollider2D>().enabled = true;
-
-        // gameObject.SetActive(true);
     }
+
+    /// <summary>Gets or sets the value of this coin.</summary>
     public int Value { get => value; set => this.value = value; }
+
+    /// <summary>Gets or sets the animator component.</summary>
     public Animator Anim { get => anim; set => anim = value; }
 }

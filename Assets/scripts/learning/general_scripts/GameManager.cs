@@ -71,13 +71,13 @@ public class GameManager : MonoBehaviour
     private void OnEnable()
     {
         PlayerScript.OnPlayerDied += pauseGame;
-        GameEvents.onGameIsRestarted += destroyRuntimeData;
+        LegacyEvents.GameEvents.onGameIsRestarted += destroyRuntimeData;
         SceneManager.sceneLoaded += OnLevelFinishedLoading;
     }
     private void OnDisable()
     {
         PlayerScript.OnPlayerDied -= pauseGame;
-        GameEvents.onGameIsRestarted -= destroyRuntimeData;
+        LegacyEvents.GameEvents.onGameIsRestarted -= destroyRuntimeData;
         SceneManager.sceneLoaded -= OnLevelFinishedLoading;
     }
 
@@ -302,13 +302,13 @@ public class GameManager : MonoBehaviour
         switch (scene.name)
         {
             case "MainGame":
-                GameEvents.triggerOnMainGameSceneLoaded();
+                LegacyEvents.GameEvents.triggerOnMainGameSceneLoaded();
                 break;
             case "InGameShop":
-                GameEvents.triggerOnInGameShopSceneLoaded();
+                LegacyEvents.GameEvents.triggerOnInGameShopSceneLoaded();
                 break;
             case "Menu":
-                GameEvents.triggerOnMainMenuSceneLoaded();
+                LegacyEvents.GameEvents.triggerOnMainMenuSceneLoaded();
                 break;
 
 
