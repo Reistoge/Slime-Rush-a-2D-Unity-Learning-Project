@@ -57,7 +57,7 @@ public class ChangeScenePortal : MonoBehaviour
     /// </summary>
     public void changeScene()
     {
-        GameEvents.triggerOnSceneChanged();
+        LegacyEvents.GameEvents.triggerOnSceneChanged();
         GameManager.Instance.loadSceneWithTransition(this.scene);
     }
 }

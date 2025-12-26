@@ -27,13 +27,13 @@ public class Roulette : MonoBehaviour
             items.Add(t.gameObject);
             t.TryGetComponent(out CircularMotionMovement c);
             t.TryGetComponent(out RandomItemBox r);
-            dic.Add(r, c);
+            itemDictionary.Add(r, c);
 
         }
     }
     void Start()
     {
-        foreach (var pair in dic)
+        foreach (var pair in itemDictionary)
         {
             pair.Key.OnItemPurchased.AddListener(() =>
             {

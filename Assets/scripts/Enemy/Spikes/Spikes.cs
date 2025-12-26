@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using Unity.VisualScripting;
+
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -82,7 +84,7 @@ public class Spikes : MonoBehaviour, IEnemyBehaviour
     /// <param name="player">The player object to knock back</param>
     public void pushPlayer(GameObject player)
     {
-        if (o.TryGetComponent<KnockbackFeedBack>(out KnockbackFeedBack knocback)) 
+        if (player.TryGetComponent<KnockbackFeedBack>(out KnockbackFeedBack knocback)) 
         {
             // Calculate knockback direction based on spike orientation
             //Vector2 shootDirection = transform.up;

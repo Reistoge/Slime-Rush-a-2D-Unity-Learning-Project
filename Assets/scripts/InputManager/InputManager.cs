@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
+using Vector2 = UnityEngine.Vector2;
 using UnityEngine.Events;
+ 
 
 /// <summary>
 /// Centralized input management system handling keyboard, touch, and controller input.
@@ -214,10 +216,10 @@ public class InputManager : GenericSingleton<InputManager>
     /// <returns>True if over UI, false otherwise</returns>
     private bool IsPointerOverUIObject()
     {
-        PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+        PointerEventData eventDataCurrentPosition = new PointerEventData(UnityEngine.EventSystems.EventSystem.current);
         eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
         List<RaycastResult> results = new List<RaycastResult>();
-        EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+        UnityEngine.EventSystems.EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
 
         return results.Count > 0;
     }
@@ -228,11 +230,11 @@ public class InputManager : GenericSingleton<InputManager>
     /// <returns>True if pad was touched, false otherwise</returns>
     private bool checkIfPadTouched()
     {
-        PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+        PointerEventData eventDataCurrentPosition = new PointerEventData(UnityEngine.EventSystems.EventSystem.current);
         eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
         List<RaycastResult> results = new List<RaycastResult>();
 
-        EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+        UnityEngine.EventSystems.EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
 
         foreach (RaycastResult result in results)
         {
