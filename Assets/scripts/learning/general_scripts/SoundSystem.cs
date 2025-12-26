@@ -5,12 +5,15 @@ public class SoundSystem : MonoBehaviour
 {
     protected AudioSource AS;
     [SerializeField] protected AudioClip[] clips;
+    [SerializeField] bool randomPitch = false;
+    [SerializeField] float minPitch = 1, maxPitch = 1f;
 
-    protected void OnEnable(){
+    protected void OnEnable()
+    {
         AS = GetComponent<AudioSource>();
 
     }
-     
+
     protected AudioClip findClip(string name)
     {
         // we search for the clip by his name
@@ -30,6 +33,22 @@ public class SoundSystem : MonoBehaviour
         // protected because is class use only
         this.AS.clip = clip;
     }
+    public void playRandom()
+    {
+        // print(clips.Length - 1);
+        playClip(clips[Random.Range(0, clips.Length - 1)].name);
+
+
+
+    }
+    public void randomizePitch()
+    {
+        AS.pitch = Random.Range(minPitch, maxPitch);
+    }
+    public void randomizePitch(float min, float max)
+    {
+        AS.pitch = Random.Range(minPitch, maxPitch);
+    }
     public void playClip(string name)
     {
 
@@ -37,16 +56,23 @@ public class SoundSystem : MonoBehaviour
         {
             print("this clip doesnt exist in this object");
         }
-
         else
         {
             setClip(findClip(name));
+            if (randomPitch)
+            {
+                randomizePitch();
+            }
             AS.Play();
         }
     }
     public void playDefaultClip()
     {
         setClip(clips[0]);
+        if (randomPitch)
+        {
+            randomizePitch();
+        }
         AS.Play();
 
     }

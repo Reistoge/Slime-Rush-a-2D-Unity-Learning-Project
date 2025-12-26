@@ -7,29 +7,48 @@ public class scoreManager : MonoBehaviour
 {
     public TextMeshProUGUI highscoreNumber;
     public TextMeshProUGUI scoreNumber;
+    [SerializeField] PlayerScript player;
     float score = 0;
 
-
+    
 
 
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.instance.PlayerScore >= score)
+        checkScore();
+    }
+    public void checkScore()
+    {
+        if(GameManager.Instance.PlayerInScene == null)
         {
-            score = GameManager.instance.PlayerScore;
-            GameManager.instance.PlayerScore = score;
+            return;
+        }
+        if (player == null)
+        {
+            player = GameManager.Instance.PlayerInScene.GetComponent<PlayerScript>();
         }
 
-
-        score = math.round(score);
-        scoreNumber.text = "Score: "+ score.ToString();
-        highscoreNumber.text = "Highscore: "+ GameManager.instance.Highscore.ToString();
-        if (score >= GameManager.instance.Highscore)
+        else
         {
-            // new highscore !!
-            GameManager.instance.Highscore = score;
+            if (player.PlayerScore >= score)
+            {
+                score = player.PlayerScore;
+                player.PlayerScore = score;
+            }
+
+
+            score = math.round(score);
+            scoreNumber.text = "Score: " + score.ToString();
+            highscoreNumber.text = "Highscore: " + GameManager.Instance.Highscore.ToString();
+            if (score >= GameManager.Instance.Highscore)
+            {
+                // new highscore !!
+                GameManager.Instance.Highscore = score;
+            }
+
         }
+
 
 
     }

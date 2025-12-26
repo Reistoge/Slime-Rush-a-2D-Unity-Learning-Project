@@ -8,4 +8,4 @@ PhysicsMaterial2D:
   m_PrefabAsset: {fileID: 0}
   m_Name: bounce terrain 1
   friction: 1
-  bounciness: 3
+  bounciness: 2

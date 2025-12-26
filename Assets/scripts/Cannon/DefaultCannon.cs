@@ -8,13 +8,25 @@ public class DefaultCannon : Cannon
 {
     bool isCharging;
     protected Queue<IEnumerator> coroutineQueue = new Queue<IEnumerator>();
+
+
+
     protected void createQueueRotateAngle(RotationBehaviour[] values)
     {
         IEnumerator coroutine = null;
 
         foreach (RotationBehaviour v in values)
         {
-            coroutine = rotateToAngle(v.Angles, v.Velocity, v.dashForce);
+            if (!isInterruptible)
+            {
+                coroutine = rotateToAngle(v.Angles, v.Velocity, v.dashForce);
+
+            }
+            else
+            {
+                coroutine = rotateToAngleInterruptible(v.Angles, v.Velocity, v.dashForce);
+                
+            }
             coroutineQueue.Enqueue(coroutine);
         }
     }
@@ -53,6 +65,7 @@ public class DefaultCannon : Cannon
 
     [SerializeField] protected RotationBehaviour[] rotationVariables;
     [SerializeField] protected bool alwaysRotate;
+    [SerializeField] bool isInterruptible=false;
     IEnumerator RotateCannon;
     IEnumerator rotateInit;
 
@@ -64,6 +77,16 @@ public class DefaultCannon : Cannon
         createQueueRotateAngle(RotationVariables);
         initRot = transform.rotation.eulerAngles.z;
 
+    }
+    new void OnEnable()
+    {
+        base.OnEnable();
+        InputManager.OnTouchCenter += chargeAndShoot;
+    }
+    new void OnDisable()
+    {
+        base.OnDisable();
+        InputManager.OnTouchCenter -= chargeAndShoot;
     }
 
     void Update()
@@ -79,17 +102,7 @@ public class DefaultCannon : Cannon
         }
         //
 
-        // if (isCharging == true && !IsFinal)
-        // {
 
-        //     transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.rotation.y, transform.eulerAngles.z + 1 * 100 * Time.deltaTime * -GameManager.instance.MovXButtons);
-        //     insideObject.transform.rotation = transform.rotation;
-        //     insideObject.transform.position = transform.position;
-        //     if (GameManager.instance.MovXButtons != 0)
-        //     {
-        //         isRotating = true;
-        //     }
-        // }
 
     }
     public void switchCharging()
@@ -97,52 +110,67 @@ public class DefaultCannon : Cannon
         isCharging = !isCharging;
 
     }
+    public void chargeAndShoot()
+    {
 
+
+        if (canShoot && inBarrel)
+        {
+
+            insideCannonAction();
+            gameObject.GetComponent<Animator>().SetFloat("chargeSpeed", gameObject.GetComponent<Animator>().GetFloat("chargeSpeed") * chargeMultiplier);
+        }
+    }
     public void shootListener()
     {
-        if ((Input.GetKeyUp(KeyCode.Space) || ActionButton.onPressActionButton) && inBarrel)
+        if (Input.GetKeyUp(KeyCode.Space) && inBarrel)
         {
-            // needed for precise input
-            ActionButton.onPressActionButton = false;
-            
-            if (canShoot)
-            {
-                insideCannonAction();
-            }
-            gameObject
-                .GetComponent<Animator>()
-                .SetFloat(
-                    "chargeSpeed",
-                    gameObject.GetComponent<Animator>().GetFloat("chargeSpeed") * chargeMultiplier
-                );
-        }
-        if (inBarrel)
-        {
-            //    Vector3 barrel_pos = new Vector3(transform.position.x,transform.position.y+1,transform.position.z);
+            //needed for precise input
+            // ActionButton.onPressActionButton = false;
 
-            insideObject.transform.position = transform.position;
+
+            chargeAndShoot();
+
+
+
         }
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        canShoot = true;
-        if (rotateInit != null)
+        if (collision.CompareTag("Player"))
         {
-            StopCoroutine(rotateInit);
+            canShoot = true;
+            if (rotateInit != null)
+            {
+                StopCoroutine(rotateInit);
+            }
+            RotateCannon = DequeueCoroutines(coroutineQueue, rotDelay, RotationVariables);
+            StartCoroutine(RotateCannon);
+            enterInsideCannon(collision);
+
+
         }
-        RotateCannon = DequeueCoroutines(coroutineQueue, rotDelay, RotationVariables);
-        StartCoroutine(RotateCannon);
-        enterInsideCannon(collision);
 
     }
 
+
     private void OnTriggerExit2D(Collider2D collision)
     {
-        gameObject.GetComponent<Animator>().SetFloat("chargeSpeed", 1);
-        StopCoroutine(RotateCannon);
-        createQueueRotateAngle(RotationVariables);
-        Invoke("rotateToInitialRotation", 0.5f);
+        if (collision.CompareTag("Player"))
+        {
+            gameObject.GetComponent<Animator>().SetFloat("chargeSpeed", 1);
+            if (RotateCannon != null)
+            {
+                StopCoroutine(RotateCannon);
+
+            }
+            createQueueRotateAngle(RotationVariables);
+            Invoke("rotateToInitialRotation", 0.5f);
+
+        }
+        // print("out " + collision.name);
     }
 
     public void rotateToInitialRotation()
@@ -165,6 +193,7 @@ public class DefaultCannon : Cannon
             string components = transform.up.ToString();
             // GameManager.instance.TransformUpVectorChars = components;
             collision.gameObject.GetComponent<Transform>().rotation = transform.rotation;
+
         }
 
         // pensar en un sistema automatizado de niveles.

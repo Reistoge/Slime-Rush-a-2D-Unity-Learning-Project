@@ -46,8 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23661bd928db9ed4a99faad2a808626b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseEnemy: {fileID: 0}
-  baseSr: {fileID: 0}
+  baseEnemy: {fileID: 9034125141424595317}
+  baseSr: {fileID: 246278336863557406}
 --- !u!60 &8082850072199839390
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -92,10 +92,9 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 4, y: -3}
-      - {x: 5, y: 7}
-      - {x: -5, y: 7}
-      - {x: -4, y: -3}
+    - - {x: 3, y: -3}
+      - {x: 0, y: 7}
+      - {x: -3, y: -3}
   m_UseDelaunayMesh: 0
 --- !u!1 &9034125141424595317
 GameObject:

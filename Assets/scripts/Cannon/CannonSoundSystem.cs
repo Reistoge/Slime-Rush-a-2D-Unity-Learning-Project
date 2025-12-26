@@ -51,7 +51,7 @@ public class CannonSoundSystem : SoundSystem
         AS.Play();
 
     }
-    public void stop(){
+    new public void stop(){
         AS.Stop();
     }
 

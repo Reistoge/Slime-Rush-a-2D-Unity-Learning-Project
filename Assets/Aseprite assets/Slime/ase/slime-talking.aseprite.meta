@@ -1,0 +1,584 @@
+fileFormatVersion: 2
+guid: 67c9ac0e4ee457a4397175d10345d949
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
+    isReadable: 0
+    streamingMipmaps: 0
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    ignoreMipmapLimit: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 100
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    cookieMode: 0
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  previousAsepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  asepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  importFileNodeState: 1
+  platformSettingsDirtyTick: 0
+  textureAssetName: 
+  singleSpriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  animatedSpriteImportData:
+  - name: slime-talking_Frame_0
+    originalName: 
+    pivot: {x: 0.5, y: -0.15625}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 40
+      height: 32
+    spriteID: 7783ce2e13635a74c9e4459af964a421
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 4}
+  - name: slime-talking_Frame_1
+    originalName: 
+    pivot: {x: 0.5, y: -0.15625}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 52
+      y: 4
+      width: 40
+      height: 32
+    spriteID: 371ed350aec76b345a03056fbc9a22ac
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 52, y: 4}
+  - name: slime-talking_Frame_2
+    originalName: 
+    pivot: {x: 0.5, y: -0.15625}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 100
+      y: 4
+      width: 40
+      height: 32
+    spriteID: a411a8e8e212f35419af5660245a130f
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 100, y: 4}
+  - name: slime-talking_Frame_3
+    originalName: 
+    pivot: {x: 0.5, y: -0.15625}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 148
+      y: 4
+      width: 40
+      height: 32
+    spriteID: f00c87b4411f78144848e1ce599b9d22
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 148, y: 4}
+  - name: slime-talking_Frame_4
+    originalName: 
+    pivot: {x: 0.5, y: -0.15625}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 196
+      y: 4
+      width: 40
+      height: 32
+    spriteID: 2c8c83c982f09a0469a8aa5e5a358cc5
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 196, y: 4}
+  - name: slime-talking_Frame_5
+    originalName: 
+    pivot: {x: 0.5, y: -0.15625}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 44
+      width: 40
+      height: 32
+    spriteID: 4be0886013d142a4a902566e8e8f85bb
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 44}
+  - name: slime-talking_Frame_6
+    originalName: 
+    pivot: {x: 0.5, y: -0.15625}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 52
+      y: 44
+      width: 40
+      height: 32
+    spriteID: 658d5bb3342c9d046bb735569cb4908b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 52, y: 44}
+  - name: slime-talking_Frame_7
+    originalName: 
+    pivot: {x: 0.5, y: -0.15625}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 100
+      y: 44
+      width: 40
+      height: 32
+    spriteID: 04717520127401e4db69a992dd4e82ca
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 100, y: 44}
+  - name: slime-talking_Frame_8
+    originalName: 
+    pivot: {x: 0.5, y: -0.15625}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 148
+      y: 44
+      width: 40
+      height: 32
+    spriteID: b01b036dd4cdf394491245c8f40487f0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 148, y: 44}
+  - name: slime-talking_Frame_9
+    originalName: 
+    pivot: {x: 0.5, y: -0.15625}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 196
+      y: 44
+      width: 40
+      height: 32
+    spriteID: 7e90b6e1c31e55745be20ad9bd616d7f
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 196, y: 44}
+  - name: slime-talking_Frame_10
+    originalName: 
+    pivot: {x: 0.5, y: -0.15625}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 84
+      width: 40
+      height: 32
+    spriteID: 5950ee60d19698e4aa346f775551211e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 84}
+  - name: slime-talking_Frame_11
+    originalName: 
+    pivot: {x: 0.5, y: -0.15625}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 52
+      y: 84
+      width: 40
+      height: 32
+    spriteID: e92f5e7ccb8d0b5449aba9d52cbe6b9e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 52, y: 84}
+  - name: slime-talking_Frame_12
+    originalName: 
+    pivot: {x: 0.5, y: -0.15625}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 100
+      y: 84
+      width: 40
+      height: 32
+    spriteID: b4e3489521fd58e498cf64c72101c7af
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 100, y: 84}
+  - name: slime-talking_Frame_13
+    originalName: 
+    pivot: {x: 0.5, y: -0.15625}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 148
+      y: 84
+      width: 40
+      height: 32
+    spriteID: 36d76ba64c9e1354ead8ea1854856e3f
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 148, y: 84}
+  - name: slime-talking_Frame_14
+    originalName: 
+    pivot: {x: 0.5, y: -0.15625}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 196
+      y: 84
+      width: 40
+      height: 32
+    spriteID: 00d47ed944a90fe4c8ce3b8a74588955
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 196, y: 84}
+  - name: slime-talking_Frame_15
+    originalName: 
+    pivot: {x: 0.5, y: -0.15625}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 124
+      width: 40
+      height: 32
+    spriteID: 8f50277834c41524aa4ca2f638ea3bb2
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 124}
+  spriteSheetImportData: []
+  asepriteLayers:
+  - layerIndex: 0
+    guid: -1810876023
+    name: slime-talking
+    layerFlags: 0
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: slime-talking_Frame_0
+      frameIndex: 0
+      cellRect:
+        x: 4
+        y: 5
+        width: 40
+        height: 32
+      spriteId: 7783ce2e13635a74c9e4459af964a421
+    - name: slime-talking_Frame_1
+      frameIndex: 1
+      cellRect:
+        x: 4
+        y: 5
+        width: 40
+        height: 32
+      spriteId: 371ed350aec76b345a03056fbc9a22ac
+    - name: slime-talking_Frame_2
+      frameIndex: 2
+      cellRect:
+        x: 4
+        y: 5
+        width: 40
+        height: 32
+      spriteId: a411a8e8e212f35419af5660245a130f
+    - name: slime-talking_Frame_3
+      frameIndex: 3
+      cellRect:
+        x: 4
+        y: 5
+        width: 40
+        height: 32
+      spriteId: f00c87b4411f78144848e1ce599b9d22
+    - name: slime-talking_Frame_4
+      frameIndex: 4
+      cellRect:
+        x: 4
+        y: 5
+        width: 40
+        height: 32
+      spriteId: 2c8c83c982f09a0469a8aa5e5a358cc5
+    - name: slime-talking_Frame_5
+      frameIndex: 5
+      cellRect:
+        x: 4
+        y: 5
+        width: 40
+        height: 32
+      spriteId: 4be0886013d142a4a902566e8e8f85bb
+    - name: slime-talking_Frame_6
+      frameIndex: 6
+      cellRect:
+        x: 4
+        y: 5
+        width: 40
+        height: 32
+      spriteId: 658d5bb3342c9d046bb735569cb4908b
+    - name: slime-talking_Frame_7
+      frameIndex: 7
+      cellRect:
+        x: 4
+        y: 5
+        width: 40
+        height: 32
+      spriteId: 04717520127401e4db69a992dd4e82ca
+    - name: slime-talking_Frame_8
+      frameIndex: 8
+      cellRect:
+        x: 4
+        y: 5
+        width: 40
+        height: 32
+      spriteId: b01b036dd4cdf394491245c8f40487f0
+    - name: slime-talking_Frame_9
+      frameIndex: 9
+      cellRect:
+        x: 4
+        y: 5
+        width: 40
+        height: 32
+      spriteId: 7e90b6e1c31e55745be20ad9bd616d7f
+    - name: slime-talking_Frame_10
+      frameIndex: 10
+      cellRect:
+        x: 4
+        y: 5
+        width: 40
+        height: 32
+      spriteId: 5950ee60d19698e4aa346f775551211e
+    - name: slime-talking_Frame_11
+      frameIndex: 11
+      cellRect:
+        x: 4
+        y: 5
+        width: 40
+        height: 32
+      spriteId: e92f5e7ccb8d0b5449aba9d52cbe6b9e
+    - name: slime-talking_Frame_12
+      frameIndex: 12
+      cellRect:
+        x: 4
+        y: 5
+        width: 40
+        height: 32
+      spriteId: b4e3489521fd58e498cf64c72101c7af
+    - name: slime-talking_Frame_13
+      frameIndex: 13
+      cellRect:
+        x: 4
+        y: 5
+        width: 40
+        height: 32
+      spriteId: 36d76ba64c9e1354ead8ea1854856e3f
+    - name: slime-talking_Frame_14
+      frameIndex: 14
+      cellRect:
+        x: 4
+        y: 5
+        width: 40
+        height: 32
+      spriteId: 00d47ed944a90fe4c8ce3b8a74588955
+    - name: slime-talking_Frame_15
+      frameIndex: 15
+      cellRect:
+        x: 4
+        y: 5
+        width: 40
+        height: 32
+      spriteId: 8f50277834c41524aa4ca2f638ea3bb2
+    linkedCells: []
+    parentIndex: -1
+  platformSettings: []
+  secondarySpriteTextures: []
+  spritePackingTag: 
+  canvasSize: {x: 48, y: 48}

@@ -141,7 +141,7 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 16
+        width: 15
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -160,9 +160,9 @@ TextureImporter:
       name: hideSpikes-Sheet_1
       rect:
         serializedVersion: 2
-        x: 16
+        x: 15
         y: 0
-        width: 16
+        width: 15
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -181,9 +181,9 @@ TextureImporter:
       name: hideSpikes-Sheet_2
       rect:
         serializedVersion: 2
-        x: 32
+        x: 30
         y: 0
-        width: 16
+        width: 15
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -202,9 +202,9 @@ TextureImporter:
       name: hideSpikes-Sheet_3
       rect:
         serializedVersion: 2
-        x: 48
+        x: 45
         y: 0
-        width: 16
+        width: 15
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -223,9 +223,9 @@ TextureImporter:
       name: hideSpikes-Sheet_4
       rect:
         serializedVersion: 2
-        x: 64
+        x: 60
         y: 0
-        width: 16
+        width: 15
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -244,9 +244,9 @@ TextureImporter:
       name: hideSpikes-Sheet_5
       rect:
         serializedVersion: 2
-        x: 80
+        x: 75
         y: 0
-        width: 16
+        width: 15
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -265,9 +265,9 @@ TextureImporter:
       name: hideSpikes-Sheet_6
       rect:
         serializedVersion: 2
-        x: 96
+        x: 90
         y: 0
-        width: 16
+        width: 15
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -286,9 +286,9 @@ TextureImporter:
       name: hideSpikes-Sheet_7
       rect:
         serializedVersion: 2
-        x: 112
+        x: 105
         y: 0
-        width: 16
+        width: 15
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -307,9 +307,9 @@ TextureImporter:
       name: hideSpikes-Sheet_8
       rect:
         serializedVersion: 2
-        x: 128
+        x: 120
         y: 0
-        width: 16
+        width: 15
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -320,6 +320,27 @@ TextureImporter:
       bones: []
       spriteID: 9be0bb98c54ca2a4ba135ff44dffc5a0
       internalID: 551793698
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hideSpikes-Sheet_9
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 0
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f678bdbbe9890dd489d416a76817b5c5
+      internalID: -1197029237
       vertices: []
       indices: 
       edges: []
@@ -344,6 +365,7 @@ TextureImporter:
       hideSpikes-Sheet_6: 656360731
       hideSpikes-Sheet_7: 753673114
       hideSpikes-Sheet_8: 551793698
+      hideSpikes-Sheet_9: -1197029237
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

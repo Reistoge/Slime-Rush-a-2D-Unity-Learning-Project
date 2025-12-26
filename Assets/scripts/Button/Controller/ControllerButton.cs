@@ -11,9 +11,9 @@ public abstract class ControllerButton : MonoBehaviour, IPointerUpHandler, IPoin
 
     protected void Start()
     {
-        if (GameManager.instance.PlayerInScene != null)
+        if (GameManager.Instance.PlayerInScene != null)
         {
-            targetCollider = GameManager.instance.PlayerInScene.GetComponent<Collider2D>();
+            targetCollider = GameManager.Instance.PlayerInScene.GetComponent<Collider2D>();
             if (targetCollider == null)
             {
                 targetCollider = GameObject.FindWithTag("Player").GetComponent<Collider2D>();

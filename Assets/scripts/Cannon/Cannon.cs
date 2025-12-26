@@ -3,18 +3,29 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 public class Cannon : MonoBehaviour
 {
 
-    private void OnEnable()
+    protected void OnEnable()
     {
 
         restartButton.StopCoroutines += StopAllCoroutines;
 
+        TryGetComponent(out Collider2D col);
+        if (Utils.isVisible(col))
+        {
+            GameManager.Instance.instantiateAppearEffect(transform, 0);
+
+        }
+
+
     }
-    private void OnDisable()
+    protected void OnDisable()
     {
         restartButton.StopCoroutines -= StopAllCoroutines;
+
     }
     protected void Start()
     {
@@ -24,6 +35,7 @@ public class Cannon : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
         soundSystem = gameObject.GetComponent<CannonSoundSystem>();
         initRot = transform.rotation.eulerAngles.z;
+        anim = GetComponent<Animator>();
 
 
 
@@ -38,6 +50,7 @@ public class Cannon : MonoBehaviour
 
 
 
+    protected Animator anim;
     protected Animator arrowAnim;
     [Header("Cannon State")]
     [SerializeField] protected bool canShoot = false;
@@ -61,12 +74,20 @@ public class Cannon : MonoBehaviour
     IEnumerator ConstantVel;
     protected CannonSoundSystem soundSystem;
     protected SpriteRenderer sprite;
-    [SerializeField] bool isFinal;
-    [SerializeField] bool isFirst;
-    [SerializeField] bool isAutoShoot;
+    [SerializeField] protected bool isFinal;
+    [SerializeField] protected bool isFirst;
+    [SerializeField] protected bool isAutoShoot;
+    [SerializeField] float autoShootSeconds = 0;
+    [SerializeField] protected bool canMoveInShoot = true;
+    [SerializeField] protected bool isCharging;
+    [SerializeField] float horizontalThreshold;
+    [SerializeField] protected UnityEvent onEnterCannon;
+    [SerializeField] protected UnityEvent onExitCannon;
 
-
-
+    public void resetIsCharging()
+    {
+        isCharging = false;
+    }
     protected void enterInsideCannon(Collider2D collision)
     {
 
@@ -76,16 +97,22 @@ public class Cannon : MonoBehaviour
         {
 
             arrowAnim.SetBool("canShoot", true);
-            GameManager.instance.LastUsedBarrel = this.gameObject;
+            anim.Play("onEnterEntity", -1, 0f);
+            GameManager.Instance.LastUsedBarrel = this.gameObject;
             inBarrel = true;
 
-            GameManager.instance.InBarrel = inBarrel;
+            GameManager.Instance.InBarrel = inBarrel;
+            GameManager.Instance.CanMove = false;
+
             // make a call from player.
             insideObject = collision.gameObject;
             insideObject.transform.position = transform.position;
             insideObject.transform.rotation = transform.rotation;
+            insideObject.transform.SetParent(transform);
             transform.GetChild(0).gameObject.SetActive(true);
+            insideObject.transform.SetParent(transform);
             //collision.gameObject.GetComponent<PlayerScript>().Sr.enabled = false;
+            onEnterCannon?.Invoke();
             if (collision.GetComponent<Rigidbody2D>() != null)
             {
                 insideRb = collision.gameObject.GetComponent<Rigidbody2D>();
@@ -95,50 +122,97 @@ public class Cannon : MonoBehaviour
             }
             if (insideObject.GetComponent<PlayerScript>() != null)
             {
-                insideObject.GetComponent<PlayerScript>().AnimatorHandler.enterBarrel();
+                // POR HACER: 
+                // esperar hasta que el barril termine de hacer la animacion de "apretarse".
+                StartCoroutine(waitForAnimation());
 
 
             }
             if (isAutoShoot)
             {
-                insideCannonAction();
+
+                StartCoroutine(executeInSeconds(insideCannonAction,autoShootSeconds));
 
             }
         }
 
     }
+
+    IEnumerator waitForAnimation()
+    {
+        if (insideObject.CompareTag("Player"))
+        {
+            insideObject.GetComponent<PlayerScript>().AnimatorHandler.playInvisible();
+            yield return new WaitForSeconds(anim.GetCurrentAnimatorClipInfo(0).Length);
+            if (GameManager.Instance.InBarrel && inBarrel)
+            {
+                insideObject.GetComponent<PlayerScript>().AnimatorHandler.enterBarrel();
+
+            }
+        }
+
+
+
+
+    }
+    protected void playPlayerEnterBarrel()
+    {
+        if (insideObject.CompareTag("Player") && GameManager.Instance.InBarrel && inBarrel)
+        {
+            insideObject.GetComponent<PlayerScript>().AnimatorHandler.enterBarrel();
+        }
+    }
+    IEnumerator executeInSeconds(Action func, float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        func?.Invoke();
+    }
     protected void insideCannonAction()
     {
+
         Vector3 currentPos = transform.position;
+
 
         StopAllCoroutines();
         transform.position = currentPos;
-        gameObject.GetComponent<Animator>().Play("shoot");
+        playShootAnimation();
         gameObject.GetComponent<Animator>().SetFloat("chargeSpeed", 1);
+        onExitCannon?.Invoke();
         canShoot = false;
-        if (IsFinal && transform.up.y > 0)
+        if (IsFinal && transform.up.y > 0 && (SceneManager.GetActiveScene().name != "Tutorial" || SceneManager.GetActiveScene().name == "Main Game"))
         {
-            GameManager.instance.nextMiniLevel();
+            // LevelObjectManager.Instance.nextMiniLevel();
+            // GameManager.instance.nextMiniLevel();
 
         }
 
     }
+
+
     protected void insideCannonAction(float speed)
     {
         Vector3 currentPos = transform.position;
 
         StopAllCoroutines();
         transform.position = currentPos;
-        gameObject.GetComponent<Animator>().Play("shoot");
+        playShootAnimation();
         gameObject.GetComponent<Animator>().SetFloat("chargeSpeed", speed);
+
+        onExitCannon?.Invoke();
         canShoot = false;
         if (IsFinal && transform.up.y > 0)
         {
-            GameManager.instance.nextMiniLevel();
-            Camera.main.GetComponent<FollowCamera>().startZoom();
+            //GameManager.instance.nextMiniLevel();
+            // Camera.main.GetComponent<FollowCamera>().startZoom();
         }
 
     }
+    public void playShootAnimation()
+    {
+
+        gameObject.GetComponent<Animator>().Play("shoot");
+    }
+
 
     protected IEnumerator rotateToAngle(float finalRotation, float rotSpeed)
     {
@@ -183,6 +257,7 @@ public class Cannon : MonoBehaviour
 
 
     }
+
     protected IEnumerator rotateToAngle(float finalRotation, float rotSpeed, float dashSpeed)
     {
 
@@ -226,34 +301,50 @@ public class Cannon : MonoBehaviour
 
 
     }
-    protected IEnumerator rotateAngles(float rotation, float speed)
+    protected IEnumerator rotateToAngleInterruptible(float finalRotation, float rotSpeed, float dashSpeed)
     {
 
-        float rotateTime = 0;
-
-        // wrong
-        Quaternion endRot = Quaternion.Euler(0f, 0f, rotation + transform.rotation.eulerAngles.z);
-        // print("parameter: " + rotation + "  current Rotation: " + transform.rotation.eulerAngles.z + " final Rotation:" + endRot.eulerAngles.z);
-        // print(endRot.eulerAngles);
-        // Rotate clockwise 
-
-        while (transform.rotation != endRot)
+        isRotating = true;
+        this.dashSpeed = dashSpeed;
+        if (finalRotation == 180 || finalRotation == -180)
+        {
+            finalRotation *= -1;
+        }
+        float currentRotation = transform.rotation.eulerAngles.z;
+        float rot = finalRotation - currentRotation;
+        if (inBarrel)
         {
 
+            hideArrow();
 
+            gameObject.GetComponent<CannonSoundSystem>().playRotateSfx();
 
-            rotateTime += Time.deltaTime;
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, endRot, speed * Time.deltaTime);
-
+        }
+        while (transform.rotation != Quaternion.Euler(0f, 0f, finalRotation))
+        {
+            // canShoot = false;
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0f, 0f, finalRotation), rotSpeed * Time.deltaTime);
+            gameObject.GetComponent<CannonSoundSystem>().downVolume(0.005f);
             yield return new WaitForEndOfFrame(); // Yield to the next frame
 
 
         }
-        transform.rotation = endRot;
-        //print((speed * Time.deltaTime));
+
+        if (inBarrel)
+        {
+            showArrow();
+            gameObject.GetComponent<CannonSoundSystem>().playReadySfx();
+
+        }
+        transform.rotation = Quaternion.Euler(0f, 0f, finalRotation);
+        canShoot = true;
+        isRotating = false;
+
+
 
 
     }
+
     public IEnumerator rotateFor(GameObject Player, float time, float RotVel)
     {
         // RotVel: degrees per second.
@@ -276,12 +367,7 @@ public class Cannon : MonoBehaviour
         Player.transform.rotation = endRot;
         Player.GetComponent<Rigidbody2D>().angularVelocity = 0;
     }
-    public IEnumerator rotateAngles2(GameObject Object, float angle, float RotVel, float rotDelay)
-    {
-        float waitTime = Math.Abs(angle / RotVel);
-        StartCoroutine(rotateFor(gameObject, waitTime, RotVel));
-        yield return new WaitForSeconds(waitTime + rotDelay);
-    }
+
     public IEnumerator applyConstantVelocityToRigidbody(GameObject insideObject, float time, float velocity, Vector3 direction)
     {
         // time: time with that rotation.
@@ -292,7 +378,7 @@ public class Cannon : MonoBehaviour
         // initG: initial gravitation.
         // dashDirection: the direction and speed, it will go in that direction with that speed.
         //precise
-
+        insideObject.transform.SetParent(null);
         Vector3 endPos = new Vector3(transform.position.x + (velocity * time * direction.x), transform.position.y + (velocity * time * direction.y), transform.position.z);
         initG = insideObject.GetComponent<Rigidbody2D>().gravityScale;
         initD = insideObject.GetComponent<Rigidbody2D>().drag;
@@ -304,9 +390,15 @@ public class Cannon : MonoBehaviour
             //insideObject.GetComponent<PlayerScript>().Anim.SetBool("dash", true);
             //insideObject.GetComponent<PlayerScript>().Anim.Play("dash");
             insideObject.GetComponent<PlayerScript>().IsDashing = true;
+
+
+
+
+
+
         }
         Vector3 dashDirection = direction * velocity;
-        // print("Constant vel start "+gameObject.name);
+        print("Constant vel start " + gameObject.name + " vel: " + dashDirection);
 
         // moving
 
@@ -314,7 +406,20 @@ public class Cannon : MonoBehaviour
         insideObject.GetComponent<Rigidbody2D>().drag = 0;
         insideObject.GetComponent<Rigidbody2D>().velocity = dashDirection;
 
-        yield return new WaitForSeconds(time);
+
+        Vector2 beforeDash = insideObject.transform.position;
+        print("Constant vel start " + insideObject.gameObject.name + " vel: " + velocity + " time: " + time);
+
+        float elapsed = 0f;
+        while (elapsed < time)
+        {
+            float step = Mathf.Min(Time.fixedDeltaTime, time - elapsed); // run the function in fixed update for physics behaviour
+            yield return new WaitForFixedUpdate();
+            elapsed += step;
+        }
+
+        float delta = Vector2.Distance(beforeDash, transform.position);
+        print("delta position " + delta + " (should be: " + (velocity * time) + ")");
 
         // print("Constant vel ends "+gameObject.name);
         insideObject.GetComponent<Rigidbody2D>().velocity *= 1;
@@ -327,7 +432,9 @@ public class Cannon : MonoBehaviour
             //insideObject.GetComponent<PlayerScript>().Anim.SetBool("dash", false);
             insideObject.GetComponent<PlayerScript>().AnimatorHandler.stopDash();
             insideObject.GetComponent<PlayerScript>().IsDashing = false;
+            insideObject.GetComponent<PlayerScript>().HorizontalThreshold = 1f;
         }
+
 
         //Player.GetComponent<Rigidbody2D>().velocity = dashDirection/2;
 
@@ -350,23 +457,33 @@ public class Cannon : MonoBehaviour
 
     }
 
+
     protected void shootObject()
     {
         //1
-
-
+        isCharging = false;
+        insideObject.transform.SetParent(null);
+        insideObject.transform.position = transform.position;
         insideRb.constraints = RigidbodyConstraints2D.None;
         inBarrel = false;
 
-        GameManager.instance.InBarrel = false;
-
+        GameManager.Instance.InBarrel = false;
+        GameManager.Instance.CanMove = true;
 
         hideArrow();
-        GameManager.instance.shakeCamera(shakeType.lite);
+        GameManager.Instance.shakeCamera(shakeType.lite);
         if (insideObject.GetComponent<PlayerScript>() != null)
         {
-                PlayerScript playerScript = insideObject.GetComponent<PlayerScript>();
-                playerScript.dash(dashTime,dashSpeed,transform.up);
+            PlayerScript playerScript = insideObject.GetComponent<PlayerScript>();
+
+            if (canMoveInShoot == false)
+            {
+                playerScript.dashWithThreshold(dashTime, dashSpeed, transform.up, 0);
+            }
+            else
+            {
+                playerScript.dashWithThreshold(dashTime, dashSpeed, transform.up, horizontalThreshold);
+            }
         }
         else
         {
@@ -380,6 +497,7 @@ public class Cannon : MonoBehaviour
     }
     public void hideObject()
     {
+        isCharging = true;
         if (insideObject != null)
         {
             insideRb.GetComponent<PlayerScript>().AnimatorHandler.onPlayerOut();
@@ -392,6 +510,11 @@ public class Cannon : MonoBehaviour
 
 
     }
+    public void changeScene(string args)
+    {
+        GameManager.Instance.loadSceneWithTransition(args);
+    }
+
     public void hideArrow()
     {
         arrowAnim.SetBool("canShoot", false);
@@ -402,6 +525,7 @@ public class Cannon : MonoBehaviour
         get { return mainMenuBarrelTime; }
         set { mainMenuBarrelTime = value; }
     }
+
 
 
     public float DashSpeed { get => dashSpeed; set => dashSpeed = value; }

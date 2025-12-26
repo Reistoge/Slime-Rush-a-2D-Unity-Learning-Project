@@ -56,5 +56,8 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Slime Rush.sln"
+    "dotnet.defaultSolution": "Slime-Rush.sln",
+    "files.associations": {
+        "cstdint": "cpp"
+    }
 }

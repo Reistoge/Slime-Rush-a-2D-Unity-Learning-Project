@@ -9,7 +9,9 @@ using UnityEngine.EventSystems;
 public class ActionButton : ControllerButton,IPointerClickHandler
 {
    
-    
+    /// <summary>
+    ///  This class is not being used and is obsolete
+    /// </summary>
     new void Update() { 
         
         base.Update(); 

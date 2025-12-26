@@ -4,11 +4,18 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - Player: {instanceID: 0}
-  - default_player: {fileID: 985147293967283205, guid: d79a53577c16e4e40b250fcf57b9dc39, type: 3}
-  - mainMenuSpawnPoint: {instanceID: 0}
-  - gameSceneSpawnPoint: {instanceID: 0}
-  - rewardSceneSpawnPoint: {instanceID: 0}
+  - coinReference: {instanceID: 0}
+  - selectedPlayer: {instanceID: 0}
+  - defaultPlayer: {instanceID: 0}
+  - playerInScene: {instanceID: 0}
+  - mainGame: {instanceID: 0}
+  - mainMenu: {instanceID: 0}
+  - mainCharacterSelector: {instanceID: 0}
+  - lastUsedBarrel: {instanceID: 0}
+  - appearEffect: {instanceID: 0}
+  - ghostPoolManager: {instanceID: 0}
+  - transitionLoaded: {instanceID: 0}
+  - playerConfig: {fileID: 11400000, guid: 56c520563df85ac4e9d514cfc5f23672, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

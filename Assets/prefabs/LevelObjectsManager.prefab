@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8508532071701226299
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8880298293417373131}
+  - component: {fileID: 3161984446112563877}
+  m_Layer: 0
+  m_Name: LevelObjectsManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &8880298293417373131
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8508532071701226299}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3161984446112563877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8508532071701226299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8889734506607b5418d1e7838e38f7ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startsLevels:
+  - {fileID: 2008999353555891037, guid: fa900b0c6907357438fdfda908d7ae28, type: 3}
+  - {fileID: 385540084330685786, guid: 6b4104a776681914787dbb5a01510b1c, type: 3}
+  - {fileID: 1327839914777724234, guid: 4cdc62d836e8f0e4ebd6ac9ff1bad8b0, type: 3}
+  - {fileID: 5847716535000352261, guid: 33b2bf9d17c322646977e0627a7bba5a, type: 3}
+  - {fileID: 1648888271091867157, guid: 81c1917553ab7d84b942c9f6d0b6d053, type: 3}
+  - {fileID: 4491530194770761883, guid: 01947e3808885d64cb0649e02889c7a5, type: 3}
+  normalLevels:
+  - {fileID: 2008999353555891037, guid: fa900b0c6907357438fdfda908d7ae28, type: 3}
+  - {fileID: 385540084330685786, guid: 6b4104a776681914787dbb5a01510b1c, type: 3}
+  - {fileID: 1327839914777724234, guid: 4cdc62d836e8f0e4ebd6ac9ff1bad8b0, type: 3}
+  - {fileID: 5847716535000352261, guid: 33b2bf9d17c322646977e0627a7bba5a, type: 3}
+  - {fileID: 1648888271091867157, guid: 81c1917553ab7d84b942c9f6d0b6d053, type: 3}
+  - {fileID: 4491530194770761883, guid: 01947e3808885d64cb0649e02889c7a5, type: 3}
+  - {fileID: 5847716535000352261, guid: 33b2bf9d17c322646977e0627a7bba5a, type: 3}
+  - {fileID: 1327839914777724234, guid: 4cdc62d836e8f0e4ebd6ac9ff1bad8b0, type: 3}
+  - {fileID: 4491530194770761883, guid: 01947e3808885d64cb0649e02889c7a5, type: 3}
+  - {fileID: 1327839914777724234, guid: 4cdc62d836e8f0e4ebd6ac9ff1bad8b0, type: 3}
+  bonusLevels: []
+  finalLevels: []
+  selectedLevels: []
+  backgrounds:
+  - {fileID: 465383290187958975, guid: 3891f27db961e0547b474ae7a551de7c, type: 3}
+  - {fileID: 465383290187958975, guid: 3891f27db961e0547b474ae7a551de7c, type: 3}
+  currentLevel: {fileID: 0}
+  currentBg: {fileID: 0}
+  autoCannonPrefab: {fileID: 2194940508373413691, guid: 26118bf06e699f648b673b8dad85c258, type: 3}
+  level: 0

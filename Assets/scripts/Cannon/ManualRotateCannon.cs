@@ -1,5 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
+using System.IO.Compression;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -8,25 +11,70 @@ public class ManualRotateCannon : Cannon
     // Start is called before the first frame update
     const float chargeMultiplier = 1.3f;
     IEnumerator rotateInit;
+    [SerializeField] float minRot, maxRot;
+    [SerializeField] bool restrict;
+    [SerializeField] float rotVel = 300f;
 
-    void Start()
+ 
+
+    new void Start()
     {
         base.Start();
+    }
+    new void OnEnable()
+    {
+        base.OnEnable();
+
+        InputManager.OnTouchCenter += chargeAndShoot;
+    }
+    new void OnDisable()
+    {
+        base.OnDisable();
+        InputManager.OnTouchCenter -= chargeAndShoot;
     }
 
     // Update is called once per frame
     void Update()
     {
-            if (inBarrel)
-            {
+        if (inBarrel && InputManager.Instance.HorizontalAxis != 0)
+        {
+            float input = -InputManager.Instance.HorizontalAxisRaw;
+            float currentZ = transform.eulerAngles.z;
+            float targetZ = currentZ + rotVel * input * Time.deltaTime;
 
-                transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.rotation.y, transform.eulerAngles.z + 1 * 100 * Time.deltaTime * -GameManager.instance.MovXButtons);
-                insideObject.transform.rotation = transform.rotation;
-                insideObject.transform.position = transform.position;
-                if(GameManager.instance.MovXButtons!=0){
-                    isRotating=true;
+            if (restrict)
+            {
+                // Normalize angles to [0,360)
+                targetZ = (targetZ + 360f) % 360f;
+                float min = (minRot + 360f) % 360f;
+                float max = (maxRot + 360f) % 360f;
+
+                if (min < max)
+                {
+                    targetZ = Mathf.Clamp(targetZ, min, max);
                 }
+                else // Wrap-around case, e.g., min=300, max=60
+                {
+                    if (!(targetZ >= min || targetZ <= max))
+                    {
+                        // Clamp to the nearest bound
+                        float distToMin = Mathf.DeltaAngle(targetZ, min);
+                        float distToMax = Mathf.DeltaAngle(targetZ, max);
+                        targetZ = Mathf.Abs(distToMin) < Mathf.Abs(distToMax) ? min : max;
+                    }
+                }
+            
             }
+          
+            // Directly set the angle for more responsive and predictable rotation
+            transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.rotation.eulerAngles.y, targetZ);
+            insideObject.transform.SetPositionAndRotation(transform.position, transform.rotation);
+
+            if (InputManager.Instance.HorizontalAxis != 0)
+            {
+                isRotating = true;
+            }
+        }
         shootListener();
 
     }
@@ -53,32 +101,35 @@ public class ManualRotateCannon : Cannon
             StartCoroutine(rotateInit);
         }
     }
-    public void shootListener()
+    public void chargeAndShoot()
     {
-        if (Input.GetKeyUp(KeyCode.Space) || ActionButton.onPressActionButton && inBarrel)
+
+
+        if (inBarrel)
         {
-            //needed for precise input
-            ActionButton.onPressActionButton=false;
-            
             if (canShoot)
             {
-
                 insideCannonAction();
-
-
-
 
             }
             gameObject.GetComponent<Animator>().SetFloat("chargeSpeed", gameObject.GetComponent<Animator>().GetFloat("chargeSpeed") * chargeMultiplier);
 
         }
-        if (inBarrel)
+    }
+    public void shootListener()
+    {
+        if (Input.GetKeyUp(KeyCode.Space) && inBarrel)
         {
-            //    Vector3 barrel_pos = new Vector3(transform.position.x,transform.position.y+1,transform.position.z);
+            //needed for precise input
+            // ActionButton.onPressActionButton = false;
 
-            insideObject.transform.position = transform.position;
+
+            chargeAndShoot();
+
+
 
         }
+
     }
 
 

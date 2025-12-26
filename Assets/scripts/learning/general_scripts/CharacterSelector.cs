@@ -24,9 +24,9 @@ public class CharacterSelector : MonoBehaviour
 
     private void Start()
     {
-        if (GameManager.instance != null)
+        if (GameManager.Instance != null)
         {
-            _index = GameManager.instance.Char_Index;
+            _index = GameManager.Instance.Char_Index;
 
         }
         else
@@ -42,8 +42,8 @@ public class CharacterSelector : MonoBehaviour
         // char index will change so we communicate between gamemanager getindexname and characterselectorscript
         // we update char index and we assign the player in the array 
 
-        _index = GameManager.instance.Char_Index;
-        GameManager.instance.SelectedPlayer = PlayersToSelect[_index];
+        _index = GameManager.Instance.Char_Index;
+        GameManager.Instance.SelectedPlayer = PlayersToSelect[_index];
 
 
 

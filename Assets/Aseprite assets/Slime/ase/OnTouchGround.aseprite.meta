@@ -1,0 +1,332 @@
+fileFormatVersion: 2
+guid: 8a45ae6a0355c584ab6ea76f1523b98e
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
+    isReadable: 0
+    streamingMipmaps: 0
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    ignoreMipmapLimit: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 100
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    cookieMode: 0
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  previousAsepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  asepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  importFileNodeState: 1
+  platformSettingsDirtyTick: 0
+  textureAssetName: 
+  singleSpriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  animatedSpriteImportData:
+  - name: OnTouchGround_Frame_0
+    originalName: 
+    pivot: {x: 0.5, y: -0.15625}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 42
+      height: 32
+    spriteID: eb9deaec280c74249b8f802e0ac8aa86
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 4}
+  - name: OnTouchGround_Frame_1
+    originalName: 
+    pivot: {x: 0.49999997, y: -0.1724138}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 54
+      y: 4
+      width: 46
+      height: 29
+    spriteID: 046a41da637ea874398c472adacce543
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 54, y: 4}
+  - name: OnTouchGround_Frame_2
+    originalName: 
+    pivot: {x: 0.49999997, y: -0.1724138}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 54
+      y: 41
+      width: 46
+      height: 29
+    spriteID: 6deec5e35f4543647ae057dfcaa8bf0d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 54, y: 41}
+  - name: OnTouchGround_Frame_3
+    originalName: 
+    pivot: {x: 0.49999997, y: -0.1724138}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 54
+      y: 78
+      width: 46
+      height: 29
+    spriteID: d9b7695210b55904dac4b7bfbc6118e8
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 54, y: 78}
+  - name: OnTouchGround_Frame_4
+    originalName: 
+    pivot: {x: 0.5, y: -0.1724138}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 54
+      y: 156
+      width: 42
+      height: 29
+    spriteID: 5061978dbb3eec640a9e80705373e2f1
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 54, y: 156}
+  - name: OnTouchGround_Frame_5
+    originalName: 
+    pivot: {x: 0.5, y: -0.15625}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 44
+      width: 42
+      height: 32
+    spriteID: 535a82ba8933c5645aa526d9c29cb1b8
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 44}
+  - name: OnTouchGround_Frame_6
+    originalName: 
+    pivot: {x: 0.5, y: -0.15151516}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 54
+      y: 115
+      width: 40
+      height: 33
+    spriteID: a2ca2e9d69a4c7f468fe9267840bf1e6
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 54, y: 115}
+  spriteSheetImportData: []
+  asepriteLayers:
+  - layerIndex: 0
+    guid: 1049792737
+    name: OnTouchGround
+    layerFlags: 0
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: OnTouchGround_Frame_0
+      frameIndex: 0
+      cellRect:
+        x: 3
+        y: 5
+        width: 42
+        height: 32
+      spriteId: eb9deaec280c74249b8f802e0ac8aa86
+    - name: OnTouchGround_Frame_1
+      frameIndex: 1
+      cellRect:
+        x: 1
+        y: 5
+        width: 46
+        height: 29
+      spriteId: 046a41da637ea874398c472adacce543
+    - name: OnTouchGround_Frame_2
+      frameIndex: 2
+      cellRect:
+        x: 1
+        y: 5
+        width: 46
+        height: 29
+      spriteId: 6deec5e35f4543647ae057dfcaa8bf0d
+    - name: OnTouchGround_Frame_3
+      frameIndex: 3
+      cellRect:
+        x: 1
+        y: 5
+        width: 46
+        height: 29
+      spriteId: d9b7695210b55904dac4b7bfbc6118e8
+    - name: OnTouchGround_Frame_4
+      frameIndex: 4
+      cellRect:
+        x: 3
+        y: 5
+        width: 42
+        height: 29
+      spriteId: 5061978dbb3eec640a9e80705373e2f1
+    - name: OnTouchGround_Frame_5
+      frameIndex: 5
+      cellRect:
+        x: 3
+        y: 5
+        width: 42
+        height: 32
+      spriteId: 535a82ba8933c5645aa526d9c29cb1b8
+    - name: OnTouchGround_Frame_6
+      frameIndex: 6
+      cellRect:
+        x: 4
+        y: 5
+        width: 40
+        height: 33
+      spriteId: a2ca2e9d69a4c7f468fe9267840bf1e6
+    linkedCells: []
+    parentIndex: -1
+  platformSettings: []
+  secondarySpriteTextures: []
+  spritePackingTag: 
+  canvasSize: {x: 48, y: 48}

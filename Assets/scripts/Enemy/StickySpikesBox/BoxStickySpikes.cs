@@ -20,8 +20,8 @@ public class BoxStickySpikes : MonoBehaviour, IStickable
 
     private void Start()
     {
-        animator = transform.GetChild(0).GetComponent<Animator>();
-        
+        Animator = transform.GetChild(0).GetComponent<Animator>();
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -44,7 +44,7 @@ public class BoxStickySpikes : MonoBehaviour, IStickable
             {
 
                 // this functions stops the last cannon
-                GameManager.instance.stopCannonDash();
+                GameManager.Instance.stopCannonDash();
 
 
             }
@@ -112,14 +112,23 @@ public class BoxStickySpikes : MonoBehaviour, IStickable
     {
 
         // this.GetComponent<SpriteRenderer>().enabled = false;
-        this.animator.SetTrigger("hide");
-        this.GetComponent<PolygonCollider2D>().enabled = false;
+
+        if (Animator.GetCurrentAnimatorClipInfo(0)[0].clip.name == "up")
+        {
+            animator.Play("hide", -1, 0);
+            this.GetComponent<PolygonCollider2D>().enabled = false;
+
+        }
     }
     public void unHideSpike()
     {
         //enableSpriteRenderer();
-        this.animator.SetTrigger("up");
-        this.GetComponent<PolygonCollider2D>().enabled = true;
+        if (Animator.GetCurrentAnimatorClipInfo(0)[0].clip.name == "hide")
+        {
+            animator.Play("up", -1, 0);
+            this.GetComponent<PolygonCollider2D>().enabled = true;
+
+        }
 
     }
     public void enableSpriteRenderer()
@@ -131,5 +140,5 @@ public class BoxStickySpikes : MonoBehaviour, IStickable
     public float TimeStick { get => timeStick; set => timeStick = value; }
 
     public GameObject Sticked { get => sticked; set => sticked = value; }
-
+    public Animator Animator { get => animator; set => animator = value; }
 }
