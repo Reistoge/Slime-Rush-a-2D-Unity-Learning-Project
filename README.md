@@ -145,6 +145,266 @@ This project follows the coding standards defined in `.editorconfig`:
 - **Documentation**: XML documentation comments for all public APIs
 - **Braces**: Always use braces for control statements
 
+## Best Practices & Coding Standards
+
+### Code Organization
+- **Use Regions**: Organize code into logical regions (#region/#endregion) for better navigation
+  - `#region Serialized Fields` - Unity Inspector fields
+  - `#region Private Fields` - Private class members
+  - `#region Properties` - Public properties
+  - `#region Unity Lifecycle` - Unity methods (Start, Update, OnEnable, etc.)
+  - `#region Public Methods` - Public API
+  - `#region Private Methods` - Internal helper methods
+  - `#region Coroutines` - Coroutine methods
+  - `#region Enums` - Enum definitions
+
+### Documentation Standards
+- **Always add XML documentation** for public classes, methods, and properties
+- Include `<summary>` tags explaining what the code does
+- Add `<param>` tags for method parameters
+- Include `<returns>` tags for non-void methods
+- Use `<remarks>` for additional context or warnings
+- Example:
+  ```csharp
+  /// <summary>
+  /// Spawns a platform at the specified position.
+  /// </summary>
+  /// <param name="position">The world position to spawn the platform</param>
+  /// <returns>The spawned platform GameObject</returns>
+  public GameObject SpawnPlatform(Vector2 position)
+  {
+      return Instantiate(platformPrefab, position, Quaternion.identity);
+  }
+  ```
+
+### Event System Usage
+- **Prefer the new EventSystem** over legacy static events for new code
+- Always unsubscribe in `OnDisable()` to prevent memory leaks
+- Use strongly-typed event structs defined in `GameEventDefinitions.cs`
+- Example:
+  ```csharp
+  void OnEnable()
+  {
+      EventSystem.Subscribe<PlayerDamaged>(OnPlayerTakeDamage);
+  }
+  
+  void OnDisable()
+  {
+      EventSystem.Unsubscribe<PlayerDamaged>(OnPlayerTakeDamage);
+  }
+  
+  void OnPlayerTakeDamage(PlayerDamaged evt)
+  {
+      Debug.Log($"Player took {evt.Damage} damage");
+  }
+  ```
+
+### ScriptableObject Configuration
+- **Use ScriptableObjects for game data** instead of hard-coded values
+- Create variants for different gameplay scenarios
+- Add tooltips to all serialized fields for designer clarity
+- Example:
+  ```csharp
+  [CreateAssetMenu(fileName = "NewEnemy", menuName = "Game/Enemy Config")]
+  public class EnemyConfigSO : ScriptableObject
+  {
+      [Tooltip("Enemy maximum health points")]
+      public int maxHealth = 100;
+      
+      [Tooltip("Damage dealt per hit")]
+      public int damage = 10;
+  }
+  ```
+
+### Common Pitfalls to Avoid
+
+#### 1. Memory Leaks from Events
+❌ **Bad**: Not unsubscribing from events
+```csharp
+void Start()
+{
+    EventSystem.Subscribe<PlayerDied>(OnPlayerDied);
+    // Missing unsubscribe in OnDisable!
+}
+```
+
+✅ **Good**: Always pair Subscribe with Unsubscribe
+```csharp
+void OnEnable()
+{
+    EventSystem.Subscribe<PlayerDied>(OnPlayerDied);
+}
+
+void OnDisable()
+{
+    EventSystem.Unsubscribe<PlayerDied>(OnPlayerDied);
+}
+```
+
+#### 2. Finding Objects Every Frame
+❌ **Bad**: Using Find in Update
+```csharp
+void Update()
+{
+    GameObject player = GameObject.Find("Player");
+    // Expensive operation every frame!
+}
+```
+
+✅ **Good**: Cache references
+```csharp
+private GameObject player;
+
+void Start()
+{
+    player = GameObject.Find("Player");
+}
+
+void Update()
+{
+    // Use cached reference
+}
+```
+
+#### 3. Inconsistent Naming
+❌ **Bad**: Mixed naming conventions
+```csharp
+public void shoot_cannon() { }  // snake_case
+public void JumpPlayer() { }     // PascalCase
+private int MyHealth;            // PascalCase for private
+```
+
+✅ **Good**: Follow C# conventions
+```csharp
+public void ShootCannon() { }    // PascalCase for public methods
+public void JumpPlayer() { }     // PascalCase for public methods
+private int _myHealth;           // camelCase with _ prefix for private
+```
+
+#### 4. Not Using Tooltips
+❌ **Bad**: No explanation for designers
+```csharp
+[SerializeField] private float jumpForce;
+[SerializeField] private int damage;
+```
+
+✅ **Good**: Add tooltips for clarity
+```csharp
+[Tooltip("Force applied when player jumps (higher = higher jump)")]
+[SerializeField] private float jumpForce = 10f;
+
+[Tooltip("Damage dealt to enemies on contact")]
+[SerializeField] private int damage = 25;
+```
+
+#### 5. Unused Imports
+❌ **Bad**: Including unnecessary namespaces
+```csharp
+using System.Data;
+using System.Numerics;
+using UnityEngine.Video;
+// Most of these are unused!
+```
+
+✅ **Good**: Only include what you need
+```csharp
+using UnityEngine;
+using System.Collections;
+```
+
+### Refactoring Guidelines
+
+When refactoring code:
+1. **Make small, incremental changes** - Don't try to refactor everything at once
+2. **Test after each change** - Ensure functionality is preserved
+3. **Document as you go** - Add XML comments while the code is fresh in your mind
+4. **Use regions to organize** - Makes large files more manageable
+5. **Extract magic numbers** - Replace hard-coded values with named constants
+6. **Consider ScriptableObjects** - For values that should be configurable
+7. **Break up god classes** - Split classes with > 500 lines into smaller components
+
+### Performance Best Practices
+
+- **Use object pooling** for frequently spawned/destroyed objects (bullets, particles, enemies)
+- **Cache component references** instead of using GetComponent repeatedly
+- **Avoid allocations in Update** - No `new` operations in hot paths
+- **Use layermasks with raycasts** - Reduces unnecessary collision checks
+- **Disable inactive GameObjects** rather than destroying them if they'll be reused
+
+### Recommended Patterns
+
+#### Singleton Pattern (for Managers)
+```csharp
+public class GameManager : MonoBehaviour
+{
+    public static GameManager Instance { get; private set; }
+    
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+}
+```
+
+#### Command Pattern (for Undoable Actions)
+```csharp
+public interface ICommand
+{
+    void Execute();
+    void Undo();
+}
+
+public class MoveCommand : ICommand
+{
+    private Transform transform;
+    private Vector3 movement;
+    
+    public void Execute()
+    {
+        transform.position += movement;
+    }
+    
+    public void Undo()
+    {
+        transform.position -= movement;
+    }
+}
+```
+
+#### Object Pool Pattern
+```csharp
+public class ObjectPool<T> where T : Component
+{
+    private Queue<T> pool = new Queue<T>();
+    private T prefab;
+    
+    public T Get()
+    {
+        if (pool.Count > 0)
+        {
+            T obj = pool.Dequeue();
+            obj.gameObject.SetActive(true);
+            return obj;
+        }
+        return Object.Instantiate(prefab);
+    }
+    
+    public void Return(T obj)
+    {
+        obj.gameObject.SetActive(false);
+        pool.Enqueue(obj);
+    }
+}
+```
+
 ## Recent Improvements
 
 ### Refactoring Updates
@@ -153,6 +413,8 @@ This project follows the coding standards defined in `.editorconfig`:
 - ✅ Comprehensive XML documentation for public APIs
 - ✅ Standardized code formatting with `.editorconfig`
 - ✅ Enhanced interfaces with detailed documentation
+- ✅ Improved code readability with regions and comments
+- ✅ Removed unused imports and cleaned up code
 
 ## Contributing
 
@@ -162,6 +424,9 @@ When contributing to this project:
 3. Use the EventSystem for inter-system communication
 4. Test changes thoroughly before submitting
 5. Keep pull requests focused on a single feature or fix
+6. Follow the best practices outlined above
+7. Use regions to organize your code
+8. Add tooltips to all serialized fields
 
 ## Future Enhancements
 
@@ -172,3 +437,5 @@ When contributing to this project:
 * Balance game difficulty and player abilities
 * Develop narrative and lore
 * Enhance game feel with improved juice and polish
+* Add unit tests for core gameplay systems
+* Implement save/load system for player progress
