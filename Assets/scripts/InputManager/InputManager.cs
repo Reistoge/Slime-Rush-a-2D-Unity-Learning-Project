@@ -94,6 +94,7 @@ public class InputManager : GenericSingleton<InputManager>
     /// </summary>
     private void getHorizontalInput()
     {
+       
         if (horizontalAxisRaw != 0)
         {
             timeElapsed += Time.deltaTime;
@@ -126,24 +127,31 @@ public class InputManager : GenericSingleton<InputManager>
     /// <param name="ctx">Input action callback context</param>
     private void StartTouchPrimary(InputAction.CallbackContext ctx)
     {
+        
         if (Camera.main == null) return;
 
         Vector2 touchPosition = playerControls.Touch.PrimaryPosition.ReadValue<Vector2>();
 
         if (IsPointerOverUIObject())
         {
+            print("pointer is over UI object");
             touchingPad = checkIfPadTouched();
+
             if (touchingPad)
             {
                 CheckScreenSection(touchPosition);
+                
                 return;
             }
         }
-
         if (OnStartTouch != null)
         {
-            OnStartTouch(Utils.ScreenToWorld(Camera.main, touchPosition), (float)ctx.startTime);
+            
+            OnStartTouch(Utils.ScreenToWorld(Camera.main, playerControls.Touch.PrimaryPosition.ReadValue<Vector2>()), (float)ctx.startTime);
         }
+        // CheckScreenSection(touchPosition);
+
+ 
     }
 
     /// <summary>

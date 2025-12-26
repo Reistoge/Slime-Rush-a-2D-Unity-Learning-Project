@@ -49,8 +49,8 @@ public class DangerZoneLevelManager : MonoBehaviour
 
     void OnEnable()
     {
-        easyLevelsStrategies.Add(new BassicDissolvePlatforms());
-        easyLevelsStrategies.Add(new BassicDissolvePlatforms());
+        easyLevelsStrategies.Add(new BasicDissolvePlatforms());
+        easyLevelsStrategies.Add(new BasicDissolvePlatforms());
         if (instance == null)
         {
             instance = this;
