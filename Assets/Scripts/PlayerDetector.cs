@@ -1,7 +1,11 @@
- using UnityEngine;
+using UnityEngine;
 
-public class playerDetector : MonoBehaviour
+/// <summary>
+/// Detects the player GameObject within a trigger zone.
+/// This is a simple utility class for player detection logic.
+/// </summary>
+public class PlayerDetector : MonoBehaviour
 {
-    PlayerScript player;
-    
- }
+    /// <summary>Reference to the detected player script</summary>
+    private PlayerScript player;
+}
