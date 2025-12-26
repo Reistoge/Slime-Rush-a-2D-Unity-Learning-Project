@@ -1,20 +1,31 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.Mathematics;
 using UnityEngine;
-using Quaternion = UnityEngine.Quaternion;
 using Random = UnityEngine.Random;
-using Vector2 = UnityEngine.Vector2;
-using Vector3 = UnityEngine.Vector3;
 
+/// <summary>
+/// Strategy for instantiating dissolve platforms in danger zone boundaries.
+/// Creates platforms that can appear and disappear, adding dynamic difficulty.
+/// Includes coin spawning between platforms for rewards.
+/// </summary>
 [Serializable]
 public class BasicDissolvePlatforms : ILevelEntitiesInstantiationStrategy
 {
-    int level;
+    #region Properties
 
-    public int Level { get => level; set => level = value; }
+    /// <summary>Gets or sets the difficulty level (currently unused)</summary>
+    public int Level { get; set; }
 
+    #endregion
+
+    #region Public Methods
+
+    /// <summary>
+    /// Instantiates a sequence of dissolve platforms and coins within the specified boundary.
+    /// Creates both solid and dissolving platforms with randomized positions.
+    /// </summary>
+    /// <param name="bound">The boundary GameObject to populate with platforms</param>
     public void instantiateEntities(GameObject bound)
     {
         GameObject platforms = new GameObject("Platforms");

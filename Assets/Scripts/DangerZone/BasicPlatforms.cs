@@ -1,42 +1,53 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.Mathematics;
 using UnityEngine;
-using Quaternion = UnityEngine.Quaternion;
 using Random = UnityEngine.Random;
-using Vector2 = UnityEngine.Vector2;
-using Vector3 = UnityEngine.Vector3;
 
-
+/// <summary>
+/// Strategy for instantiating basic solid platforms in danger zone boundaries.
+/// This strategy creates a vertical sequence of platforms with randomized positions.
+/// </summary>
 [Serializable]
 public class BasicPlatforms : ILevelEntitiesInstantiationStrategy
 {
-    int level;
-    public int Level { get => level; set => level = value; }
+    #region Properties
 
+    /// <summary>Gets or sets the difficulty level (currently unused)</summary>
+    public int Level { get; set; }
+
+    #endregion
+
+    #region Public Methods
+
+    /// <summary>
+    /// Instantiates a sequence of platforms within the specified boundary.
+    /// Creates 6 platforms with randomized horizontal positions and vertical spacing.
+    /// </summary>
+    /// <param name="bound">The boundary GameObject to populate with platforms</param>
     public void instantiateEntities(GameObject bound)
     {
+        // Create container for all platforms
         GameObject platforms = new GameObject("Platforms");
         platforms.transform.SetParent(bound.transform);
 
         Vector2 pos = bound.transform.position;
+        var config = DangerZoneLevelManager.instance.Config;
 
-        float minHorizontalValueClassic = -(DangerZoneLevelManager.instance.Config.HORIZONTAL_EDGE_LIMIT - DangerZoneLevelManager.instance.Config.platformClassic.width);
-        float maxHorizontalValueClassic = DangerZoneLevelManager.instance.Config.HORIZONTAL_EDGE_LIMIT - DangerZoneLevelManager.instance.Config.platformClassic.width;
+        // Calculate horizontal boundaries for each platform type
+        float minHorizontalValueClassic = -(config.HORIZONTAL_EDGE_LIMIT - config.platformClassic.width);
+        float maxHorizontalValueClassic = config.HORIZONTAL_EDGE_LIMIT - config.platformClassic.width;
 
-        float minHorizontalValueLarge = -(DangerZoneLevelManager.instance.Config.HORIZONTAL_EDGE_LIMIT - DangerZoneLevelManager.instance.Config.platformLarge.width);
-        float maxHorizontalValueLarge = DangerZoneLevelManager.instance.Config.HORIZONTAL_EDGE_LIMIT - DangerZoneLevelManager.instance.Config.platformLarge.width;
+        float minHorizontalValueLarge = -(config.HORIZONTAL_EDGE_LIMIT - config.platformLarge.width);
+        float maxHorizontalValueLarge = config.HORIZONTAL_EDGE_LIMIT - config.platformLarge.width;
 
-        float minRandomHorizontal = 50f;
-        float maxRandomHorizontal = 100f;
+        // Platform positioning parameters
+        const float minRandomHorizontal = 50f;
+        const float maxRandomHorizontal = 100f;
+        const float minVerticalValue = 90f;
+        const float maxVerticalValue = 100f;
+        const float verticalOffset = 200f;
 
-        float minVerticalValue = 90;
-        float maxVerticalValue = 100f;
-
-        float verticalOffset = 200f;
-
-        // Generate positions
+        // Generate 6 platform positions with progressive vertical spacing
         float randomX = Random.Range(minHorizontalValueClassic, maxHorizontalValueClassic);
         Vector2 randomPos1 = new Vector2(randomX, pos.y - verticalOffset);
 
@@ -56,7 +67,10 @@ public class BasicPlatforms : ILevelEntitiesInstantiationStrategy
             Random.Range(0, randomPos4.x + Random.Range(minRandomHorizontal, maxRandomHorizontal)) * (Random.Range(0, 2) == 0 ? -1 : 1),
             randomPos4.y + Random.Range(minVerticalValue, maxVerticalValue));
 
-        Vector2 randomPos6 = new Vector2(Random.Range(0, minRandomHorizontal) * (Random.Range(0, 2) == 0 ? -1 : 1), randomPos5.y + Random.Range(minVerticalValue, maxVerticalValue)+verticalOffset/4); // the last pos is fixed to make sure the player can pass through or connect to the next boundarie correctly.
+        // Last position is centered to ensure smooth transition to next boundary
+        Vector2 randomPos6 = new Vector2(
+            Random.Range(0, minRandomHorizontal) * (Random.Range(0, 2) == 0 ? -1 : 1),
+            randomPos5.y + Random.Range(minVerticalValue, maxVerticalValue) + verticalOffset / 4);
 
         List<Vector2> vectors = new List<Vector2> { randomPos1, randomPos2, randomPos3, randomPos4, randomPos5, randomPos6 };
         System.Random rand = new System.Random();
