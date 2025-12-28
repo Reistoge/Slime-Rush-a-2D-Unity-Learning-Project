@@ -9,7 +9,7 @@ using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
 
 [Serializable]
-public class BasicDissolvePlatforms : ILevelEntitiesInstantiationStrategy
+public class DissolvePlatformLevelSpawner : ILevelSpawner
 {
     int level;
 

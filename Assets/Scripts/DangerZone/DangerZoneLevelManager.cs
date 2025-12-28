@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Numerics;
+using System.Xml.Schema;
 using JetBrains.Annotations;
 using Unity.Mathematics;
 using Unity.VisualScripting;
@@ -44,13 +45,18 @@ public class DangerZoneLevelManager : MonoBehaviour
 
     [SerializeField]
     private List<LevelEntitiesStrategySO> easyLevelStrategiesSO;
-    List<ILevelEntitiesInstantiationStrategy> easyLevelsStrategies = new List<ILevelEntitiesInstantiationStrategy>();
-    List<ILevelEntitiesInstantiationStrategy> normalLevelsStrategies = new List<ILevelEntitiesInstantiationStrategy>();
+    List<ILevelSpawner> easyLevelsStrategies = new List<ILevelSpawner>();
+    List<ILevelSpawner> normalLevelsStrategies = new List<ILevelSpawner>();
+
+    List<ILevelSpawner> easylList = new List<ILevelSpawner> { new LargePlatformLevelSpawner() };
+    List<ILevelSpawner> normalList = new List<ILevelSpawner> { new DefaultPlatformLevelSpawner(), new DissolvePlatformLevelSpawner() };
 
     void OnEnable()
     {
-        easyLevelsStrategies.Add(new BasicDissolvePlatforms());
-        easyLevelsStrategies.Add(new BasicDissolvePlatforms());
+        easyLevelsStrategies.AddRange(easylList);
+
+        normalLevelsStrategies.AddRange(normalList);
+
         if (instance == null)
         {
             instance = this;
@@ -162,74 +168,41 @@ public class DangerZoneLevelManager : MonoBehaviour
 
 
                 instantiateBoundaries(floorHeight.transform.position.y);
-                // xNext = 0;
-                // height = floorHeight.transform.position.y + 320f;
-                // nextPos = new Vector2(xNext, height - 50f);
 
-
-                // GameObject bound1 = Instantiate(Config.boundarie.prefab, new Vector2(xNext, height), Quaternion.identity);
-
-                // bound1.transform.SetParent(dangerZoneBoundaries.transform);
-                // easyLevelsStrategies[Random.Range(0, easyLevelsStrategies.Count)].instantiateEntities(bound1);
-                // // instantiatePlatforms(bound1);
-                // // instantiateFloors(bound1);
-
-
-                // GameObject bound2 = Instantiate(Config.boundarie.prefab, new Vector2(xNext, height + 640), Quaternion.identity);
-                // bound2.transform.SetParent(dangerZoneBoundaries.transform);
-                // easyLevelsStrategies[Random.Range(0, easyLevelsStrategies.Count)].instantiateEntities(bound2);
-
-                // // instantiatePlatforms(bound2);
-
-
-                // if (levelCount % 3 == 0)
-                // {
-
-                //     instantiateShopPortal(bound2);
-                // }
-
-
-                // GameObject bound3 = Instantiate(Config.boundarie.prefab, new Vector2(xNext, height + 640 + 640), Quaternion.identity);
-                // bound3.transform.SetParent(dangerZoneBoundaries.transform);
-                // easyLevelsStrategies[Random.Range(0, easyLevelsStrategies.Count)].instantiateEntities(bound3);
-
-                // // instantiatePlatforms(bound3);
-
-
-
-                // var boundariesComponent = bound2.GetComponent<Boundaries>();
-                // boundariesComponent.OnPassThroughMiddle.RemoveAllListeners();
-                // boundariesComponent.OnExitThroughMiddle.RemoveAllListeners();
-
-                // UnityEngine.Events.UnityAction passThroughAction = null;
-                // UnityEngine.Events.UnityAction removeInstantiateBoundariesListener = null;
-
-
-
-                // passThroughAction = () =>
-                // {
-                //     // Remove listeners before instantiating to avoid multiple calls
-                //     boundariesComponent.OnPassThroughMiddle.RemoveListener(passThroughAction);
-                //     boundariesComponent.OnExitThroughMiddle.RemoveListener(removeInstantiateBoundariesListener);
-                //     InstantiateBoundaries(bound3.transform.position.y + 320);
-                // };
-                // removeInstantiateBoundariesListener = () =>
-                // {
-                //     boundariesComponent.OnPassThroughMiddle.RemoveListener(passThroughAction);
-                //     boundariesComponent.OnExitThroughMiddle.RemoveListener(removeInstantiateBoundariesListener);
-                // };
-
-                // boundariesComponent.OnPassThroughMiddle.AddListener(passThroughAction);
-                // boundariesComponent.OnExitThroughMiddle.AddListener(removeInstantiateBoundariesListener);
 
 
 
                 break;
         }
     }
-    void instantiateBoundaries(float boundHeight)
+
+    List<ILevelSpawner> ChooseSpawnerStrat(float level)
     {
 
+        switch (level)
+        {
+            case <= 1:
+                return easyLevelsStrategies;
+
+            case <= 2:
+                return normalLevelsStrategies;
+
+            default:
+                return null;
+
+
+
+
+
+
+        }
+
+    }
+
+    void instantiateBoundaries(float boundHeight)
+    {
+        var stratLevelSpawner  = ChooseSpawnerStrat(levelCount);
+        
         camera.Rise.increaseSpeed(1.2f);
         float x = Random.Range(-160f, 160f);
 
@@ -240,7 +213,7 @@ public class DangerZoneLevelManager : MonoBehaviour
         GameObject bound1 = Instantiate(Config.boundarie.prefab, new Vector2(xNext, height), Quaternion.identity);
         bound1.transform.name = "bound" + ((levelCount * 3) - 2);
         bound1.transform.SetParent(dangerZoneBoundaries.transform);
-        easyLevelsStrategies[Random.Range(0, easyLevelsStrategies.Count)].instantiateEntities(bound1);
+        stratLevelSpawner[Random.Range(0, stratLevelSpawner.Count)].instantiateEntities(bound1);
         boundaries.Add(bound1);
         // instantiatePlatforms(bound1);
         // instantiateFloors(bound1);
@@ -249,7 +222,7 @@ public class DangerZoneLevelManager : MonoBehaviour
         GameObject bound2 = Instantiate(Config.boundarie.prefab, new Vector2(xNext, height + 640), Quaternion.identity);
         bound2.transform.name = "bound" + ((levelCount * 3) - 1);
         bound2.transform.SetParent(dangerZoneBoundaries.transform);
-        easyLevelsStrategies[Random.Range(0, easyLevelsStrategies.Count)].instantiateEntities(bound2);
+        stratLevelSpawner[Random.Range(0, stratLevelSpawner.Count)].instantiateEntities(bound2);
         boundaries.Add(bound2);
 
         // instantiatePlatforms(bound2);
@@ -258,7 +231,7 @@ public class DangerZoneLevelManager : MonoBehaviour
         GameObject bound3 = Instantiate(Config.boundarie.prefab, new Vector2(xNext, height + 640 + 640), Quaternion.identity);
         bound3.transform.name = "bound" + ((levelCount * 3));
         bound3.transform.SetParent(dangerZoneBoundaries.transform);
-        easyLevelsStrategies[Random.Range(0, easyLevelsStrategies.Count)].instantiateEntities(bound3);
+        stratLevelSpawner[Random.Range(0, stratLevelSpawner.Count)].instantiateEntities(bound3);
         boundaries.Add(bound3);
         // instantiatePlatforms(bound3);
 
@@ -377,7 +350,6 @@ public class DangerZoneLevelManager : MonoBehaviour
             }
 
             float portalX = candidate;
-            print($" RANDOM PORTAL POSITION {portalX}");
             print($" RANDOM PORTAL POSITION {portalX}");
             GameObject portal = Instantiate(config.shopPortal.prefab, new Vector2(portalX, randomPlatform.position.y + 45f), Quaternion.identity);
             portal.transform.SetParent(bound.transform);
