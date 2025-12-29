@@ -10,7 +10,7 @@ using Random = UnityEngine.Random;
 /// Includes coin spawning between platforms for rewards.
 /// </summary>
 [Serializable]
-public class BasicDissolvePlatforms : ILevelEntitiesInstantiationStrategy
+public class DissolvePlatformLevelSpawner : ILevelSpawner
 {
     #region Properties
 

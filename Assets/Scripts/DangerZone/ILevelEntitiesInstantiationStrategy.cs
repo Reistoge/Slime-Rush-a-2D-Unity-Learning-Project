@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
  
-interface ILevelEntitiesInstantiationStrategy
+interface ILevelSpawner
 {
     void instantiateEntities(GameObject bound);
     int Level { get; set; }

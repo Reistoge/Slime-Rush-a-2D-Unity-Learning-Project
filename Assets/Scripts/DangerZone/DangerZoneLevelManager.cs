@@ -1,7 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+ 
+using System.Numerics;
+ 
 using UnityEngine;
+using Quaternion = UnityEngine.Quaternion;
 using Random = UnityEngine.Random;
+using Vector2 = UnityEngine.Vector2;
 
 /// <summary>
 /// Manages the dynamic "danger zone" level that spawns platforms, coins, and portals as the player ascends.
@@ -48,10 +53,10 @@ public class DangerZoneLevelManager : MonoBehaviour
     private List<GameObject> boundaries = new List<GameObject>();
     
     /// <summary>Strategies for instantiating easy level entities</summary>
-    private List<ILevelEntitiesInstantiationStrategy> easyLevelsStrategies = new List<ILevelEntitiesInstantiationStrategy>();
+    private List<ILevelSpawner> easyLevelsStrategies = new List<ILevelSpawner>();
     
     /// <summary>Strategies for instantiating normal level entities (currently unused)</summary>
-    private List<ILevelEntitiesInstantiationStrategy> normalLevelsStrategies = new List<ILevelEntitiesInstantiationStrategy>();
+    private List<ILevelSpawner> normalLevelsStrategies = new List<ILevelSpawner>();
     
     /// <summary>Counter for tracking level progression</summary>
     private int levelCount = 1;
@@ -69,8 +74,11 @@ public class DangerZoneLevelManager : MonoBehaviour
 
     /// <summary>Gets or sets the danger zone configuration</summary>
     public DangerZoneConfig Config { get => config; set => config = value; }
+ 
+   
 
-    #endregion
+    List<ILevelSpawner> easylList = new List<ILevelSpawner> { new LargePlatformLevelSpawner() };
+    List<ILevelSpawner> normalList = new List<ILevelSpawner> { new DefaultPlatformLevelSpawner(), new DissolvePlatformLevelSpawner() };
 
     #region Unity Lifecycle
 
@@ -80,11 +88,10 @@ public class DangerZoneLevelManager : MonoBehaviour
     /// </summary>
     void OnEnable()
     {
-        // Initialize level generation strategies
-        easyLevelsStrategies.Add(new BasicDissolvePlatforms());
-        easyLevelsStrategies.Add(new BasicDissolvePlatforms());
-        
-        // Singleton pattern implementation
+        easyLevelsStrategies.AddRange(easylList);
+
+        normalLevelsStrategies.AddRange(normalList);
+
         if (instance == null)
         {
             instance = this;
@@ -174,7 +181,7 @@ public class DangerZoneLevelManager : MonoBehaviour
         switch (type)
         {
             case DangerZoneType.platforms:
-                GenerateLegacyPlatformLevel();
+               
                 break;
 
             case DangerZoneType.cannons:
@@ -183,64 +190,39 @@ public class DangerZoneLevelManager : MonoBehaviour
                 
             case DangerZoneType.newPlatforms:
                 instantiateBoundaries(floorHeight.transform.position.y);
+
+
+
+
                 break;
         }
     }
 
-    #endregion
-
-    #region Private Methods - Level Generation
-
-    /// <summary>
-    /// Generates a legacy-style platform level with platforms and coins.
-    /// Note: This is an older generation method and may be deprecated in favor of newPlatforms.
-    /// </summary>
-    private void GenerateLegacyPlatformLevel()
+    List<ILevelSpawner> ChooseSpawnerStrat(float level)
     {
         // Create container GameObjects for organization
         GameObject platforms = new GameObject("Platforms");
         GameObject coins = new GameObject("Coins");
 
-        platforms.transform.SetParent(this.transform);
-        coins.transform.SetParent(this.transform);
-        platforms.transform.position = floorHeight.transform.position;
-        coins.transform.position = floorHeight.transform.position;
-
-        // Generate platforms from floor to ceiling
-        float xNext = 0;
-        float height = floorHeight.transform.position.y + 100f;
-
-        while (height <= topHeight.transform.position.y)
+        switch (level)
         {
-            // Instantiate platform at current position
-            GameObject currentPlatform = Instantiate(platformPrefab, new Vector2(xNext, height), Quaternion.identity);
-            currentPlatform.transform.SetParent(platforms.transform);
+            case <= 1:
+                return easyLevelsStrategies;
 
-            // Calculate next platform position with randomization
-            float prevX = xNext;
-            float prevHeight = height;
-            xNext = Random.Range(-80, 80);
-            height += Random.Range(70f, 130f);
+            case <= 2:
+                return normalLevelsStrategies;
 
-            // Place coin between current and next platform
-            Vector2 coinPos = new Vector2(
-                prevX + (xNext - prevX) / 2,
-                prevHeight + (height - prevHeight) / 2
-            );
-            GameObject coin = Instantiate(coinsPrefab, coinPos, Quaternion.identity);
-            coin.transform.SetParent(coins.transform);
+            default:
+                return null;
+ 
         }
+
     }
 
-    /// <summary>
-    /// Instantiates a set of three boundary segments at the specified height.
-    /// Also handles shop portal spawning and boundary cleanup.
-    /// This method recursively calls itself to generate continuous level segments as the player ascends.
-    /// </summary>
-    /// <param name="boundHeight">The Y position to start spawning boundaries</param>
-    private void instantiateBoundaries(float boundHeight)
+    void instantiateBoundaries(float boundHeight)
     {
-        // Increase camera rise speed for dynamic difficulty
+        var stratLevelSpawner  = ChooseSpawnerStrat(levelCount);
+        
         camera.Rise.increaseSpeed(1.2f);
 
         // Calculate positions for three consecutive boundary segments
@@ -251,19 +233,19 @@ public class DangerZoneLevelManager : MonoBehaviour
         GameObject bound1 = Instantiate(Config.boundarie.prefab, new Vector2(xNext, height), Quaternion.identity);
         bound1.transform.name = "bound" + ((levelCount * 3) - 2);
         bound1.transform.SetParent(dangerZoneBoundaries.transform);
-        easyLevelsStrategies[Random.Range(0, easyLevelsStrategies.Count)].instantiateEntities(bound1);
+        stratLevelSpawner[Random.Range(0, stratLevelSpawner.Count)].instantiateEntities(bound1);
         boundaries.Add(bound1);
 
         GameObject bound2 = Instantiate(Config.boundarie.prefab, new Vector2(xNext, height + 640), Quaternion.identity);
         bound2.transform.name = "bound" + ((levelCount * 3) - 1);
         bound2.transform.SetParent(dangerZoneBoundaries.transform);
-        easyLevelsStrategies[Random.Range(0, easyLevelsStrategies.Count)].instantiateEntities(bound2);
+        stratLevelSpawner[Random.Range(0, stratLevelSpawner.Count)].instantiateEntities(bound2);
         boundaries.Add(bound2);
 
         GameObject bound3 = Instantiate(Config.boundarie.prefab, new Vector2(xNext, height + 640 + 640), Quaternion.identity);
         bound3.transform.name = "bound" + ((levelCount * 3));
         bound3.transform.SetParent(dangerZoneBoundaries.transform);
-        easyLevelsStrategies[Random.Range(0, easyLevelsStrategies.Count)].instantiateEntities(bound3);
+        stratLevelSpawner[Random.Range(0, stratLevelSpawner.Count)].instantiateEntities(bound3);
         boundaries.Add(bound3);
 
         // Set up event listeners on the middle boundary to trigger next segment generation
@@ -426,7 +408,7 @@ public class DangerZoneLevelManager : MonoBehaviour
         platforms,
         
         /// <summary>Cannon-based level (not yet implemented)</summary>
-        cannons,
+         cannons,
         
         /// <summary>New procedural platform generation with boundaries</summary>
         newPlatforms

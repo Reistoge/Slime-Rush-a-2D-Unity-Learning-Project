@@ -1,54 +1,38 @@
-using System;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-/// <summary>
-/// Strategy for instantiating basic solid platforms in danger zone boundaries.
-/// This strategy creates a vertical sequence of platforms with randomized positions.
-/// </summary>
-[Serializable]
-public class BasicPlatforms : ILevelEntitiesInstantiationStrategy
+public class LargePlatformLevelSpawner : ILevelSpawner
 {
-    #region Properties
+    private int level;
+    public int Level { get => level; set => level = value; }
 
-    /// <summary>Gets or sets the difficulty level (currently unused)</summary>
-    public int Level { get; set; }
 
-    #endregion
 
-    #region Public Methods
-
-    /// <summary>
-    /// Instantiates a sequence of platforms within the specified boundary.
-    /// Creates 6 platforms with randomized horizontal positions and vertical spacing.
-    /// </summary>
-    /// <param name="bound">The boundary GameObject to populate with platforms</param>
     public void instantiateEntities(GameObject bound)
     {
-        // Create container for all platforms
         GameObject platforms = new GameObject("Platforms");
         platforms.transform.SetParent(bound.transform);
 
         Vector2 pos = bound.transform.position;
-        var config = DangerZoneLevelManager.instance.Config;
 
-        // Calculate horizontal boundaries for each platform type
-        float minHorizontalValueClassic = -(config.HORIZONTAL_EDGE_LIMIT - config.platformClassic.width);
-        float maxHorizontalValueClassic = config.HORIZONTAL_EDGE_LIMIT - config.platformClassic.width;
+        float minRandomHorizontal = 50f;
+        float maxRandomHorizontal = 100f;
 
-        float minHorizontalValueLarge = -(config.HORIZONTAL_EDGE_LIMIT - config.platformLarge.width);
-        float maxHorizontalValueLarge = config.HORIZONTAL_EDGE_LIMIT - config.platformLarge.width;
+        float minVerticalValue = 90;
+        float maxVerticalValue = 100f;
 
-        // Platform positioning parameters
-        const float minRandomHorizontal = 50f;
-        const float maxRandomHorizontal = 100f;
-        const float minVerticalValue = 90f;
-        const float maxVerticalValue = 100f;
-        const float verticalOffset = 200f;
+        float verticalOffset = 200f;
 
-        // Generate 6 platform positions with progressive vertical spacing
-        float randomX = Random.Range(minHorizontalValueClassic, maxHorizontalValueClassic);
+ 
+        float minHorizontalValueLarge = -(DangerZoneLevelManager.instance.Config.HORIZONTAL_EDGE_LIMIT - DangerZoneLevelManager.instance.Config.platformLarge.width);
+        float maxHorizontalValueLarge = DangerZoneLevelManager.instance.Config.HORIZONTAL_EDGE_LIMIT - DangerZoneLevelManager.instance.Config.platformLarge.width;
+
+
+        // Generate positions
+        float randomX = Random.Range(minHorizontalValueLarge, maxHorizontalValueLarge);
         Vector2 randomPos1 = new Vector2(randomX, pos.y - verticalOffset);
 
         Vector2 randomPos2 = new Vector2(
@@ -67,10 +51,7 @@ public class BasicPlatforms : ILevelEntitiesInstantiationStrategy
             Random.Range(0, randomPos4.x + Random.Range(minRandomHorizontal, maxRandomHorizontal)) * (Random.Range(0, 2) == 0 ? -1 : 1),
             randomPos4.y + Random.Range(minVerticalValue, maxVerticalValue));
 
-        // Last position is centered to ensure smooth transition to next boundary
-        Vector2 randomPos6 = new Vector2(
-            Random.Range(0, minRandomHorizontal) * (Random.Range(0, 2) == 0 ? -1 : 1),
-            randomPos5.y + Random.Range(minVerticalValue, maxVerticalValue) + verticalOffset / 4);
+        Vector2 randomPos6 = new Vector2(Random.Range(0, minRandomHorizontal) * (Random.Range(0, 2) == 0 ? -1 : 1), randomPos5.y + Random.Range(minVerticalValue, maxVerticalValue) + verticalOffset / 4); // the last pos is fixed to make sure the player can pass through or connect to the next boundarie correctly.
 
         List<Vector2> vectors = new List<Vector2> { randomPos1, randomPos2, randomPos3, randomPos4, randomPos5, randomPos6 };
         System.Random rand = new System.Random();
@@ -78,41 +59,16 @@ public class BasicPlatforms : ILevelEntitiesInstantiationStrategy
 
         // Calculate amounts properly
         int maxPlatforms = Mathf.Min(DangerZoneLevelManager.instance.Config.maxPlatformsInBound, shuffled.Count);
-        int classicAmount = Random.Range(1, maxPlatforms);
-        int largeAmount = maxPlatforms - classicAmount;
+        
+        int largeAmount = maxPlatforms ;
 
-        List<GameObject> classicList = new List<GameObject>();
-        List<GameObject> largeList = new List<GameObject>();
-
-        // Create classic platforms
-        for (int i = 0; i < classicAmount; i++)
-        {
-            Vector2 clampedPos = new Vector2(
-                Mathf.Clamp(shuffled[i].x, minHorizontalValueClassic, maxHorizontalValueClassic),
-                shuffled[i].y);
-
-            GameObject p = GameObject.Instantiate(
-                DangerZoneLevelManager.instance.Config.platformClassic.prefab,
-                clampedPos,
-                Quaternion.identity);
-
-            // Add coins randomly
-            if (Random.Range(0, 2) == 1)
-            {
-                GameObject coin = GameObject.Instantiate(
-                    DangerZoneLevelManager.instance.Config.coinsPrefabA.prefab,
-                    new Vector2(p.transform.position.x, p.transform.position.y + 30),
-                    Quaternion.identity);
-                coin.transform.SetParent(platforms.transform);
-            }
-
-            classicList.Add(p);
-        }
+         List<GameObject> largeList = new List<GameObject>();
+ 
 
         // Create large platforms
         for (int i = 0; i < largeAmount; i++)
         {
-            int posIndex = classicAmount + i;
+            int posIndex = i;
             Vector2 clampedPos = new Vector2(
                 Mathf.Clamp(shuffled[posIndex].x, minHorizontalValueLarge, maxHorizontalValueLarge),
                 shuffled[posIndex].y);
@@ -142,6 +98,6 @@ public class BasicPlatforms : ILevelEntitiesInstantiationStrategy
 
         // Set parents
         largeList.ForEach(p => p.transform.SetParent(platforms.transform));
-        classicList.ForEach(p => p.transform.SetParent(platforms.transform));
-    }
+     }
 }
+
