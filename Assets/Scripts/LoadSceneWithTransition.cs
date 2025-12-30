@@ -21,7 +21,7 @@ public class LoadSceneWithTransition : MonoBehaviour
     /// Loads a scene using the specified transition configuration.
     /// </summary>
     /// <param name="config">The transition configuration to use</param>
-    public void LoadSceneWithTransition(LoadSceneWithTransitionSO config)
+    public void LoadSceneTransition(LoadSceneWithTransitionSO config)
     {
         GameManager.Instance.loadSceneWithTransition(config);
     }
@@ -30,7 +30,7 @@ public class LoadSceneWithTransition : MonoBehaviour
     /// Loads a scene using the default transition configuration set in the Inspector.
     /// Logs a warning if no configuration is assigned.
     /// </summary>
-    public void LoadSceneWithTransition()
+    public void LoadSceneTransition()
     {
         if (loadSceneConfig != null)
         {

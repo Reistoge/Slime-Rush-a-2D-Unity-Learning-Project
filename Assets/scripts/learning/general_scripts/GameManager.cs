@@ -235,7 +235,7 @@ public class GameManager : MonoBehaviour
     {
         return Camera.main.GetComponent<FollowCamera>().ShakeBehaviour;
     }
-    public void changeCameraBehaviour(cameraBehaviour behaviour)
+    public void changeCameraBehaviour(CameraBehaviour behaviour)
     {
         Camera.main.GetComponent<FollowCamera>().CameraType = behaviour;
     }

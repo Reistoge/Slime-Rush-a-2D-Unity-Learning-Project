@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -63,7 +64,7 @@ public class DissolvePlatformLevelSpawner : ILevelSpawner
 
         Vector2 randomPos5 = new Vector2(Random.Range(0, randomPos4.x + Random.Range(minRandomHorizontal, maxRandomHorizontal)) * (Random.Range(0, 2) == 0 ? -1 : 1), randomPos4.y + Random.Range(minVerticalValue, maxVerticalValue));
 
-        Vector2 randomPos6 = new Vector2(Random.Range(0, minRandomHorizontal) * (Random.Range(0, 2) == 0 ? -1 : 1), randomPos5.y + Random.Range(minVerticalValue, maxVerticalValue) + verticalOffset/5); // the last pos is fixed to make sure the player can pass through or connect to the next boundarie correctly.
+        Vector2 randomPos6 = new Vector2(Random.Range(0, minRandomHorizontal) * (Random.Range(0, 2) == 0 ? -1 : 1), randomPos5.y + Random.Range(minVerticalValue, maxVerticalValue) ); // the last pos is fixed to make sure the player can pass through or connect to the next boundarie correctly.
 
 
         List<Vector2> vectors = new List<Vector2> { randomPos1, randomPos2, randomPos3, randomPos4, randomPos5, randomPos6 };
@@ -81,12 +82,12 @@ public class DissolvePlatformLevelSpawner : ILevelSpawner
         {
             GameObject p = GameObject.Instantiate(DangerZoneLevelManager.instance.Config.platformClassic.prefab,
                                  new Vector2(Mathf.Clamp(shuffled[i].x, minHorizontalValueClassic, maxHorizontalValueClassic), shuffled[i].y),
-                                 quaternion.identity);
+                                 Unity.Mathematics.quaternion.identity);
 
             // put coins on platform
             if ((Random.Range(0, 2) == 0 ? -1 : 1) == 1)
             {
-                GameObject coin = GameObject.Instantiate(DangerZoneLevelManager.instance.Config.coinsPrefabA.prefab, new Vector2(p.transform.position.x, p.transform.position.y + 30), quaternion.identity);
+                GameObject coin = GameObject.Instantiate(DangerZoneLevelManager.instance.Config.coinsPrefabA.prefab, new Vector2(p.transform.position.x, p.transform.position.y + 30), Unity.Mathematics.quaternion.identity);
                 coin.transform.SetParent(coins.transform);
             }
             if (i == rIndex)
@@ -103,10 +104,10 @@ public class DissolvePlatformLevelSpawner : ILevelSpawner
                 GameObject dissolve = GameObject.Instantiate(
                     DangerZoneLevelManager.instance.Config.platformDissolve.prefab,
                     new Vector2(dissolveX, Random.Range(p.transform.position.y - 20, p.transform.position.y + 20)),
-                    quaternion.identity
+                    Unity.Mathematics.quaternion.identity
                 );
                 dissolve.transform.SetParent(platforms.transform);
-                GameObject coinBonus = GameObject.Instantiate(DangerZoneLevelManager.instance.Config.coinsPrefabB.prefab, new Vector2(dissolve.transform.position.x, dissolve.transform.position.y + 30), quaternion.identity); // it has to be a different object
+                GameObject coinBonus = GameObject.Instantiate(DangerZoneLevelManager.instance.Config.coinsPrefabB.prefab, new Vector2(dissolve.transform.position.x, dissolve.transform.position.y + 30), Unity.Mathematics.quaternion.identity); // it has to be a different object
 
             }
 
@@ -117,13 +118,13 @@ public class DissolvePlatformLevelSpawner : ILevelSpawner
         List<GameObject> largeList = new List<GameObject>();
         for (int i = classicAmount; i < DangerZoneLevelManager.instance.Config.maxPlatformsInBound; i++)
         {
-            GameObject p = GameObject.Instantiate(DangerZoneLevelManager.instance.Config.platformLarge.prefab, new Vector2(Mathf.Clamp(shuffled[i].x, minHorizontalValueLarge, maxHorizontalValueLarge), shuffled[i].y), quaternion.identity);
+            GameObject p = GameObject.Instantiate(DangerZoneLevelManager.instance.Config.platformLarge.prefab, new Vector2(Mathf.Clamp(shuffled[i].x, minHorizontalValueLarge, maxHorizontalValueLarge), shuffled[i].y), Unity.Mathematics.quaternion.identity);
 
             // put coins on platform
             if ((Random.Range(0, 2) == 0 ? -1 : 1) == 1)
             {
                 GameObject coin1 = GameObject.Instantiate(DangerZoneLevelManager.instance.Config.coinsPrefabA.prefab, new Vector2(p.transform.position.x + DangerZoneLevelManager.instance.Config.platformClassic.width * .9f, p.transform.position.y + 30), quaternion.identity);
-                GameObject coin2 = GameObject.Instantiate(DangerZoneLevelManager.instance.Config.coinsPrefabA.prefab, new Vector2(p.transform.position.x, p.transform.position.y + 30), quaternion.identity);
+                GameObject coin2 = GameObject.Instantiate(DangerZoneLevelManager.instance.Config.coinsPrefabA.prefab, new Vector2(p.transform.position.x, p.transform.position.y + 30), Unity.Mathematics.quaternion.identity);
                 GameObject coin3 = GameObject.Instantiate(DangerZoneLevelManager.instance.Config.coinsPrefabA.prefab, new Vector2(p.transform.position.x - DangerZoneLevelManager.instance.Config.platformClassic.width * .9f, p.transform.position.y + 30), quaternion.identity);
                 coin1.transform.SetParent(coins.transform);                
                 coin2.transform.SetParent(coins.transform);                
@@ -137,3 +138,4 @@ public class DissolvePlatformLevelSpawner : ILevelSpawner
         classicList.ForEach(p => p.transform.SetParent(platforms.transform));
     }
 }
+#endregion

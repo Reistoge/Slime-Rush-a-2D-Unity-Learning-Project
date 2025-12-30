@@ -26,7 +26,7 @@ public class LargePlatformLevelSpawner : ILevelSpawner
 
         float verticalOffset = 200f;
 
- 
+
         float minHorizontalValueLarge = -(DangerZoneLevelManager.instance.Config.HORIZONTAL_EDGE_LIMIT - DangerZoneLevelManager.instance.Config.platformLarge.width);
         float maxHorizontalValueLarge = DangerZoneLevelManager.instance.Config.HORIZONTAL_EDGE_LIMIT - DangerZoneLevelManager.instance.Config.platformLarge.width;
 
@@ -51,7 +51,8 @@ public class LargePlatformLevelSpawner : ILevelSpawner
             Random.Range(0, randomPos4.x + Random.Range(minRandomHorizontal, maxRandomHorizontal)) * (Random.Range(0, 2) == 0 ? -1 : 1),
             randomPos4.y + Random.Range(minVerticalValue, maxVerticalValue));
 
-        Vector2 randomPos6 = new Vector2(Random.Range(0, minRandomHorizontal) * (Random.Range(0, 2) == 0 ? -1 : 1), randomPos5.y + Random.Range(minVerticalValue, maxVerticalValue) + verticalOffset / 4); // the last pos is fixed to make sure the player can pass through or connect to the next boundarie correctly.
+
+        Vector2 randomPos6 = new Vector2(Random.Range(0, minRandomHorizontal) * (Random.Range(0, 2) == 0 ? -1 : 1), randomPos5.y + Random.Range(minVerticalValue, maxVerticalValue) ); // the last pos is fixed to make sure the player can pass through or connect to the next boundarie correctly.
 
         List<Vector2> vectors = new List<Vector2> { randomPos1, randomPos2, randomPos3, randomPos4, randomPos5, randomPos6 };
         System.Random rand = new System.Random();
@@ -59,11 +60,11 @@ public class LargePlatformLevelSpawner : ILevelSpawner
 
         // Calculate amounts properly
         int maxPlatforms = Mathf.Min(DangerZoneLevelManager.instance.Config.maxPlatformsInBound, shuffled.Count);
-        
-        int largeAmount = maxPlatforms ;
 
-         List<GameObject> largeList = new List<GameObject>();
- 
+        int largeAmount = maxPlatforms;
+
+        List<GameObject> largeList = new List<GameObject>();
+
 
         // Create large platforms
         for (int i = 0; i < largeAmount; i++)
@@ -98,6 +99,6 @@ public class LargePlatformLevelSpawner : ILevelSpawner
 
         // Set parents
         largeList.ForEach(p => p.transform.SetParent(platforms.transform));
-     }
+    }
 }
 

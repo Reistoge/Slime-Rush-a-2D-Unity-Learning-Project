@@ -14,8 +14,18 @@ public class ChangeScenePortal : MonoBehaviour
     private Coroutine lerpScaleCoroutine;
     private void OnEnable()
     {
-        p.ActionsBeforeCenteringTarget.Add(startChangeScale);
-        p.SimpleActionsAfterCentering.Add(changeScene);
+        if (p)
+        {
+            changeScaleDuration = p.CenterObjectDuration;
+            p.ActionsBeforeCentering.Add(() =>
+            {
+                LegacyEvents.GameEvents.Portals.TriggerOnPlayerEnterInGameShopPortal();
+
+            });
+            p.ActionsBeforeCenteringTarget.Add(startChangeScale);
+            p.ActionsAfterCentering.Add(changeScene);
+
+        }
     }
 
     /// <summary>
@@ -62,4 +72,3 @@ public class ChangeScenePortal : MonoBehaviour
     }
 }
 
- 

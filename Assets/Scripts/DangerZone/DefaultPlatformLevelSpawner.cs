@@ -71,7 +71,7 @@ public class DefaultPlatformLevelSpawner : ILevelSpawner
         // Last position is centered to ensure smooth transition to next boundary
         Vector2 randomPos6 = new Vector2(
             Random.Range(0, minRandomHorizontal) * (Random.Range(0, 2) == 0 ? -1 : 1),
-            randomPos5.y + Random.Range(minVerticalValue, maxVerticalValue) + verticalOffset / 4);
+            randomPos5.y + Random.Range(minVerticalValue, maxVerticalValue)  );
 
         List<Vector2> vectors = new List<Vector2> { randomPos1, randomPos2, randomPos3, randomPos4, randomPos5, randomPos6 };
         System.Random rand = new System.Random();
@@ -145,4 +145,6 @@ public class DefaultPlatformLevelSpawner : ILevelSpawner
         largeList.ForEach(p => p.transform.SetParent(platforms.transform));
         classicList.ForEach(p => p.transform.SetParent(platforms.transform));
     }
+
+    #endregion
 }

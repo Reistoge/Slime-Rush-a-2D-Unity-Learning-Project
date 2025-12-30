@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
- 
+using System.Linq;
 using System.Numerics;
- 
+using Unity.VisualScripting;
 using UnityEngine;
 using Quaternion = UnityEngine.Quaternion;
 using Random = UnityEngine.Random;
@@ -51,15 +51,15 @@ public class DangerZoneLevelManager : MonoBehaviour
 
     /// <summary>List of currently active boundary GameObjects</summary>
     private List<GameObject> boundaries = new List<GameObject>();
-    
+
     /// <summary>Strategies for instantiating easy level entities</summary>
     private List<ILevelSpawner> easyLevelsStrategies = new List<ILevelSpawner>();
-    
+
     /// <summary>Strategies for instantiating normal level entities (currently unused)</summary>
     private List<ILevelSpawner> normalLevelsStrategies = new List<ILevelSpawner>();
-    
+
     /// <summary>Counter for tracking level progression</summary>
-    private int levelCount = 1;
+    [SerializeField] private int levelCount = 1;
 
     #endregion
 
@@ -74,8 +74,8 @@ public class DangerZoneLevelManager : MonoBehaviour
 
     /// <summary>Gets or sets the danger zone configuration</summary>
     public DangerZoneConfig Config { get => config; set => config = value; }
- 
-   
+
+
 
     List<ILevelSpawner> easylList = new List<ILevelSpawner> { new LargePlatformLevelSpawner() };
     List<ILevelSpawner> normalList = new List<ILevelSpawner> { new DefaultPlatformLevelSpawner(), new DissolvePlatformLevelSpawner() };
@@ -101,8 +101,14 @@ public class DangerZoneLevelManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        
+
         // Subscribe to game restart events
+        LegacyEvents.GameEvents.Portals.onPlayerEnterInGameShopPortal += () =>
+        {
+            camera.stopRise();
+        };
+
+
         LegacyEvents.GameEvents.onGameIsRestarted += StopAllCoroutines;
         LegacyEvents.GameEvents.onGameIsRestarted += StopCameraFollow;
     }
@@ -112,6 +118,13 @@ public class DangerZoneLevelManager : MonoBehaviour
     /// </summary>
     void OnDisable()
     {
+
+        LegacyEvents.GameEvents.Portals.onPlayerEnterInGameShopPortal -= () =>
+        {
+
+            camera.stopRise();
+
+        };
         LegacyEvents.GameEvents.onGameIsRestarted -= StopAllCoroutines;
         LegacyEvents.GameEvents.onGameIsRestarted -= StopCameraFollow;
     }
@@ -181,13 +194,13 @@ public class DangerZoneLevelManager : MonoBehaviour
         switch (type)
         {
             case DangerZoneType.platforms:
-               
+
                 break;
 
             case DangerZoneType.cannons:
                 // Not yet implemented
                 break;
-                
+
             case DangerZoneType.newPlatforms:
                 instantiateBoundaries(floorHeight.transform.position.y);
 
@@ -197,7 +210,6 @@ public class DangerZoneLevelManager : MonoBehaviour
                 break;
         }
     }
-
     List<ILevelSpawner> ChooseSpawnerStrat(float level)
     {
         // Create container GameObjects for organization
@@ -214,35 +226,41 @@ public class DangerZoneLevelManager : MonoBehaviour
 
             default:
                 return null;
- 
+
         }
 
     }
 
-    void instantiateBoundaries(float boundHeight)
+    void instantiateBoundaries(float height)
     {
-        var stratLevelSpawner  = ChooseSpawnerStrat(levelCount);
-        
+        var stratLevelSpawner = ChooseSpawnerStrat(levelCount);
+
         camera.Rise.increaseSpeed(1.2f);
 
         // Calculate positions for three consecutive boundary segments
         float xNext = 0;
-        float height = boundHeight + 320f;
+        float heightOffset = 320;
+
+        float boundVerticalSizeOffset = -70;
+        float boundVerticalSize = 640 + boundVerticalSizeOffset;
+        
+        float boundInitHeight = height + heightOffset;
+   
 
         // Instantiate three boundary segments vertically
-        GameObject bound1 = Instantiate(Config.boundarie.prefab, new Vector2(xNext, height), Quaternion.identity);
+        GameObject bound1 = Instantiate(Config.boundarie.prefab, new Vector2(xNext, boundInitHeight), Quaternion.identity);
         bound1.transform.name = "bound" + ((levelCount * 3) - 2);
         bound1.transform.SetParent(dangerZoneBoundaries.transform);
         stratLevelSpawner[Random.Range(0, stratLevelSpawner.Count)].instantiateEntities(bound1);
         boundaries.Add(bound1);
 
-        GameObject bound2 = Instantiate(Config.boundarie.prefab, new Vector2(xNext, height + 640), Quaternion.identity);
+        GameObject bound2 = Instantiate(Config.boundarie.prefab, new Vector2(xNext, boundInitHeight + boundVerticalSize), Quaternion.identity);
         bound2.transform.name = "bound" + ((levelCount * 3) - 1);
         bound2.transform.SetParent(dangerZoneBoundaries.transform);
         stratLevelSpawner[Random.Range(0, stratLevelSpawner.Count)].instantiateEntities(bound2);
         boundaries.Add(bound2);
 
-        GameObject bound3 = Instantiate(Config.boundarie.prefab, new Vector2(xNext, height + 640 + 640), Quaternion.identity);
+        GameObject bound3 = Instantiate(Config.boundarie.prefab, new Vector2(xNext, boundInitHeight + 2*boundVerticalSize), Quaternion.identity);
         bound3.transform.name = "bound" + ((levelCount * 3));
         bound3.transform.SetParent(dangerZoneBoundaries.transform);
         stratLevelSpawner[Random.Range(0, stratLevelSpawner.Count)].instantiateEntities(bound3);
@@ -261,7 +279,7 @@ public class DangerZoneLevelManager : MonoBehaviour
         {
             boundariesComponent.OnPassThroughMiddle.RemoveListener(passThroughAction);
             boundariesComponent.OnExitThroughMiddle.RemoveListener(removeInstantiateBoundariesListener);
-            instantiateBoundaries(bound3.transform.position.y + 320);
+            instantiateBoundaries(bound3.transform.position.y +boundVerticalSize/2 );
         };
 
         // Clean up listeners when player exits the boundary
@@ -273,7 +291,7 @@ public class DangerZoneLevelManager : MonoBehaviour
 
         boundariesComponent.OnPassThroughMiddle.AddListener(passThroughAction);
         boundariesComponent.OnExitThroughMiddle.AddListener(removeInstantiateBoundariesListener);
-        
+
         levelCount++;
 
         // Randomly spawn shop portals after the first level
@@ -373,10 +391,10 @@ public class DangerZoneLevelManager : MonoBehaviour
         // Instantiate the portal at the calculated position
         Vector2 portalPosition = new Vector2(candidate, randomPlatform.position.y + portalYOffset);
         Debug.Log($"Shop portal spawned at X: {candidate}");
-        
+
         GameObject portal = Instantiate(config.shopPortal.prefab, portalPosition, Quaternion.identity);
-        portal.transform.SetParent(bound.transform);
         portal.SetActive(true);
+        portal.transform.SetParent(bound.transform);
     }
 
     #endregion
@@ -391,9 +409,27 @@ public class DangerZoneLevelManager : MonoBehaviour
         yield return new WaitForSeconds(waitTimeToStartLevel);
         EnableCameraFollow();
         Debug.Log($"Camera Type: {camera.CameraType}");
-        lava.SetActive(true);
+        initializeLavaWaypoints();
+
         startLevel();
+
+        void initializeLavaWaypoints()
+        {
+            lava = Instantiate(lava);
+            WayPointMovement.MoveBehaviour center = new WayPointMovement.MoveBehaviour();
+            center.velocity = 50;
+            center.wayPoint = camera.Center;
+
+            WayPointMovement.MoveBehaviour bottom = new WayPointMovement.MoveBehaviour();
+            bottom.velocity = 30;
+            bottom.wayPoint = camera.Bottom;
+
+
+            lava.GetComponentInChildren<WayPointMovement>().MoveVariables = new List<WayPointMovement.MoveBehaviour> {center, bottom}.ToArray();
+ 
+        }
     }
+
 
     #endregion
 
@@ -406,13 +442,14 @@ public class DangerZoneLevelManager : MonoBehaviour
     {
         /// <summary>Legacy platform generation (deprecated)</summary>
         platforms,
-        
+
         /// <summary>Cannon-based level (not yet implemented)</summary>
-         cannons,
-        
+        cannons,
+
         /// <summary>New procedural platform generation with boundaries</summary>
         newPlatforms
     }
 
+    #endregion
     #endregion
 }
