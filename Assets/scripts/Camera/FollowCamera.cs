@@ -18,10 +18,10 @@ using Vector3 = UnityEngine.Vector3;
 public class FollowCamera : MonoBehaviour
 {
 
-    [SerializeField] Transform UpLimit, LowerLimit;
+    [SerializeField] Transform top, bottom,center;
     [SerializeField] GameObject playerReference;
     [SerializeField] shakeType shakeBehaviour;
-    [SerializeField] cameraBehaviour selectedBehaviour;
+    [SerializeField] CameraBehaviour selectedBehaviour;
     [SerializeField] float height = 640;
     [SerializeField] float magnitudeShake;
     [SerializeField] float timeShake;
@@ -33,6 +33,8 @@ public class FollowCamera : MonoBehaviour
     [SerializeField] AlwaysRise rise;
     [SerializeField] Coroutine shakeRoutine;
     [SerializeField] Coroutine behaviourRoutine;
+
+ 
 
 
 
@@ -60,13 +62,13 @@ public class FollowCamera : MonoBehaviour
     void OnEnable()
     {
 
-        LegacyEvents.GameEvents.onSceneChanged += () => { selectedBehaviour = cameraBehaviour.stop; };
+        LegacyEvents.GameEvents.onSceneChanged += () => { selectedBehaviour = CameraBehaviour.stop; };
         LegacyEvents.GameEvents.onGameIsRestarted += StopAllCoroutines;
 
     }
     void OnDisable()
     {
-        LegacyEvents.GameEvents.onSceneChanged -= () => { selectedBehaviour = cameraBehaviour.stop; };
+        LegacyEvents.GameEvents.onSceneChanged -= () => { selectedBehaviour = CameraBehaviour.stop; };
         LegacyEvents.GameEvents.onGameIsRestarted -= StopAllCoroutines;
     }
 
@@ -191,17 +193,17 @@ public class FollowCamera : MonoBehaviour
     public void changeCameraBehaviour(int args)
     {
         StopAllCoroutines();
-        selectedBehaviour = (cameraBehaviour)args;
+        selectedBehaviour = (CameraBehaviour)args;
     }
 
     public void stopCameraBehaviourForSeconds(float seconds)
     {
-        if (selectedBehaviour != cameraBehaviour.stop)
+        if (selectedBehaviour != CameraBehaviour.stop)
         {
             // StartCoroutine(stopCameraBehaviourCoroutine(seconds));
-            cameraBehaviour temp = selectedBehaviour;
+            CameraBehaviour temp = selectedBehaviour;
             StopCoroutine(Rise.alwaysRiseRoutine);
-            selectedBehaviour = cameraBehaviour.stop;
+            selectedBehaviour = CameraBehaviour.stop;
             StartCoroutine(GameManager.Instance.enumerateThis(() => { selectedBehaviour = temp; }, seconds));
 
         }
@@ -210,9 +212,9 @@ public class FollowCamera : MonoBehaviour
     public IEnumerator stopCameraBehaviourCoroutine(float seconds)
     {
 
-        cameraBehaviour temp = selectedBehaviour;
+        CameraBehaviour temp = selectedBehaviour;
         StopCoroutine(Rise.alwaysRiseRoutine);
-        selectedBehaviour = cameraBehaviour.stop;
+        selectedBehaviour = CameraBehaviour.stop;
         yield return new WaitForSeconds(seconds);
         selectedBehaviour = temp;
     }
@@ -224,7 +226,6 @@ public class FollowCamera : MonoBehaviour
 
     private IEnumerator alwaysRise(Vector3 startPos, Vector3 endPos)
     {
-
         float lerpTime = 0;
         moving = true;
         //rise.riseTotalDuration = math.abs(startPos.magnitude - endPos.magnitude) * (1 / rise.speed);
@@ -246,7 +247,7 @@ public class FollowCamera : MonoBehaviour
 
         // Smoothly follow the player
         GetComponent<PixelPerfectCamera>().enabled = false; // config
-        selectedBehaviour = cameraBehaviour.zoomToPlayer;
+        selectedBehaviour = CameraBehaviour.zoomToPlayer;
         float elapsed = 0;
 
         // add to follow the target.
@@ -277,7 +278,7 @@ public class FollowCamera : MonoBehaviour
         {
             switch (CameraType)
             {
-                case cameraBehaviour.followCharacter:
+                case CameraBehaviour.followCharacter:
                     // this just follow the character
 
                     float newPosX = playerReference.transform.position.x;
@@ -296,9 +297,9 @@ public class FollowCamera : MonoBehaviour
 
 
                     break;
-                case cameraBehaviour.riseWhenReachesHeight:
+                case CameraBehaviour.riseWhenReachesHeight:
                     // if the character surpases the limit of a certain point of the camera we are going to lerp the camera up.
-                    if ((PlayerReference.transform.position.y) >= (UpLimit.transform.position.y) && (moving == false))
+                    if ((PlayerReference.transform.position.y) >= (top.transform.position.y) && (moving == false))
                     {
                         if (shakeRoutine != null)
                         {
@@ -306,7 +307,7 @@ public class FollowCamera : MonoBehaviour
                         }
                         StartCoroutine(LerpUpCameraInUnscaledTime());
                     }
-                    if ((PlayerReference.transform.position.y) >= (-300) && (PlayerReference.transform.position.y) <= (LowerLimit.transform.position.y) && (moving == false))
+                    if ((PlayerReference.transform.position.y) >= (-300) && (PlayerReference.transform.position.y) <= (bottom.transform.position.y) && (moving == false))
                     {
                         if (shakeRoutine != null)
                         {
@@ -316,7 +317,7 @@ public class FollowCamera : MonoBehaviour
                     }
 
                     break;
-                case cameraBehaviour.alwaysRise:
+                case CameraBehaviour.alwaysRise:
 
                     if (Rise.alwaysRiseRoutine == null)
                     {
@@ -357,7 +358,7 @@ public class FollowCamera : MonoBehaviour
                     break;
 
 
-                case cameraBehaviour.zoomToPlayer:
+                case CameraBehaviour.zoomToPlayer:
                     // if we zoom to the player we also want to follow them
                     if (ZoomCamera.Target != null)
                     {
@@ -383,6 +384,14 @@ public class FollowCamera : MonoBehaviour
 
     }
     #endregion
+
+    public void stopRise()
+    {   
+        
+        selectedBehaviour = CameraBehaviour.stop;
+        StopCoroutine(rise.alwaysRiseRoutine);
+
+    }
     public void shakeCamera()
     {
 
@@ -480,6 +489,7 @@ public class FollowCamera : MonoBehaviour
             normalSpeed /= multiplier;
             fastSpeed /= multiplier;
         }
+ 
 
 
 
@@ -490,7 +500,7 @@ public class FollowCamera : MonoBehaviour
 
 
     public shakeType ShakeBehaviour { get => shakeBehaviour; set => shakeBehaviour = value; }
-    public cameraBehaviour CameraType { get => selectedBehaviour; set => selectedBehaviour = value; }
+    public CameraBehaviour CameraType { get => selectedBehaviour; set => selectedBehaviour = value; }
 
     public float TimeShake { get => timeShake; set => timeShake = value; }
     public float MagnitudeShake { get => magnitudeShake; set => magnitudeShake = value; }
@@ -501,7 +511,9 @@ public class FollowCamera : MonoBehaviour
 
     public bool Moving { get => moving; set => moving = value; }
     public AlwaysRise Rise { get => rise; set => rise = value; }
-    public cameraBehaviour CameraType1 { get => selectedBehaviour; set => selectedBehaviour = value; }
+    public CameraBehaviour CameraType1 { get => selectedBehaviour; set => selectedBehaviour = value; }
+    public Transform Center { get => center; set => center = value; }
+    public Transform Bottom { get => bottom; set => bottom = value; }
 }
 public enum shakeType
 {
@@ -514,7 +526,7 @@ public enum shakeType
 }
 
 [Serializable]
-public enum cameraBehaviour
+public enum CameraBehaviour
 {
     followCharacter,
     riseWhenReachesHeight,

@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Numerics;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
@@ -16,7 +15,7 @@ public class WayPointMovement : MonoBehaviour
     {
         moveVariables[index].OnStartMovement?.Invoke();
         isMoving = true;
-
+        if(finalPos == null) yield break;
         finalPos.rotation = Quaternion.Euler(0f, 0f, finalPos.rotation.z);
         Vector3 startPosition = transform.position;
         Quaternion startRotation = transform.rotation;

@@ -56,7 +56,7 @@ public class Roulette : MonoBehaviour
     {
         foreach (var pair in itemDictionary)
         {
-            pair.Value.stopMovement();
+            pair.Value.StopMovement();
             StartCoroutine(playInSeconds(pair.Key.breakObject, pair.Value.InitAngle / dissappearRate));
 
             // Make unpurchased items unpurchasable

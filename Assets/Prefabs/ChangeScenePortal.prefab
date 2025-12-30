@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 8274914944238454509}
   - component: {fileID: 7901450455306084526}
   - component: {fileID: 1149475901834718659}
-  - component: {fileID: 5149581711638687320}
   - component: {fileID: 7629574229502238044}
+  - component: {fileID: 166409588824688681}
   m_Layer: 0
   m_Name: ChangeScenePortal
   m_TagString: Untagged
@@ -90,21 +90,6 @@ MonoBehaviour:
   evenTriggerCollider:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &5149581711638687320
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5449484258519005241}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82f2be7f724c570418eff13e632187ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  portalCenter: {fileID: 8274914944238454509}
-  centerObjectDuration: 3
-  colTrigger: {fileID: 1149475901834718659}
 --- !u!114 &7629574229502238044
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,9 +102,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d18d22e1f352d4c4f81dccb66d60fdcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  p: {fileID: 5149581711638687320}
+  p: {fileID: 166409588824688681}
   scene: {fileID: 11400000, guid: 10cdddea05983804d9584b1c5d7240da, type: 2}
   changeScaleDuration: 3
+--- !u!114 &166409588824688681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5449484258519005241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82f2be7f724c570418eff13e632187ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  portalCenter: {fileID: 8274914944238454509}
+  centerObjectDuration: 1
+  colTrigger: {fileID: 1149475901834718659}
 --- !u!1 &5653958775101421558
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,6 +8,8 @@ namespace LegacyEvents
     /// </summary>
     public static class GameEvents
     {
+
+        
         /// <summary>Event triggered when the main game scene loads.</summary>
         public static Action onMainGameSceneLoaded;
 
@@ -31,6 +33,24 @@ namespace LegacyEvents
 
         /// <summary>Event triggered when game resumes from pause.</summary>
         public static Action onResume;
+
+
+
+        /// <summary>Nested class for portal based events </summary>
+        public static class Portals
+        {
+            /// <summary>General use action when player enters in portal</summary>
+            public static Action onPlayerEnterInPortal;
+            public static Action onPlayerEnterInGameShopPortal;
+
+            public static void TriggerOnPlayerEnterInGameShopPortal()
+            {
+                onPlayerEnterInPortal?.Invoke();
+                onPlayerEnterInGameShopPortal?.Invoke();
+            }
+
+        }
+
 
         /// <summary>Triggers the resume button click event.</summary>
         public static void triggerOnClickResume()

@@ -14,7 +14,7 @@ public class HomeButton : MonoBehaviour
             PauseController.isGamePaused = false;
         }
         GameManager.Instance.destroyRuntimeData();
-        loadScene.loadSceneWithTransition();
+        loadScene.LoadSceneTransition();
 
 
     }
