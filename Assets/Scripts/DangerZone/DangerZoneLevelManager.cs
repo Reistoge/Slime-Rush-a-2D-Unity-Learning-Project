@@ -12,6 +12,8 @@ using Vector2 = UnityEngine.Vector2;
 /// Manages the dynamic "danger zone" level that spawns platforms, coins, and portals as the player ascends.
 /// This manager handles the procedural generation of level segments and coordinates camera movement with lava rising.
 /// </summary>
+/// 
+/// 
 public class DangerZoneLevelManager : MonoBehaviour
 {
     #region Serialized Fields
@@ -34,7 +36,7 @@ public class DangerZoneLevelManager : MonoBehaviour
     [SerializeField] private GameObject platformPrefab;
     [SerializeField] private GameObject coinsPrefab;
     [SerializeField] private GameObject cannonsPrefab;
-
+    
     [Header("Timing & Camera")]
     [Tooltip("Delay before starting the danger zone sequence")]
     [SerializeField] private float waitTimeToStartLevel = 2f;
@@ -45,6 +47,7 @@ public class DangerZoneLevelManager : MonoBehaviour
     [SerializeField] private GameObject shopPortalPrefab;
     [SerializeField] private List<LevelEntitiesStrategySO> easyLevelStrategiesSO;
 
+    DangerZoneLevelConfig _dangerZoneLevelConfig;
     #endregion
 
     #region Private Fields
