@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef73415b2c8c4de48964e56e74d680cd, type: 3}
+  m_Name: DangerZoneLevelConfig
+  m_EditorClassIdentifier: 
+  increaseSpeed: 1.2
+  boundarieVerticalSize: 640
+  nextHorizontal: 0
+  heightOffset: 320
+  boundVerticalSizeOffset: -70
+  adjustedBoundVerticalSize: 570
+  boundarieInstantiationSeparationRatio: 0.5
+  boundarieInstantiationSeparationOffset: 285

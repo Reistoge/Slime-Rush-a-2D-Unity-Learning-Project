@@ -220,11 +220,11 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 224478679}
         m_TargetAssemblyTypeName: LoadSceneWithTransition, Assembly-CSharp
-        m_MethodName: loadSceneWithTransition
-        m_Mode: 1
+        m_MethodName: LoadSceneTransition
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 11400000, guid: 7db5ae0c52956a3488d6ba58edc514ac, type: 2}
+          m_ObjectArgumentAssemblyTypeName: LoadSceneWithTransitionSO, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -656,11 +656,11 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 593744561}
         m_TargetAssemblyTypeName: LoadSceneWithTransition, Assembly-CSharp
-        m_MethodName: loadSceneWithTransition
-        m_Mode: 1
+        m_MethodName: LoadSceneTransition
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 11400000, guid: a384f648ac6757b4d8385393c03954b2, type: 2}
+          m_ObjectArgumentAssemblyTypeName: LoadSceneWithTransitionSO, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1798,8 +1798,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20152451f28e68940b5db7bff4e808f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UpLimit: {fileID: 1392390408}
-  LowerLimit: {fileID: 1732185643}
+  top: {fileID: 0}
+  bottom: {fileID: 0}
+  center: {fileID: 0}
   playerReference: {fileID: 5838150465340594182, guid: 6f85552f7aa847f4ca56a098b02da573, type: 3}
   shakeBehaviour: 1
   selectedBehaviour: 0
@@ -2275,8 +2276,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1613546844}
   - component: {fileID: 1613546843}
-  - component: {fileID: 1613546842}
   - component: {fileID: 1613546841}
+  - component: {fileID: 1613546842}
   - component: {fileID: 1613546845}
   m_Layer: 5
   m_Name: UI

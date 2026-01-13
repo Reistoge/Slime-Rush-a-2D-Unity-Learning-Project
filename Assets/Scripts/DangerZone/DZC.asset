@@ -76,6 +76,7 @@ MonoBehaviour:
   shopPortal:
     spawnRate: 0.9
     prefab: {fileID: 3785371702314244564, guid: ce3ffa1b775e6054daef6afd23b1d599, type: 3}
+  instantiateBoundariesConfig: {fileID: 11400000, guid: 431f3c5721dbcf74d961633ce76efeef, type: 2}
   maxPlatformsInBound: 6
   waitTimeToStartLevel: 2
   HORIZONTAL_EDGE_LIMIT: 180

@@ -1,4 +1,5 @@
 using System;
+using Unity.Collections.LowLevel.Unsafe;
 using UnityEditor;
 using UnityEngine;
 
@@ -24,7 +25,9 @@ public class DangerZoneConfig : ScriptableObject
     public Boundaries finalBoundarie;
 
     public Portal shopPortal;
-  
+
+    public InstantiateBoundariesConfig instantiateBoundariesConfig;
+
 
 
     public int maxPlatformsInBound = 6;
@@ -83,7 +86,7 @@ public class DangerZoneConfig : ScriptableObject
     }
 
 
-
+ 
 
 
 }

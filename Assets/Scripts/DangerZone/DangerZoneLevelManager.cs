@@ -47,7 +47,7 @@ public class DangerZoneLevelManager : MonoBehaviour
     [SerializeField] private GameObject shopPortalPrefab;
     [SerializeField] private List<LevelEntitiesStrategySO> easyLevelStrategiesSO;
 
-    DangerZoneLevelConfig _dangerZoneLevelConfig;
+    InstantiateBoundariesConfig _dangerZoneLevelConfig;
     #endregion
 
     #region Private Fields
@@ -234,20 +234,22 @@ public class DangerZoneLevelManager : MonoBehaviour
 
     }
 
+
+    
     void instantiateBoundaries(float height)
     {
         var stratLevelSpawner = ChooseSpawnerStrat(levelCount);
 
-        camera.Rise.increaseSpeed(1.2f);
+        camera.Rise.increaseSpeed(config.instantiateBoundariesConfig.increaseSpeed);
 
         // Calculate positions for three consecutive boundary segments
-        float xNext = 0;
-        float heightOffset = 320;
+        float xNext = config.instantiateBoundariesConfig.nextHorizontal;
+        float heightOffset = config.instantiateBoundariesConfig.heightOffset;
 
-        float boundVerticalSizeOffset = -70;
-        float boundVerticalSize = 640 + boundVerticalSizeOffset;
+        float boundVerticalSizeOffset = config.instantiateBoundariesConfig.boundVerticalSizeOffset;
+        float adjustedBoundVerticalSize = config.instantiateBoundariesConfig.AdjustedBoundVerticalSize;
         
-        float boundInitHeight = height + heightOffset;
+        float boundInitHeight = config.instantiateBoundariesConfig.getBoundInitHeight(height);
    
 
         // Instantiate three boundary segments vertically
@@ -257,13 +259,13 @@ public class DangerZoneLevelManager : MonoBehaviour
         stratLevelSpawner[Random.Range(0, stratLevelSpawner.Count)].instantiateEntities(bound1);
         boundaries.Add(bound1);
 
-        GameObject bound2 = Instantiate(Config.boundarie.prefab, new Vector2(xNext, boundInitHeight + boundVerticalSize), Quaternion.identity);
+        GameObject bound2 = Instantiate(Config.boundarie.prefab, new Vector2(xNext, boundInitHeight + adjustedBoundVerticalSize), Quaternion.identity);
         bound2.transform.name = "bound" + ((levelCount * 3) - 1);
         bound2.transform.SetParent(dangerZoneBoundaries.transform);
         stratLevelSpawner[Random.Range(0, stratLevelSpawner.Count)].instantiateEntities(bound2);
         boundaries.Add(bound2);
 
-        GameObject bound3 = Instantiate(Config.boundarie.prefab, new Vector2(xNext, boundInitHeight + 2*boundVerticalSize), Quaternion.identity);
+        GameObject bound3 = Instantiate(Config.boundarie.prefab, new Vector2(xNext, boundInitHeight + 2 * adjustedBoundVerticalSize), Quaternion.identity);
         bound3.transform.name = "bound" + ((levelCount * 3));
         bound3.transform.SetParent(dangerZoneBoundaries.transform);
         stratLevelSpawner[Random.Range(0, stratLevelSpawner.Count)].instantiateEntities(bound3);
@@ -282,7 +284,7 @@ public class DangerZoneLevelManager : MonoBehaviour
         {
             boundariesComponent.OnPassThroughMiddle.RemoveListener(passThroughAction);
             boundariesComponent.OnExitThroughMiddle.RemoveListener(removeInstantiateBoundariesListener);
-            instantiateBoundaries(bound3.transform.position.y +boundVerticalSize/2 );
+            instantiateBoundaries(bound3.transform.position.y + adjustedBoundVerticalSize / 2 );
         };
 
         // Clean up listeners when player exits the boundary
